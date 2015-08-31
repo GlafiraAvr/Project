@@ -123,6 +123,7 @@ type
     F_DM: Tdm_SearchAdres;
     F_ResFrm: Tfrm_AnalysisView;
     F_DocherFrm: Tfrm_AnalysisView;
+    F_PreviewFrm:Tfrm_FrPreview;
     XlApp:variant;
     procedure PrepareResultFormHeader;
     procedure PrepareResultFormGrid;
@@ -135,6 +136,7 @@ type
     procedure PrepareDocherFormBtns;
     procedure OnDocherFormOrderClick(Sender: TObject);
     procedure OnExel(Sender: TObject);
+    procedure OnDochPrintClick(Sender: TObject);
   protected
     procedure InitFields; override;
     procedure CreateForms; override;
@@ -821,7 +823,10 @@ begin
   F_OptFrm:=Tfrm_SearchAdresOpt.Create(nil, F_Name);
   F_DM:=Tdm_SearchAdres.Create(nil);
   F_ResFrm:=Tfrm_AnalysisView.Create(nil, F_Name);
+
   F_DocherFrm:=Tfrm_AnalysisView.Create(nil, 'Список нарядов');
+  F_PreviewFrm:=Tfrm_FrPreview.Create(F_DM,  F_DM.frREportDoch);
+   F_DM.frREportDoch.Preview:=F_PreviewFrm.frPreview;
 end;
 
 procedure TSearchAdres.DestroyForms;
@@ -919,9 +924,23 @@ begin
   PrintFastReport(F_DM.frReport);
 end;
 
+procedure TSearchAdres.OnDochPrintClick(Sender: TObject);
+var oldF_ReportFileName:string;
+begin
+  oldF_ReportFileName:=F_ReportFileName;
+  F_ReportFileName:='SearchAdresDoch.frf';
+  frVariables['dt_beg']:=DateToStr(F_OptFrm.Dt_beg);
+  frVariables['dt_end']:=DateToStr(F_OptFrm.Dt_end);
+  frVariables['address']:= F_ResFrm.Grid.Cells[1,F_ResFrm.Grid.Row];
+  PrintFastReport(f_DM.frREportDoch);
+  F_PreviewFrm.ShowModal;
+  F_ReportFileName:=oldF_ReportFileName ;
+end;
+
 procedure TSearchAdres.PrepareDocherFormBtns;
 begin
   F_DocherFrm.btn_Order.OnClick:=OnDocherFormOrderClick;
+  F_DocherFrm.btn_Print.OnClick:=OnDochPrintClick;
 end;
 
 procedure TSearchAdres.PrepareDocherFormGrid;
@@ -939,6 +958,9 @@ begin
     AddColToGVB(gvb, 'adres', 'Адрес', alLeft);
     AddColToGVB(gvb, 'place', 'Место'+#13+'повреждения', alLeft);
     AddColToGVB(gvb, 'diam', 'Диаметр', alCenter, OnDiamCellShow);
+
+    
+
 
     gvb.BuildGridView;
   finally
@@ -1973,10 +1995,12 @@ if F_OptFrm.ShowModal <> mrOk then
     try
       WaitFrm.Show;
 
-   F_dt_begin:=F_optFrm.DateIn;
+  F_dt_begin:=F_optFrm.DateIn;
  F_dt_end:=f_OptFrm.DateOut;
  f_dm.dt_begin:=f_dt_begin;
  F_dm.dt_end:=F_Dt_end;
+ F_dm.operAttach:= F_optFrm.OperateAttach;
+ f_dm.revsID:=F_optFrm.revsID;
 
 
  if f_dm.Preparedsets then

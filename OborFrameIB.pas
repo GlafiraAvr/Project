@@ -26,6 +26,7 @@ type
     dset_MainWORK_TIME: TDateTimeField;
     Label2: TLabel;
     tdb_workTime: TDBDateTimeEditEh;
+    dset_fromPlan: TIBDataSet;
     IBSQL_fromplan: TIBSQL;
     procedure dset_MainBeforeDelete(DataSet: TDataSet);
   protected

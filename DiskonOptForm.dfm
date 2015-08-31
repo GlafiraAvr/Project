@@ -2,7 +2,7 @@ inherited frm_DiskonOpt: Tfrm_DiskonOpt
   Left = 615
   Top = 392
   Width = 284
-  Height = 194
+  Height = 265
   Caption = 'frm_DiskonOpt'
   OldCreateOrder = True
   PixelsPerInch = 96
@@ -47,7 +47,7 @@ inherited frm_DiskonOpt: Tfrm_DiskonOpt
   end
   object btn_ok: TBitBtn
     Left = 16
-    Top = 112
+    Top = 168
     Width = 81
     Height = 25
     Caption = #1055#1088#1080#1085#1103#1090#1100
@@ -80,7 +80,7 @@ inherited frm_DiskonOpt: Tfrm_DiskonOpt
   end
   object btn_cansel: TBitBtn
     Left = 160
-    Top = 112
+    Top = 168
     Width = 89
     Height = 25
     Caption = #1054#1090#1084#1077#1085#1080#1090#1100
@@ -110,5 +110,20 @@ inherited frm_DiskonOpt: Tfrm_DiskonOpt
       3333333333333333333888330000333333333333333333333333333333333333
       0000}
     NumGlyphs = 2
+  end
+  object btn_revs: TBitBtn
+    Left = 16
+    Top = 108
+    Width = 233
+    Height = 25
+    Caption = #1059#1095#1072#1089#1090#1086#1082
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'MS Sans Serif'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 3
+    OnClick = btn_revsClick
   end
 end

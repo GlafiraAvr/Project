@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, NGReportBaseDModule, FR_Class,DMmain, FR_DSet, FR_DBSet, DB,
-  RxMemDS, IBCustomDataSet, IBDatabase;
+  RxMemDS, IBCustomDataSet, IBDatabase,OperAttFormUnit;
 
 type
   Tdm_DiskondRep = class(Tdm_NGReportBase)
@@ -31,6 +31,8 @@ type
     { Private declarations }
     F_dt_begin:TDateTime;
     F_dt_end:TDateTime;
+    F_operAttach:TOperAtt;
+    F_RevsID:string;
     function prepareSQL:boolean;
     procedure fillMainrm();
   public
@@ -38,6 +40,9 @@ type
     function Preparedsets:boolean;
     property dt_begin :TDateTime read F_dt_begin write F_dt_begin ;
     property dt_end :TDateTime read F_dt_end write F_dt_end ;
+    property operAttach:TOperAtt write F_operAttach;
+    property revsID:string write F_RevsID;
+
 
   end;
 const main_sql='select w.id id_wwater,'+
@@ -55,6 +60,8 @@ const main_sql='select w.id id_wwater,'+
                   '  join s_rayon sr on sr.id=z.id_rayon '+
                   ' where  w.dttm_discon<:dt_end   '+
                   '  and( w.dttm_con>:dt_begin or (w.dttm_con is null)) '+
+                  ' and z.id_attach = :attach ' +
+                  '  %s '+
                ' union '+
                ' select w.id, '+
                       ' su.name_r as street_disc, '+
@@ -71,7 +78,9 @@ const main_sql='select w.id id_wwater,'+
                   '   join s_rayon sr on sr.id=z.id_rayon '+
                   ' where  w.dttm_discon<:dt_end   '+
                   '  and( w.dttm_con>:dt_begin or (w.dttm_con is null)) '+
-                  '     order by 8,4 ';
+                  ' and z.id_attach = :attach '+
+                  '   %s '+
+                  '     order by 9,4 ';
 
 var
   dm_DiskondRep: Tdm_DiskondRep;
@@ -108,6 +117,8 @@ begin
   rmmain.FieldByName('id_wwater').AsInteger:=dset_main.fieldbyname('id_wwater').AsInteger;
   rmmain.FieldByName('id_rayon').AsInteger:=dset_main.fieldbyname('id_rayon').AsInteger;
   rmmain.FieldByName('region').AsString:=trim(dset_main.fieldbyname('region').AsString);
+  if rmmain.FieldByName('id_rayon').AsInteger = -1 then
+    rmmain.FieldByName('region').AsString := 'Район не указан';
   adres:=trim(dset_main.fieldbyname('street_disc').AsString)+'.,'+trim(dset_main.fieldbyname('hous_discon').AsString)+
   ' '+ trim(dset_main.fieldbyname('dopinf').AsString);
   rmmain.FieldByName('adress_disc').AsString:=adres;
@@ -158,15 +169,28 @@ begin
 end;
 
 function Tdm_DiskondRep.prepareSQL: boolean;
+function prepareRevs():string;
+begin
+ if  F_RevsID<>'' then
+   result:='  and z.id_revs  in '+F_RevsID+' ' 
+ else
+   result:='';
+end;
+var revs:string;
 begin
 try
+   revs:= prepareRevs();
    if dset_main.Active then
       dset_main.Close;
-    dset_main.SelectSQL.Text:=main_SQL;
+
+     dset_main.SelectSQL.Text:=format(main_SQL,[revs,revs]) ;
+
+
     dset_main.ParamByName('dt_begin').asstring:=DateTimeToStr(f_dt_begin);
     dset_main.ParamByName('dt_end').asstring:=DateTimeToStr(f_dt_end);
-    dset_main.Open;
+    dset_main.ParamByName('attach').AsInteger:=ord(F_operAttach);
     result:=true;
+    dset_main.Open;
 except
    result:=false;
 end

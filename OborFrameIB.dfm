@@ -158,6 +158,12 @@ inherited frame_Obor: Tframe_Obor
     Left = 80
     Top = 48
   end
+  object dset_fromPlan: TIBDataSet
+    Database = DM_main.IBDatabase
+    Transaction = tr_Main
+    Left = 504
+    Top = 136
+  end
   object IBSQL_fromplan: TIBSQL
     Database = DM_main.IBDatabase
     SQL.Strings = (

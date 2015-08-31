@@ -33,6 +33,8 @@ type
     md_resid_dopadr: TIntegerField;
     frReport: TfrReport;
     frDS_res: TfrDBDataSet;
+    frREportDoch: TfrReport;
+    frDBDataSet_doch: TfrDBDataSet;
     procedure DataModuleCreate(Sender: TObject);
     procedure DataModuleDestroy(Sender: TObject);
   private

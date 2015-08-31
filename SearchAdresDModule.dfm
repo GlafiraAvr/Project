@@ -108,4 +108,18 @@ object dm_SearchAdres: Tdm_SearchAdres
     Left = 80
     Top = 144
   end
+  object frREportDoch: TfrReport
+    Dataset = frDBDataSet_doch
+    InitialZoom = pzDefault
+    PreviewButtons = [pbZoom, pbLoad, pbSave, pbPrint, pbFind, pbHelp, pbExit]
+    RebuildPrinter = False
+    Left = 216
+    Top = 72
+    ReportForm = {19000000}
+  end
+  object frDBDataSet_doch: TfrDBDataSet
+    DataSet = md_bygroup
+    Left = 224
+    Top = 144
+  end
 end

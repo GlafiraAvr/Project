@@ -682,6 +682,7 @@ begin
   //AddMenu(N210);
   //
   AddMenu(N83);
+  Addmenu(N86); //сводка отключений
 
 //  N83.Items[2].Visible:=false;
 
@@ -1657,8 +1658,8 @@ begin
  if Result then
    begin
       seg:=Now;
-
-       if date1InSmen then seg_next:=Date()+1.3333 //Дата выезда по завьтрашнюю смену
+	  
+      if date1InSmen then seg_next:=Date()+1.3333 //Дата выезда по завьтрашнюю смену
         else seg_next:=seg; // 8:000
       Result:=false;
       DecodeTime(seg_next,th,tm,ts,tms);

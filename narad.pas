@@ -91,6 +91,7 @@ type
     procedure btn_PlanOborClick(Sender: TObject);
     procedure btn_mexanClick(Sender: TObject);
     procedure but_planWorjsClick(Sender: TObject);
+    procedure EnableBottms(enable:boolean);
   private
     FReadOnly:boolean;
     F_MestTypeID,
@@ -195,6 +196,10 @@ begin
       edNUMBERT.enabled:=false;
       edNUMTEAM.enabled:=false;
     end;
+    if Qry_narad.Active then
+     EnableBottms( Qry_narad.FieldByName('id').AsInteger>0)
+   else
+     EnableBottms( false);
 end;
 
 procedure TFormNarad.FormClose(Sender: TObject; var Action: TCloseAction);
@@ -237,9 +242,11 @@ begin
         end;
       TbC_Nar.TabIndex:=Qry_Narad['nomer']-1;
       RecUpdate(false);
+      EnableBottms(true);
   end // if Qry_tmp.FieldByName('MM').asInteger > 0 ...
     else begin
           TbC_Nar.Tabs.Clear;
+          EnableBottms(false);
 {uo  Нафига теперь еще безхозный наряд ???
           // проверка на "безхозные" заявки(у которых есть работы,
           // а наряды куда-то испарились из (N)NARAD )
@@ -429,6 +436,7 @@ begin
   RecUpdate(true);
   NewZap:=true;
   SwSave(true);
+  EnableBottms( false);
 end;
 
 procedure TFormNarad.SwSave(st:boolean);
@@ -526,11 +534,11 @@ function correctDate:boolean;
 begin
  if DE_In.Date>0 then
  begin
-  result:=ProvDate(DE_In.Date,DE_Out.Date,Time2Str(TE_dep.Time),Time2Str(TE_out.Time),false)
+  result:=ProvDate(DE_In.Date,DE_Out.Date,Time2Str(TE_dep.Time),Time2Str(TE_out.Time),false);
   if DE_dep.Date>0 then
-   result:=result and (ProvDate(DE_dep.Date,DE_In.Date,Time2Str(TE_dep.Time),Time2Str(TE_In.Time),true);
+   result:=result and (ProvDate(DE_dep.Date,DE_In.Date,Time2Str(TE_dep.Time),Time2Str(TE_In.Time),true));
 
- end;
+ end
  else
   result:=(ProvDate(DE_dep.Date,DE_In.Date,Time2Str(TE_dep.Time),Time2Str(TE_In.Time),true) and
     ProvDate(DE_dep.Date,DE_Out.Date,Time2Str(TE_dep.Time),Time2Str(TE_In.Time),true));
@@ -1061,6 +1069,16 @@ _ID_ObjObor := -1 ;
     _WrkFrm.Free;
   end;
 
+end;
+
+procedure TFormNarad.EnableBottms(enable: boolean);
+begin
+BB_Works.Enabled:=enable;
+btn_mexan.Enabled:=enable;
+BitBtn1.Enabled:=enable;
+BB_obor.Enabled:=enable;
+but_planWorjs.Enabled:=enable;
+btn_PlanObor.Enabled:=enable;
 end;
 
 end.
