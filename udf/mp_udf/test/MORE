@@ -1,0 +1,941 @@
+Turbo Dump  Version 5.0.16.12 Copyright (c) 1988, 2000 Inprise Corporation
+                   Display of File PROJECT1.EXE
+
+Old Executable Header
+
+DOS File Size                                      5B200h  (373248. )
+Load Image Size                                      210h  (   528. )
+Relocation Table entry count                          0000h  (     0. )
+Relocation Table address                              0040h  (    64. )
+Size of header record      (in paragraphs)            0004h  (     4. )
+Minimum Memory Requirement (in paragraphs)            000Fh  (    15. )
+Maximum Memory Requirement (in paragraphs)            FFFFh  ( 65535. )
+File load checksum                                    0000h  (     0. )
+Overlay Number                                        001Ah  (    26. )
+
+Initial Stack Segment  (SS:SP)			  0000:00B8
+Program Entry Point    (CS:IP)			  0000:0000
+
+
+Portable Executable (PE) File
+
+Header base: 00000100
+
+CPU type                 80386
+Flags                    818E [ executable 32bit ]
+DLL flags                0000 [ ]
+Linker Version           2.19
+Time stamp               2A425E19 : Sat Jun 20 01:22:17 1992
+O/S Version              4.0
+User Version             0.0
+Subsystem Version        4.0
+Subsystem                0002 [ Windows GUI ]
+Object count             00000008
+Symbols offset           00000000
+Symbols count            00000000
+Optional header size     00E0
+Magic #                  10B
+Code size                0004CE00
+Init Data size           0000E000
+Uninit Data size         00000000
+Entry RVA                0004DC74
+Image base               00400000
+Code base                00001000
+Data base                0004E000
+Object/File align        00001000/00000200
+Reserved                 00000000
+Image size               00061000
+Header size              00000400
+Checksum                 00000000
+Stack reserve/commit     00100000/00004000
+Heap reserve/commit      00100000/00001000
+Number interesting RVAs  00000010
+Name                   RVA       Size  
+------------------  --------  --------
+Exports             00000000  00000000
+Imports             00051000  00001F60
+Resources           0005B000  00005400
+Exceptions          00000000  00000000
+Security            00000000  00000000
+Fixups              00055000  00005774
+Debug               00000000  00000000
+Description         00000000  00000000
+Global Ptr          00000000  00000000
+TLS                 00054000  00000018
+Callbacks           00000000  00000000
+Bound Imports       00000000  00000000
+Import Addr Table   00000000  00000000
+Delayed Imports     00000000  00000000
+COM Runtime         00000000  00000000
+reserved            00000000  00000000
+
+Object table:
+#   Name      VirtSize    RVA     PhysSize  Phys off  Flags   
+--  --------  --------  --------  --------  --------  --------
+01  CODE      0004CCBC  00001000  0004CE00  00000400  60000020 [CER]
+02  DATA      00001130  0004E000  00001200  0004D200  C0000040 [IRW]
+03  BSS       00000BD9  00050000  00000000  0004E400  C0000000 [RW]
+04  .idata    00001F60  00051000  00002000  0004E400  C0000040 [IRW]
+05  .tls      00000010  00053000  00000000  00050400  C0000000 [RW]
+06  .rdata    00000018  00054000  00000200  00050400  50000040 [IRS]
+07  .reloc    00005774  00055000  00005800  00050600  50000040 [IRS]
+08  .rsrc     00005400  0005B000  00005400  00055E00  50000040 [IRS]
+
+Key to section flags:
+  C - contains code
+  E - executable
+  I - contains initialized data
+  R - readable
+  S - shareable
+  W - writeable
+
+******************************************************************************
+Section:             Import
+  ImportLookUpTblRVA:00000000
+  Time Stamp:        00000000
+  Forwarder Chain:   00000000 (index of first forwarder reference)
+
+Imports from kernel32.dll
+                  DeleteCriticalSection
+                  LeaveCriticalSection
+                  EnterCriticalSection
+                  InitializeCriticalSection
+                  VirtualFree
+                  VirtualAlloc
+                  LocalFree
+                  LocalAlloc
+                  GetVersion
+                  GetCurrentThreadId
+                  InterlockedDecrement
+                  InterlockedIncrement
+                  VirtualQuery
+                  WideCharToMultiByte
+                  MultiByteToWideChar
+                  lstrlenA
+                  lstrcpynA
+                  LoadLibraryExA
+                  GetThreadLocale
+                  GetStartupInfoA
+                  GetProcAddress
+                  GetModuleHandleA
+                  GetModuleFileNameA
+                  GetLocaleInfoA
+                  GetCommandLineA
+                  FreeLibrary
+                  FindFirstFileA
+                  FindClose
+                  ExitProcess
+                  WriteFile
+                  UnhandledExceptionFilter
+                  RtlUnwind
+                  RaiseException
+                  GetStdHandle
+
+Imports from user32.dll
+                  GetKeyboardType
+                  LoadStringA
+                  MessageBoxA
+                  CharNextA
+
+Imports from advapi32.dll
+                  RegQueryValueExA
+                  RegOpenKeyExA
+                  RegCloseKey
+
+Imports from oleaut32.dll
+                  SysFreeString
+                  SysReAllocStringLen
+                  SysAllocStringLen
+
+Imports from kernel32.dll
+                  TlsSetValue
+                  TlsGetValue
+                  LocalAlloc
+                  GetModuleHandleA
+
+Imports from advapi32.dll
+                  RegQueryValueExA
+                  RegOpenKeyExA
+                  RegCloseKey
+
+Imports from kernel32.dll
+                  lstrcpyA
+                  WriteFile
+                  WaitForSingleObject
+                  VirtualQuery
+                  VirtualAlloc
+                  Sleep
+                  SizeofResource
+                  SetThreadLocale
+                  SetFilePointer
+                  SetEvent
+                  SetErrorMode
+                  SetEndOfFile
+                  ResetEvent
+                  ReadFile
+                  MulDiv
+                  LockResource
+                  LoadResource
+                  LoadLibraryA
+                  LeaveCriticalSection
+                  InitializeCriticalSection
+                  GlobalUnlock
+                  GlobalReAlloc
+                  GlobalHandle
+                  GlobalLock
+                  GlobalFree
+                  GlobalFindAtomA
+                  GlobalDeleteAtom
+                  GlobalAlloc
+                  GlobalAddAtomA
+                  GetVersionExA
+                  GetVersion
+                  GetTickCount
+                  GetThreadLocale
+                  GetSystemInfo
+                  GetStringTypeExA
+                  GetStdHandle
+                  GetProcAddress
+                  GetModuleHandleA
+                  GetModuleFileNameA
+                  GetLocaleInfoA
+                  GetLocalTime
+                  GetLastError
+                  GetFullPathNameA
+                  GetDiskFreeSpaceA
+                  GetDateFormatA
+                  GetCurrentThreadId
+                  GetCurrentProcessId
+                  GetCPInfo
+                  GetACP
+                  FreeResource
+                  InterlockedExchange
+                  FreeLibrary
+                  FormatMessageA
+                  FindResourceA
+                  EnumCalendarInfoA
+                  EnterCriticalSection
+                  DeleteCriticalSection
+                  CreateThread
+                  CreateFileA
+                  CreateEventA
+                  CompareStringA
+                  CloseHandle
+
+Imports from version.dll
+                  VerQueryValueA
+                  GetFileVersionInfoSizeA
+                  GetFileVersionInfoA
+
+Imports from gdi32.dll
+                  UnrealizeObject
+                  StretchBlt
+                  SetWindowOrgEx
+                  SetViewportOrgEx
+                  SetTextColor
+                  SetStretchBltMode
+                  SetROP2
+                  SetPixel
+                  SetDIBColorTable
+                  SetBrushOrgEx
+                  SetBkMode
+                  SetBkColor
+                  SelectPalette
+                  SelectObject
+                  SaveDC
+                  RestoreDC
+                  RectVisible
+                  RealizePalette
+                  PatBlt
+                  MoveToEx
+                  MaskBlt
+                  LineTo
+                  IntersectClipRect
+                  GetWindowOrgEx
+                  GetTextMetricsA
+                  GetTextExtentPoint32A
+                  GetSystemPaletteEntries
+                  GetStockObject
+                  GetPixel
+                  GetPaletteEntries
+                  GetObjectA
+                  GetDeviceCaps
+                  GetDIBits
+                  GetDIBColorTable
+                  GetDCOrgEx
+                  GetCurrentPositionEx
+                  GetClipBox
+                  GetBrushOrgEx
+                  GetBitmapBits
+                  ExcludeClipRect
+                  DeleteObject
+                  DeleteDC
+                  CreateSolidBrush
+                  CreatePenIndirect
+                  CreatePalette
+                  CreateHalftonePalette
+                  CreateFontIndirectA
+                  CreateDIBitmap
+                  CreateDIBSection
+                  CreateCompatibleDC
+                  CreateCompatibleBitmap
+                  CreateBrushIndirect
+                  CreateBitmap
+                  BitBlt
+
+Imports from user32.dll
+                  CreateWindowExA
+                  WindowFromPoint
+                  WinHelpA
+                  WaitMessage
+                  UpdateWindow
+                  UnregisterClassA
+                  UnhookWindowsHookEx
+                  TranslateMessage
+                  TranslateMDISysAccel
+                  TrackPopupMenu
+                  SystemParametersInfoA
+                  ShowWindow
+                  ShowScrollBar
+                  ShowOwnedPopups
+                  ShowCursor
+                  SetWindowsHookExA
+                  SetWindowPos
+                  SetWindowPlacement
+                  SetWindowLongA
+                  SetTimer
+                  SetScrollRange
+                  SetScrollPos
+                  SetScrollInfo
+                  SetRect
+                  SetPropA
+                  SetParent
+                  SetMenuItemInfoA
+                  SetMenu
+                  SetForegroundWindow
+                  SetFocus
+                  SetCursor
+                  SetClassLongA
+                  SetCapture
+                  SetActiveWindow
+                  SendMessageA
+                  ScrollWindow
+                  ScreenToClient
+                  RemovePropA
+                  RemoveMenu
+                  ReleaseDC
+                  ReleaseCapture
+                  RegisterWindowMessageA
+                  RegisterClipboardFormatA
+                  RegisterClassA
+                  RedrawWindow
+                  PtInRect
+                  PostQuitMessage
+                  PostMessageA
+                  PeekMessageA
+                  OffsetRect
+                  OemToCharA
+                  MessageBoxA
+                  MapWindowPoints
+                  MapVirtualKeyA
+                  LoadStringA
+                  LoadKeyboardLayoutA
+                  LoadIconA
+                  LoadCursorA
+                  LoadBitmapA
+                  KillTimer
+                  IsZoomed
+                  IsWindowVisible
+                  IsWindowEnabled
+                  IsWindow
+                  IsRectEmpty
+                  IsIconic
+                  IsDialogMessageA
+                  IsChild
+                  InvalidateRect
+                  IntersectRect
+                  InsertMenuItemA
+                  InsertMenuA
+                  InflateRect
+                  GetWindowThreadProcessId
+                  GetWindowTextA
+                  GetWindowRect
+                  GetWindowPlacement
+                  GetWindowLongA
+                  GetWindowDC
+                  GetTopWindow
+                  GetSystemMetrics
+                  GetSystemMenu
+                  GetSysColorBrush
+                  GetSysColor
+                  GetSubMenu
+                  GetScrollRange
+                  GetScrollPos
+                  GetScrollInfo
+                  GetPropA
+                  GetParent
+                  GetWindow
+                  GetMenuStringA
+                  GetMenuState
+                  GetMenuItemInfoA
+                  GetMenuItemID
+                  GetMenuItemCount
+                  GetMenu
+                  GetLastActivePopup
+                  GetKeyboardState
+                  GetKeyboardLayoutList
+                  GetKeyboardLayout
+                  GetKeyState
+                  GetKeyNameTextA
+                  GetIconInfo
+                  GetForegroundWindow
+                  GetFocus
+                  GetDesktopWindow
+                  GetDCEx
+                  GetDC
+                  GetCursorPos
+                  GetCursor
+                  GetClientRect
+                  GetClassNameA
+                  GetClassInfoA
+                  GetCapture
+                  GetActiveWindow
+                  FrameRect
+                  FindWindowA
+                  FillRect
+                  EqualRect
+                  EnumWindows
+                  EnumThreadWindows
+                  EndPaint
+                  EnableWindow
+                  EnableScrollBar
+                  EnableMenuItem
+                  DrawTextA
+                  DrawMenuBar
+                  DrawIconEx
+                  DrawIcon
+                  DrawFrameControl
+                  DrawEdge
+                  DispatchMessageA
+                  DestroyWindow
+                  DestroyMenu
+                  DestroyIcon
+                  DestroyCursor
+                  DeleteMenu
+                  DefWindowProcA
+                  DefMDIChildProcA
+                  DefFrameProcA
+                  CreatePopupMenu
+                  CreateMenu
+                  CreateIcon
+                  ClientToScreen
+                  CheckMenuItem
+                  CallWindowProcA
+                  CallNextHookEx
+                  BeginPaint
+                  CharNextA
+                  CharLowerA
+                  CharToOemA
+                  AdjustWindowRectEx
+                  ActivateKeyboardLayout
+
+Imports from kernel32.dll
+                  Sleep
+
+Imports from oleaut32.dll
+                  SafeArrayPtrOfIndex
+                  SafeArrayGetUBound
+                  SafeArrayGetLBound
+                  SafeArrayCreate
+                  VariantChangeType
+                  VariantCopy
+                  VariantClear
+                  VariantInit
+
+Imports from comctl32.dll
+                  ImageList_SetIconSize
+                  ImageList_GetIconSize
+                  ImageList_Write
+                  ImageList_Read
+                  ImageList_GetDragImage
+                  ImageList_DragShowNolock
+                  ImageList_SetDragCursorImage
+                  ImageList_DragMove
+                  ImageList_DragLeave
+                  ImageList_DragEnter
+                  ImageList_EndDrag
+                  ImageList_BeginDrag
+                  ImageList_Remove
+                  ImageList_DrawEx
+                  ImageList_Draw
+                  ImageList_GetBkColor
+                  ImageList_SetBkColor
+                  ImageList_ReplaceIcon
+                  ImageList_Add
+                  ImageList_GetImageCount
+                  ImageList_Destroy
+                  ImageList_Create
+
+Imports from QShevelev.dll
+                  GetQinM3
+
+******************************************************************************
+Section:             Resources
+  Flags:             00000000
+  Time Stamp:        3527421A : Sun Apr 05 11:34:34 1998
+  Major Version:     0000
+  Minor Version:     0000
+
+Resources:
+Type          Name                   Lang Id
+--------------------------------------------
+[0 named entries, 8 ID entries]
+type: Cursor (1)  (next directory @00000050)
+
+              [0 named entries, 7 ID entries]
+              type: Cursor (1)  (next directory @00000248)
+
+                                     [0 named entries, 1 ID entries]
+                                     type: Unknown (0)  (data @000006B0)
+                                         Offset:    0005BAA8
+                                         Size:      00000134
+                                         Code Page: 00000000
+                                         Reserved:  00000000
+
+              type: Bitmap (2)  (next directory @00000260)
+
+                                     [0 named entries, 1 ID entries]
+                                     type: Unknown (0)  (data @000006C0)
+                                         Offset:    0005BBDC
+                                         Size:      00000134
+                                         Code Page: 00000000
+                                         Reserved:  00000000
+
+              type: Icon (3)  (next directory @00000278)
+
+                                     [0 named entries, 1 ID entries]
+                                     type: Unknown (0)  (data @000006D0)
+                                         Offset:    0005BD10
+                                         Size:      00000134
+                                         Code Page: 00000000
+                                         Reserved:  00000000
+
+              type: Menu (4)  (next directory @00000290)
+
+                                     [0 named entries, 1 ID entries]
+                                     type: Unknown (0)  (data @000006E0)
+                                         Offset:    0005BE44
+                                         Size:      00000134
+                                         Code Page: 00000000
+                                         Reserved:  00000000
+
+              type: Dialog (5)  (next directory @000002A8)
+
+                                     [0 named entries, 1 ID entries]
+                                     type: Unknown (0)  (data @000006F0)
+                                         Offset:    0005BF78
+                                         Size:      00000134
+                                         Code Page: 00000000
+                                         Reserved:  00000000
+
+              type: String Table (6)  (next directory @000002C0)
+
+                                     [0 named entries, 1 ID entries]
+                                     type: Unknown (0)  (data @00000700)
+                                         Offset:    0005C0AC
+                                         Size:      00000134
+                                         Code Page: 00000000
+                                         Reserved:  00000000
+
+              type: Font Directory (7)  (next directory @000002D8)
+
+                                     [0 named entries, 1 ID entries]
+                                     type: Unknown (0)  (data @00000710)
+                                         Offset:    0005C1E0
+                                         Size:      00000134
+                                         Code Page: 00000000
+                                         Reserved:  00000000
+
+type: Bitmap (2)  (next directory @00000098)
+
+              [11 named entries, 0 ID entries]
+              BBABORT  (next directory @000002F0)
+
+                                     [0 named entries, 1 ID entries]
+                                     type: Unknown (0)  (data @00000720)
+                                         Offset:    0005C314
+                                         Size:      000001D0
+                                         Code Page: 00000000
+                                         Reserved:  00000000
+
+              BBALL  (next directory @00000308)
+
+                                     [0 named entries, 1 ID entries]
+                                     type: Unknown (0)  (data @00000730)
+                                         Offset:    0005C4E4
+                                         Size:      000001E4
+                                         Code Page: 00000000
+                                         Reserved:  00000000
+
+              BBCANCEL  (next directory @00000320)
+
+                                     [0 named entries, 1 ID entries]
+                                     type: Unknown (0)  (data @00000740)
+                                         Offset:    0005C6C8
+                                         Size:      000001D0
+                                         Code Page: 00000000
+                                         Reserved:  00000000
+
+              BBCLOSE  (next directory @00000338)
+
+                                     [0 named entries, 1 ID entries]
+                                     type: Unknown (0)  (data @00000750)
+                                         Offset:    0005C898
+                                         Size:      000001D0
+                                         Code Page: 00000000
+                                         Reserved:  00000000
+
+              BBHELP  (next directory @00000350)
+
+                                     [0 named entries, 1 ID entries]
+                                     type: Unknown (0)  (data @00000760)
+                                         Offset:    0005CA68
+                                         Size:      000001D0
+                                         Code Page: 00000000
+                                         Reserved:  00000000
+
+              BBIGNORE  (next directory @00000368)
+
+                                     [0 named entries, 1 ID entries]
+                                     type: Unknown (0)  (data @00000770)
+                                         Offset:    0005CC38
+                                         Size:      000001D0
+                                         Code Page: 00000000
+                                         Reserved:  00000000
+
+              BBNO  (next directory @00000380)
+
+                                     [0 named entries, 1 ID entries]
+                                     type: Unknown (0)  (data @00000780)
+                                         Offset:    0005CE08
+                                         Size:      000001D0
+                                         Code Page: 00000000
+                                         Reserved:  00000000
+
+              BBOK  (next directory @00000398)
+
+                                     [0 named entries, 1 ID entries]
+                                     type: Unknown (0)  (data @00000790)
+                                         Offset:    0005CFD8
+                                         Size:      000001D0
+                                         Code Page: 00000000
+                                         Reserved:  00000000
+
+              BBRETRY  (next directory @000003B0)
+
+                                     [0 named entries, 1 ID entries]
+                                     type: Unknown (0)  (data @000007A0)
+                                         Offset:    0005D1A8
+                                         Size:      000001D0
+                                         Code Page: 00000000
+                                         Reserved:  00000000
+
+              BBYES  (next directory @000003C8)
+
+                                     [0 named entries, 1 ID entries]
+                                     type: Unknown (0)  (data @000007B0)
+                                         Offset:    0005D378
+                                         Size:      000001D0
+                                         Code Page: 00000000
+                                         Reserved:  00000000
+
+              PREVIEWGLYPH  (next directory @000003E0)
+
+                                     [0 named entries, 1 ID entries]
+                                     type: Unknown (0)  (data @000007C0)
+                                         Offset:    0005D548
+                                         Size:      000000E8
+                                         Code Page: 00000000
+                                         Reserved:  00000000
+
+type: Icon (3)  (next directory @00000100)
+
+              [0 named entries, 1 ID entries]
+              type: Cursor (1)  (next directory @000003F8)
+
+                                     [0 named entries, 1 ID entries]
+                                     type: Unknown (1049)  (data @000007D0)
+                                         Offset:    0005D630
+                                         Size:      000002E8
+                                         Code Page: 00000000
+                                         Reserved:  00000000
+
+type: Dialog (5)  (next directory @00000118)
+
+              [1 named entries, 0 ID entries]
+              DLGTEMPLATE  (next directory @00000410)
+
+                                     [0 named entries, 1 ID entries]
+                                     type: Unknown (0)  (data @000007E0)
+                                         Offset:    0005D918
+                                         Size:      00000052
+                                         Code Page: 00000000
+                                         Reserved:  00000000
+
+type: String Table (6)  (next directory @00000130)
+
+              [0 named entries, 16 ID entries]
+              type: Unknown (4081)  (next directory @00000428)
+
+                                     [0 named entries, 1 ID entries]
+                                     type: Unknown (0)  (data @000007F0)
+                                         Offset:    0005D96C
+                                         Size:      000000FC
+                                         Code Page: 00000000
+                                         Reserved:  00000000
+
+              type: Unknown (4082)  (next directory @00000440)
+
+                                     [0 named entries, 1 ID entries]
+                                     type: Unknown (0)  (data @00000800)
+                                         Offset:    0005DA68
+                                         Size:      000001EC
+                                         Code Page: 00000000
+                                         Reserved:  00000000
+
+              type: Unknown (4083)  (next directory @00000458)
+
+                                     [0 named entries, 1 ID entries]
+                                     type: Unknown (0)  (data @00000810)
+                                         Offset:    0005DC54
+                                         Size:      00000148
+                                         Code Page: 00000000
+                                         Reserved:  00000000
+
+              type: Unknown (4084)  (next directory @00000470)
+
+                                     [0 named entries, 1 ID entries]
+                                     type: Unknown (0)  (data @00000820)
+                                         Offset:    0005DD9C
+                                         Size:      00000274
+                                         Code Page: 00000000
+                                         Reserved:  00000000
+
+              type: Unknown (4085)  (next directory @00000488)
+
+                                     [0 named entries, 1 ID entries]
+                                     type: Unknown (0)  (data @00000830)
+                                         Offset:    0005E010
+                                         Size:      00000150
+                                         Code Page: 00000000
+                                         Reserved:  00000000
+
+              type: Unknown (4086)  (next directory @000004A0)
+
+                                     [0 named entries, 1 ID entries]
+                                     type: Unknown (0)  (data @00000840)
+                                         Offset:    0005E160
+                                         Size:      000000EC
+                                         Code Page: 00000000
+                                         Reserved:  00000000
+
+              type: Unknown (4087)  (next directory @000004B8)
+
+                                     [0 named entries, 1 ID entries]
+                                     type: Unknown (0)  (data @00000850)
+                                         Offset:    0005E24C
+                                         Size:      000001B0
+                                         Code Page: 00000000
+                                         Reserved:  00000000
+
+              type: Unknown (4088)  (next directory @000004D0)
+
+                                     [0 named entries, 1 ID entries]
+                                     type: Unknown (0)  (data @00000860)
+                                         Offset:    0005E3FC
+                                         Size:      00000450
+                                         Code Page: 00000000
+                                         Reserved:  00000000
+
+              type: Unknown (4089)  (next directory @000004E8)
+
+                                     [0 named entries, 1 ID entries]
+                                     type: Unknown (0)  (data @00000870)
+                                         Offset:    0005E84C
+                                         Size:      00000364
+                                         Code Page: 00000000
+                                         Reserved:  00000000
+
+              type: Unknown (4090)  (next directory @00000500)
+
+                                     [0 named entries, 1 ID entries]
+                                     type: Unknown (0)  (data @00000880)
+                                         Offset:    0005EBB0
+                                         Size:      00000440
+                                         Code Page: 00000000
+                                         Reserved:  00000000
+
+              type: Unknown (4091)  (next directory @00000518)
+
+                                     [0 named entries, 1 ID entries]
+                                     type: Unknown (0)  (data @00000890)
+                                         Offset:    0005EFF0
+                                         Size:      000001B0
+                                         Code Page: 00000000
+                                         Reserved:  00000000
+
+              type: Unknown (4092)  (next directory @00000530)
+
+                                     [0 named entries, 1 ID entries]
+                                     type: Unknown (0)  (data @000008A0)
+                                         Offset:    0005F1A0
+                                         Size:      000000EC
+                                         Code Page: 00000000
+                                         Reserved:  00000000
+
+              type: Unknown (4093)  (next directory @00000548)
+
+                                     [0 named entries, 1 ID entries]
+                                     type: Unknown (0)  (data @000008B0)
+                                         Offset:    0005F28C
+                                         Size:      000001E4
+                                         Code Page: 00000000
+                                         Reserved:  00000000
+
+              type: Unknown (4094)  (next directory @00000560)
+
+                                     [0 named entries, 1 ID entries]
+                                     type: Unknown (0)  (data @000008C0)
+                                         Offset:    0005F470
+                                         Size:      000003F4
+                                         Code Page: 00000000
+                                         Reserved:  00000000
+
+              type: Unknown (4095)  (next directory @00000578)
+
+                                     [0 named entries, 1 ID entries]
+                                     type: Unknown (0)  (data @000008D0)
+                                         Offset:    0005F864
+                                         Size:      00000340
+                                         Code Page: 00000000
+                                         Reserved:  00000000
+
+              type: Unknown (4096)  (next directory @00000590)
+
+                                     [0 named entries, 1 ID entries]
+                                     type: Unknown (0)  (data @000008E0)
+                                         Offset:    0005FBA4
+                                         Size:      000002C8
+                                         Code Page: 00000000
+                                         Reserved:  00000000
+
+type: RCData (10)  (next directory @000001C0)
+
+              [3 named entries, 0 ID entries]
+              DVCLAL  (next directory @000005A8)
+
+                                     [0 named entries, 1 ID entries]
+                                     type: Unknown (0)  (data @000008F0)
+                                         Offset:    0005FE6C
+                                         Size:      00000010
+                                         Code Page: 00000000
+                                         Reserved:  00000000
+
+              PACKAGEINFO  (next directory @000005C0)
+
+                                     [0 named entries, 1 ID entries]
+                                     type: Unknown (0)  (data @00000900)
+                                         Offset:    0005FE7C
+                                         Size:      00000264
+                                         Code Page: 00000000
+                                         Reserved:  00000000
+
+              TFORM1  (next directory @000005D8)
+
+                                     [0 named entries, 1 ID entries]
+                                     type: Unknown (0)  (data @00000910)
+                                         Offset:    000600E0
+                                         Size:      0000014E
+                                         Code Page: 00000000
+                                         Reserved:  00000000
+
+type: Group Cursor (12)  (next directory @000001E8)
+
+              [0 named entries, 7 ID entries]
+              type: Unknown (32761)  (next directory @000005F0)
+
+                                     [0 named entries, 1 ID entries]
+                                     type: Unknown (0)  (data @00000920)
+                                         Offset:    00060230
+                                         Size:      00000014
+                                         Code Page: 00000000
+                                         Reserved:  00000000
+
+              type: Unknown (32762)  (next directory @00000608)
+
+                                     [0 named entries, 1 ID entries]
+                                     type: Unknown (0)  (data @00000930)
+                                         Offset:    00060244
+                                         Size:      00000014
+                                         Code Page: 00000000
+                                         Reserved:  00000000
+
+              type: Unknown (32763)  (next directory @00000620)
+
+                                     [0 named entries, 1 ID entries]
+                                     type: Unknown (0)  (data @00000940)
+                                         Offset:    00060258
+                                         Size:      00000014
+                                         Code Page: 00000000
+                                         Reserved:  00000000
+
+              type: Unknown (32764)  (next directory @00000638)
+
+                                     [0 named entries, 1 ID entries]
+                                     type: Unknown (0)  (data @00000950)
+                                         Offset:    0006026C
+                                         Size:      00000014
+                                         Code Page: 00000000
+                                         Reserved:  00000000
+
+              type: Unknown (32765)  (next directory @00000650)
+
+                                     [0 named entries, 1 ID entries]
+                                     type: Unknown (0)  (data @00000960)
+                                         Offset:    00060280
+                                         Size:      00000014
+                                         Code Page: 00000000
+                                         Reserved:  00000000
+
+              type: Unknown (32766)  (next directory @00000668)
+
+                                     [0 named entries, 1 ID entries]
+                                     type: Unknown (0)  (data @00000970)
+                                         Offset:    00060294
+                                         Size:      00000014
+                                         Code Page: 00000000
+                                         Reserved:  00000000
+
+              type: Unknown (32767)  (next directory @00000680)
+
+                                     [0 named entries, 1 ID entries]
+                                     type: Unknown (0)  (data @00000980)
+                                         Offset:    000602A8
+                                         Size:      00000014
+                                         Code Page: 00000000
+                                         Reserved:  00000000
+
+type: Group Icon (14)  (next directory @00000230)
+
+              [1 named entries, 0 ID entries]
+              MAINICON  (next directory @00000698)
+
+                                     [0 named entries, 1 ID entries]
+                                     type: Unknown (1049)  (data @00000990)
+                                         Offset:    000602BC
+                                         Size:      00000014
+                                         Code Page: 00000000
+                                         Reserved:  00000000
+
+
+
