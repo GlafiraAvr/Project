@@ -433,6 +433,9 @@ Const
   mcsVedNarPeriod:TLangMSG=('Ведомость этапов за период ','Відомість етапів у період');
   vsgVip:TLangMSG=('Выполнение','Виконання');
   msgNumNar:TLangMSG=('№ этапа','№ виїзду');
+  msgWithoutWater:TLangMSG=('Без воды','Без води');
+  msgWithoutWaterKanal:TLangMSG=('Отключения водоотведения','Відключення водовідведення');
+
  
 
 var RightsSet:TRightsSet;

@@ -5,8 +5,12 @@ begin
   cbAttach.Items.AddObject( ' ¿Õ¿À»«¿÷»ﬂ', Ptr( Integer( toaKanal ) ) );
   cbAttach.Items.AddObject( '«¿ﬂ¬ » ¬– ',  Ptr( Integer( toaVRK ) ) );
   case ZavAttach of
-     toaVoda:  cbAttach.ItemIndex := 0;
-     toaKanal: cbAttach.ItemIndex := 1;
+     toaVoda: begin cbAttach.ItemIndex := 0;
+                    BB_WithoutWater.Caption:=TrLangMSG(msgWithoutWater);
+              end;
+     toaKanal: begin cbAttach.ItemIndex := 1;
+                     BB_WithoutWater.Caption:=TrLangMSG(msgWithoutWaterKanal);
+               end;
      toaVRK:   cbAttach.ItemIndex := 2;
     else
 	  begin

@@ -1788,15 +1788,6 @@ object FormZav: TFormZav
       OnKeyDown = CB_DelZayavKeyDown
       OnMouseDown = CB_DelZayavMouseDown
     end
-    object BB_WithoutWater: TBitBtn
-      Left = 604
-      Top = 264
-      Width = 111
-      Height = 25
-      Caption = #1041#1077#1079' '#1074#1086#1076#1099
-      TabOrder = 29
-      OnClick = BB_WithoutWaterClick
-    end
     object DBL_Sdal: TRxDBLookupCombo
       Left = 333
       Top = 369
@@ -1812,7 +1803,7 @@ object FormZav: TFormZav
       LookupDisplay = 'NAME_R'
       LookupSource = DM_Zavv.ds_sdal
       ParentFont = False
-      TabOrder = 30
+      TabOrder = 29
       OnChange = DBL_RaonChange
       OnKeyPress = DBL_RaonKeyPress
     end
@@ -1828,7 +1819,7 @@ object FormZav: TFormZav
       Font.Style = []
       NumGlyphs = 2
       ParentFont = False
-      TabOrder = 31
+      TabOrder = 30
       OnChange = DBL_RaonChange
     end
     object TE_Poluch: TDateTimePicker
@@ -1845,7 +1836,7 @@ object FormZav: TFormZav
       Font.Style = []
       Kind = dtkTime
       ParentFont = False
-      TabOrder = 32
+      TabOrder = 31
       OnChange = DBL_RaonChange
     end
     object DBL_BrPoluch: TRxDBLookupCombo
@@ -1863,7 +1854,7 @@ object FormZav: TFormZav
       LookupDisplay = 'NAME_R'
       LookupSource = DM_Zavv.ds_poluch
       ParentFont = False
-      TabOrder = 33
+      TabOrder = 32
       OnChange = DBL_RaonChange
     end
     object BB_Image: TBitBtn
@@ -1872,7 +1863,7 @@ object FormZav: TFormZav
       Width = 110
       Height = 25
       Caption = #1048#1079#1086#1073#1088#1072#1078#1077#1085#1080#1103
-      TabOrder = 34
+      TabOrder = 33
       OnClick = BB_ImageClick
     end
     object DBL_Revs: TRxDBLookupCombo
@@ -1890,7 +1881,7 @@ object FormZav: TFormZav
       LookupDisplay = 'NAME_R'
       LookupSource = DM_Zavv.ds_revs
       ParentFont = False
-      TabOrder = 35
+      TabOrder = 34
       OnChange = DBL_RaonChange
       OnKeyPress = DBL_RaonKeyPress
     end
@@ -1906,7 +1897,7 @@ object FormZav: TFormZav
       Font.Name = 'Tahoma'
       Font.Style = [fsItalic]
       ParentFont = False
-      TabOrder = 36
+      TabOrder = 35
       OnClick = cb_OTLClick
       OnKeyDown = cb_OTLKeyDown
       OnMouseDown = cb_OTLMouseDown
@@ -1920,9 +1911,25 @@ object FormZav: TFormZav
       LookupField = 'NAME_S'
       LookupDisplay = 'NAME_S'
       LookupSource = DM_Zavv.ds_settlers
-      TabOrder = 37
+      TabOrder = 36
       OnChange = DBL_RaonChange
       OnKeyPress = DBL_RaonKeyPress
+    end
+    object BB_WithoutWater: TButton
+      Left = 608
+      Top = 248
+      Width = 105
+      Height = 41
+      Caption = #1041#1077#1079' '#1074#1086#1076#1099
+      Font.Charset = RUSSIAN_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 37
+      WordWrap = True
+      OnClick = BB_WithoutWaterClick
     end
   end
   object Pn_stat: TPanel
