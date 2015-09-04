@@ -4,9 +4,10 @@ object DM_main: TDM_main
   Left = 529
   Top = 278
   Height = 326
-  Width = 242
+  Width = 388
   object IBDatabase: TIBDatabase
-    DatabaseName = 'D:\work_od_basa\work\n_baza\AVARODESSA.GDB'
+    Connected = True
+    DatabaseName = 'E:\homework\basa\AVARODESSA.GDB'
     Params.Strings = (
       'user_name=sysdba'
       'password=masterkey'
@@ -44,5 +45,40 @@ object DM_main: TDM_main
       'nowait')
     Left = 104
     Top = 120
+  end
+  object dset_shift: TIBDataSet
+    Database = IBDatabase
+    SelectSQL.Strings = (
+      'select SHIFTDATE, SHIFTNUMBER, SHIFTTYPE from SERVANTTABLE')
+    Left = 240
+    Top = 224
+  end
+  object dset_shiftnum: TIBDataSet
+    Database = IBDatabase
+    SelectSQL.Strings = (
+      
+        'select z.nomer, z.dt_in,sa.name_r  from narad n join  zavjav z o' +
+        'n n.id_zav=z.id'
+      
+        'join s_attach sa on  sa.id=z.id_alien where n.dt_in>:d-1 and  n.' +
+        'dt_in<:d and n.dt_out is null'
+      'and z.id_attach in (:ida1,:ida2)'
+      'union'
+      
+        'select z.nomer, z.dt_in,sa.name_r  from nnarad n join  nzavjav z' +
+        ' on n.id_zav=z.id'
+      
+        'join s_attach sa on sa.id=z.id_alien where n.dt_in>:d-1 and  n.d' +
+        't_in<:d and n.dt_out is null'
+      'and z.id_attach in (:ida1,:ida2)')
+    Left = 296
+    Top = 216
+  end
+  object dset_DateTime: TIBDataSet
+    Database = IBDatabase
+    SelectSQL.Strings = (
+      'select current_Timestamp curTime from rdb$database')
+    Left = 264
+    Top = 72
   end
 end

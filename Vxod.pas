@@ -77,6 +77,7 @@ begin
   FormMain.S_Brig_mi.Enabled:=FormMain.CanEdidDic;
   // Проверка ADMIN
   FormMain.AdminRight:=rsADMIN in RightsSet;
+  FormMain.CanShift := rsZAV in RightsSet; //редактировать смену
 end;
 
 function ParseRightsStr(value:string):TRightsSet;

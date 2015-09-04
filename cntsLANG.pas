@@ -21,6 +21,9 @@ type
 Const
   A4_WIDTH=80;
   LETTER_WIDTH=8;
+
+  StrShiftTimeBegin = '8:00';
+  StrShiftTimeEnd = '8:30';
   //
   RightsInTable:TRightsInTable=('READ','ZAV','RASK','ZADV','NARAD','POTER','SPRAV','DELZAV','ADMIN','WWATER');
   RightsAliases:TRightsAliases = ('Чтение','Корректировка основной формы',
@@ -435,8 +438,13 @@ Const
   msgNumNar:TLangMSG=('№ этапа','№ виїзду');
   msgWithoutWater:TLangMSG=('Без воды','Без води');
   msgWithoutWaterKanal:TLangMSG=('Отключения водоотведения','Відключення водовідведення');
+  msgCloseNar:TLangMSG = ('Предыдущая смена должна закрыть выезд  #13#10 '+
+                      'в наряде №%d(%s) за %s ',
+                      'Попередня  зміна має закрити виїзд '+
+                      ' у наряді №%в від %s');
+  msgChangeSmenDeny:TLangMSG = ('Пересменка запрещена!','Пересмінка заборонена!');
 
- 
+
 
 var RightsSet:TRightsSet;
     MyNowFlag:boolean;

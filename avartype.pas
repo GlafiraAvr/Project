@@ -18,6 +18,7 @@ const
  IdentUseSecInDate = 'UseSecInDate';
  UseSecInDate :boolean=true;
  isMapConnected :boolean=false;
+   StrShiftTimeBegin = '8:00';
 // month_day :[];
 type
   TPeriod = record

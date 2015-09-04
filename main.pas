@@ -319,6 +319,7 @@ type
     procedure N86Click(Sender: TObject);
 
   private
+    F_CanShift:boolean;
     FCanEdidDic :boolean;
     FWorkCtrlEnabled :boolean;
     F_VVod_CLOSED: boolean;
@@ -355,6 +356,7 @@ type
     property VVod_CLOSED: boolean read F_VVod_CLOSED write F_VVod_CLOSED;
     // ¬озможность редактировани€ справочников
     property CanEdidDic :boolean read FCanEdidDic write SetCanEdidDic; // ds
+    property CanShift:boolean read F_CanShift write F_CanShift;
   end;
 
 function NN(id,col:integer;var ss:string):integer;
