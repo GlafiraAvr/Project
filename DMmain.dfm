@@ -76,9 +76,15 @@ object DM_main: TDM_main
   end
   object dset_DateTime: TIBDataSet
     Database = IBDatabase
+    Transaction = tran
     SelectSQL.Strings = (
       'select current_Timestamp curTime from rdb$database')
     Left = 264
     Top = 72
+  end
+  object tran: TIBTransaction
+    DefaultDatabase = IBDatabase
+    Left = 184
+    Top = 40
   end
 end

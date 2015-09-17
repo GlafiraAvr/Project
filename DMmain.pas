@@ -15,6 +15,7 @@ type
     dset_shift: TIBDataSet;
     dset_shiftnum: TIBDataSet;
     dset_DateTime: TIBDataSet;
+    tran: TIBTransaction;
     procedure DataModuleDestroy(Sender: TObject);
   private
     { Private declarations }
@@ -25,9 +26,6 @@ type
     procedure ConnectToDB(const user, pwd: string);
     procedure ConnectToDB_AvrImage(const user, pwd: string);
     function GetZavAdres( _ActiveTran: TIBTransaction; _ZavID: integer ): string;
-    function isNeedChangeShift(typ:string):boolean;
-    procedure getShiiftNumber(typ:string; var num:integer; dat:TDate);
-    function perMitDoChangeShift(typ:string):boolean;
     function getTime():TdateTime;
   end;
 
@@ -36,7 +34,7 @@ var
 
 implementation
 
-uses datam, IniFiles, avartype,Variants;
+uses datam, IniFiles, avartype,Math;
 
 {$R *.dfm}
 
@@ -113,70 +111,6 @@ begin
 end;
 
 
-function TDM_main.isNeedChangeShift(typ: string): boolean;
-var shiftDate :TDateTime;
-begin
-if not dset_shift.Active then
-  dset_shift.Open;
-dset_shift.First;
-result:=false;
-while dset_shift.Eof do
-begin
- if dset_shift.FieldByName('SHIFTTYPE').AsString = typ then
- begin
-   shiftDate:=Date()+StrToTime(StrShiftTimeBegin);
-   if Time()>StrToTime(StrShiftTimeBegin) then
-     shiftDate:=Date()+StrToTime(StrShiftTimeBegin)+1;
-   if shiftDate<Now() then
-    result:=true;
-
- end
-end;
-dset_shift.Close;
-
-end;
-
-procedure TDM_main.getShiiftNumber(typ: string; var num: integer;
-  dat: TDate);
-begin
-if not dset_shift.Active then
- dset_shift.Open;
- if  dset_shift.Locate('SHIFTTYPE',VarArrayOf([typ]),[loCaseInsensitive]) then
- begin
-   num:= dset_shift.fieldByName('SHIFTNUMBER').AsInteger;
-   dat:=dset_shift.fieldByName('SHIFTDate').asdatetime;
- end;
- F_shiftDate:=dat;
- F_shiftNum:=num;
-end;
-
-function TDM_main.perMitDoChangeShift(typ:string): boolean;
-var strShidtDate:string;
-    strMess:string;
-begin
-  getShiiftNumber(typ,F_shiftNum,F_shiftDate);
-  if dset_shiftnum.Active then
-   dset_shift.Close;
-  strShidtDate:=DateToStr(F_shiftDate)+' '+StrShiftTimeBegin;
-  dset_shift.ParamByName('d').AsString:=strShidtDate;
-  if typ = 'V' then
-  
-  dset_shift.Open;
-  if dset_shift.RecordCount>0 then
-  begin
-    result:=false;
-    dset_shift.First;
-    strMes:=Format(TrLangMSG(msgCloseNar),
-    [dset_shift.FieldByName('nomer').AsInteger,
-    dset_shift.FieldByName('name_r').AsString,
-    dset_shift.FieldByName('dt_in').AsString]);
-    MessageBoxEx(application.handle,
-         pchar(strMes ),
-         pchar(msgChangeSmenDeny(msgError)), MB_OK+MB_ICONERROR+MB_SETFOREGROUND,$0419);
-  end
-  else
-  result:=true;
-end;
 
 function TDM_main.getTime: TdateTime;
 begin

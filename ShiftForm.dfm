@@ -1,5 +1,7 @@
-inherited OperAttForm2: TOperAttForm2
-  Caption = 'OperAttForm2'
+inherited frm_shift: Tfrm_shift
+  Caption = 'frm_shift'
+  Position = poMainFormCenter
+  OnCreate = FormCreate
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
@@ -33,7 +35,7 @@ inherited OperAttForm2: TOperAttForm2
     Left = 112
     Top = 24
     Width = 121
-    Height = 25
+    Height = 22
     MaxValue = 0
     MinValue = 0
     TabOrder = 0
@@ -48,8 +50,8 @@ inherited OperAttForm2: TOperAttForm2
     TabOrder = 1
   end
   object btn_Ok: TBitBtn
-    Left = 80
-    Top = 104
+    Left = 24
+    Top = 96
     Width = 89
     Height = 25
     Caption = #1055#1088#1080#1085#1103#1090#1100
@@ -57,8 +59,19 @@ inherited OperAttForm2: TOperAttForm2
     OnClick = btn_OkClick
     Kind = bkOK
   end
+  object BitBtn1: TBitBtn
+    Left = 136
+    Top = 96
+    Width = 97
+    Height = 25
+    Caption = #1054#1090#1084#1077#1085#1080#1090#1100
+    TabOrder = 3
+    OnClick = BitBtn1Click
+    Kind = bkCancel
+  end
   object dset: TIBDataSet
     Database = DM_main.IBDatabase
+    Transaction = tran
     SelectSQL.Strings = (
       'select SHIFTDATE, SHIFTNUMBER, SHIFTTYPE from SERVANTTABLE'
       'where SHIFTTYPE  = :typ')
@@ -72,6 +85,7 @@ inherited OperAttForm2: TOperAttForm2
     Top = 32
   end
   object tran: TIBTransaction
+    DefaultDatabase = DM_main.IBDatabase
     Left = 184
     Top = 80
   end

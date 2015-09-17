@@ -8,7 +8,7 @@ uses
   IBDatabase, IBSQL, DB, IBCustomDataSet,avartype,cntsLANG;
 
 type
-  TOperAttForm2 = class(TOperAttForm)
+  Tfrm_shift = class(TOperAttForm)
     sp_shiftnum: TSpinEdit;
     dt_shift: TDateEdit;
     btn_Ok: TBitBtn;
@@ -17,11 +17,14 @@ type
     dset: TIBDataSet;
     IBSQL_sh: TIBSQL;
     tran: TIBTransaction;
+    BitBtn1: TBitBtn;
     procedure FormShow(Sender: TObject);
     procedure btn_OkClick(Sender: TObject);
+    procedure BitBtn1Click(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
-
+    oldShift:integer;
     typ:string;
     F_shiftNum:integer;
     F_ShiftDate:TDate;
@@ -29,18 +32,21 @@ type
     { Public declarations }
   end;
 
+const countSmen=4;
+
 var
-  OperAttForm2: TOperAttForm2;
+  frm_shift: Tfrm_shift;
 
 implementation
+uses  frmLANG, ShiftDmodule;
 
 {$R *.dfm}
 
-procedure TOperAttForm2.FormShow(Sender: TObject);
-
+procedure Tfrm_shift.FormShow(Sender: TObject);
+  var nsmen:integer;
 begin
   inherited;
-  Caption:='Смена '+Caption;
+  Caption:='Смена '+GetAttachName(OperateAttach);
 
   case OperateAttach of
    toaVoda,toaObjVoda : typ:='V';
@@ -50,32 +56,61 @@ begin
   dset.ParamByName('typ').AsString:=typ;
   dset.Open;
   F_shiftNum:=dset.fieldbyname('SHIFTNUMBER').AsInteger;
-  F_shiftDate:=dset.fieldbyname('SHIFTNUMBER').asDateTime;
-  if DM_main.isNeedChangeShift(typ) then
-    sp_shiftnum.Value:=dset.fieldbyname('SHIFTNUMBER').AsInteger+1
+  F_shiftDate:=dset.fieldbyname('SHIFTDATE').asDateTime;
+  nsmen:=F_shiftNum;
+  oldShift:=F_shiftNum;
+  if (dm_Shift.isNeedChangeShift(OperateAttach)) then
+   begin
+
+   nsmen:=F_shiftNum+1;
+     if countSmen< nsmen then
+       nsmen:=1;
+    end
   else
-   sp_shiftnum.Value:=dset.fieldbyname('SHIFTNUMBER').AsInteger;
+  nsmen:=dset.fieldbyname('SHIFTNUMBER').AsInteger;
   dt_shift.Date:= date();
+  sp_shiftnum.Value:=nsmen;
 end;
 
 
-procedure TOperAttForm2.btn_OkClick(Sender: TObject);
+procedure Tfrm_shift.btn_OkClick(Sender: TObject);
 begin
   inherited;
+if sp_shiftnum.Value<>oldshift then
 try
+      if dt_shift.Date<=0 then
+      begin
+         dt_shift.Date:=dm_main.getTime;
+         exit;
+      end;
+
       if tran.InTransaction then tran.Rollback;
       tran.StartTransaction;
       IBSQL_sh.SQL.Text:=
       format('update SERVANTTABLE set shiftnumber=%d, shiftdate = ''%s'' where  shiftType=''%s'' ',
-      [sp_shiftnum.Value,dt_shift.Text]);
+      [sp_shiftnum.Value,DateTimeToStr(dt_shift.Date),typ]);
       IBSQL_sh.ExecQuery;
       tran.Commit;
 except
-on e:exception
+on e:exception   do
        MessageBoxEx(application.handle,
          pchar('  '+TrLangMSG(msgErrorExecQuery)),
          pchar(TrLangMSG(msgError)), MB_OK+MB_ICONERROR+MB_SETFOREGROUND,$0419);
 end;
+end;
+
+procedure Tfrm_shift.BitBtn1Click(Sender: TObject);
+begin
+  inherited;
+
+modalresult:=mrCancel;
+end;
+
+procedure Tfrm_shift.FormCreate(Sender: TObject);
+begin
+  inherited;
+  sp_shiftnum.MinValue:=1;
+  sp_shiftnum.MaxValue:=countSmen;
 end;
 
 end.

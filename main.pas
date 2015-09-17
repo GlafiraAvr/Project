@@ -187,6 +187,7 @@ type
     N84: TMenuItem;
     N85: TMenuItem;
     N86: TMenuItem;
+    N87: TMenuItem;
     procedure S_Brig_miClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
@@ -317,6 +318,7 @@ type
     procedure N83Click(Sender: TObject);
     procedure N84Click(Sender: TObject);
     procedure N86Click(Sender: TObject);
+    procedure N87Click(Sender: TObject);
 
   private
     F_CanShift:boolean;
@@ -419,7 +421,8 @@ implementation
   OpSQLEx, s_remont, S_MatPipeFUnit, datam, VedManagerUnit, s_planobor,
   s_vrk, ReportManager, NGReportManager, S_DopAdres, s_trudozatrat, S_BWork,
   FormZavFactory, S_Instrum, s_object, S_ObjObor, s_work_mest, s_Ogragd, S_OborType
-  ,S_Soorug, S_OborTypeGlob, S_OTGlob_fieldsUnit, SzNarForm;
+  ,S_Soorug, S_OborTypeGlob, S_OTGlob_fieldsUnit, SzNarForm,
+  ShiftForm, ShiftDmodule;
 {$R *.DFM}
 
 
@@ -685,6 +688,7 @@ begin
   //
   AddMenu(N83);
   Addmenu(N86); //сводка отключений
+  Addmenu(N87);//пересменка
 
 //  N83.Items[2].Visible:=false;
 
@@ -1048,6 +1052,13 @@ begin
    }
 
   OperAtt:=OperAttDetectFromMenuItem(Sender);
+  if dm_Shift.isNeedChangeShift(OperAtt) then
+  begin
+     Application.MessageBox(PChar(TrLangMSG(msgDoChangeSmen)),
+     PChar(TrLangMSG(msgError)),MB_OK+MB_ICONWARNING);
+  end
+  else
+  begin
     repeat
      if CloseStatus=2 then
        ZvForm:=TFormZav_ZavCreate(Self,tfmZayavCopy,ZavToCopy)
@@ -1055,6 +1066,7 @@ begin
        ZvForm:=TFormZav_ZavCreate(Self,tfmZayavNew,0);
       ZvForm.ShowModal;
     until CloseStatus=0;
+   end;
 end;
 
 procedure TFormMain.N23Click(Sender: TObject);
@@ -3815,6 +3827,31 @@ begin
     rep_man.Free;
   end;
 
+end;
+
+procedure TFormMain.N87Click(Sender: TObject);
+var shiftForm:Tfrm_shift;
+    nums:string;
+    dateS:Tdate;
+begin
+  inherited;
+  OperAtt:=OperAttDetectFromMenuItem(Sender);
+
+  if  not dm_Shift.perMitDoChangeShift(OperAtt,nums,dateS) then
+  begin
+    Application.MessageBox(PChar(Format(TrLangMSG(msgCloseNar),[nums]) ),
+    PChar(TrLangMSG(msgChangeSmenDeny)),MB_OK+MB_ICONWARNING);
+  end
+  else
+  begin
+      shiftForm:=Tfrm_shift.Create(Self);
+      try
+        shiftForm.OperateAttach:=OperAtt;
+        shiftForm.ShowModal;
+      finally
+       shiftForm.Free;
+      end;
+  end;
 end;
 
 end.

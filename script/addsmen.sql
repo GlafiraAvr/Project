@@ -4,7 +4,7 @@ as char(2)
 check ((value = 'V') or (value = 'K')   );
 
 
-drop table ServantTable;
+
 
 create  table ServantTable (
    id smallint not null,

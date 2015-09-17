@@ -126,7 +126,7 @@ var
 implementation
   uses zav,obor,FormPlanObor,main,strtool, datam, support, peoples,
   WorkDM, WorkForm, WorkContainerDM, zav_obj, WorkContainerPlanDM,WorkDMPlan,
-  FormOborIB;
+  FormOborIB,ShiftDmodule;
 {$R *.DFM}
 
 
@@ -557,7 +557,13 @@ LockSaveFlag:=TRUE;
                  mtError, [mbOk], 0);
      exit;
    end;}
-if  correctDate() 
+if not  dm_Shift.datInCurShift(F_OperAtt,int(DE_In.Date)+frac(TE_in.Time)) then
+begin
+  MessageDlg(TrLangMSG(msgDatBeginInCurShift),
+                 mtError, [mbOk], 0);
+  exit;
+end;
+if  correctDate()
     then
  begin
   if NewZap then

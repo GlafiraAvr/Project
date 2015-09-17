@@ -428,7 +428,6 @@ object FormMain: TFormMain
       Top = 0
       Width = 607
       Height = 24
-      ButtonHeight = 23
       ButtonWidth = 35
       Caption = 'SpeedBar1'
       EdgeInner = esNone
@@ -636,6 +635,10 @@ object FormMain: TFormMain
         ImageIndex = 15
         Visible = False
         OnClick = N50Click
+      end
+      object N87: TMenuItem
+        Caption = #1042#1074#1086#1076' '#1085#1086#1084#1077#1088#1072' '#1089#1084#1077#1085#1099
+        OnClick = N87Click
       end
     end
     object N25: TMenuItem
@@ -1125,7 +1128,6 @@ object FormMain: TFormMain
       end
       object N21: TMenuItem
         Caption = #1063#1072#1089#1099
-        Checked = True
         OnClick = N21Click
       end
       object N35: TMenuItem
@@ -2227,7 +2229,7 @@ object FormMain: TFormMain
       #1095#1077#1090#1074#1077#1088#1075
       #1087#1103#1090#1085#1080#1094#1072
       #1089#1091#1073#1073#1086#1090#1072)
-    Left = 32
+    Left = 40
     Top = 120
   end
   object pmChoiceAtt: TPopupMenu
