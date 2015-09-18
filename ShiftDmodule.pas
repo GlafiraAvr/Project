@@ -18,10 +18,12 @@ type
   public
     { Public declarations }
    function isNeedChangeShift(typ:TOperAtt):boolean;
-   procedure getShiiftNumber(typ:TOperAtt; var num:integer; dat:TDate);
+   procedure getShiiftNumber(typ:TOperAtt; var num:integer;var dat:TDate);
    function perMitDoChangeShift(typ:TOperAtt;var nums: string;var  dat: TDate):boolean;
 
    function datInCurShift(typ:TOperAtt; dat:TdateTime):boolean;
+   function getShiftDate(typ:TOperAtt):TDateTime;
+
   end;
 
 const    StrShiftTimeBegin = '8:00';
@@ -29,14 +31,14 @@ const    StrShiftTimeBegin = '8:00';
          sel_notclosednar = 'select z.nomer, z.dt_in,sa.name_r  '+
                             ' from narad n join  zavjav z on n.id_zav=z.id '+
                             ' join s_attach sa on  sa.id=z.id_alien  '+
-                            ' where  n.dt_in<:dat +1  '+
+                            ' where n.dt_in>:dat -2   and n.dt_in<:dat +1  '+
                             ' and n.dt_out is null '+
                             ' and z.id_attach in (:ida1,:ida2) '+
                             ' union '+
                             ' select z.nomer, z.dt_in,sa.name_r   '+
                             ' from nnarad n join  nzavjav z on n.id_zav=z.id '+
                             ' join s_attach sa on sa.id=z.id_alien '+
-                            ' where   n.dt_in<:dat +1  '+
+                            ' where n.dt_in>:dat-2   and  n.dt_in<:dat +1  '+
                             ' and n.dt_out is null '+
                             ' and z.id_attach in (:ida1,:ida2)';
 
@@ -83,7 +85,7 @@ dset_shift.Close;
 end;
 
 procedure Tdm_Shift.getShiiftNumber(typ: TOperAtt; var num: integer;
-  dat: TDate);
+var  dat: TDate);
   var typStr:string;
 begin
 typStr:=converttypToStr(typ);
@@ -155,10 +157,19 @@ end;
 
 function Tdm_Shift.datInCurShift(typ: TOperAtt; dat: TdateTime): boolean;
   var  _shiftNum:integer;
-  _shiftDate:TDateTime;
+  _shiftDate:TDate;
 begin
+  _shiftDate:=0;
   getShiiftNumber(typ,_shiftNum,_shiftDate);
-  result :=(int(F_shiftDate)+StrToTime(StrShiftTimeBegin)<dat);
+  result :=(int(F_shiftDate)+StrToTime(StrShiftTimeBegin)<dat) and (int(F_shiftDate)+StrToTime(StrShiftTimeBegin)+1>=dat);
+end;
+
+function Tdm_Shift.getShiftDate(typ: TOperAtt): TDateTime;
+var dat:TDate;
+    num:integer;
+begin
+  getShiiftNumber(typ,num,dat);
+  result:=dat;
 end;
 
 end.

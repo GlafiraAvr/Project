@@ -393,7 +393,7 @@ implementation
  uses main,strtool,cl_zadv,sporg,obor,fresult,ComObj, XLConst,
       avartype,support, VedManagerUnit, DM_VedomPublicUnit,
       WithOutWaterUnit, AvrImageViewForm, DMAvrImage, PoteriUnit,
-      NGRaskopDM, RaskopForm,NewDisconnections;
+      NGRaskopDM, RaskopForm,NewDisconnections,ShiftDmodule;
 {$R *.DFM}
 
 var
@@ -678,6 +678,14 @@ begin
          TE_In.SetFocus;
          exit;
      end;
+
+    if FormMode=tfmZayavNew then
+    begin
+      if not (dm_Shift.datInCurShift( trunc(DE_In.Date)+Frac(TE_in.Time))) then
+       MessageDlg(TrLangMSG(msgDataTimeGRTemp),mtError, [mbOk], 0);
+         TE_Out.SetFocus;
+         exit;
+    end;
 
    // тут будут дюймы с футами сохраняться by Vadim 11.02.2009
    // , т.к. координаты пошли лесом, то поля NSec и ESec теперь не в секундах, а в дюймах
@@ -1226,6 +1234,14 @@ begin
        TE_out.SetFocus;
        exit;
    end;
+
+   if not(dm_Shift.datInCurShift(F_OperAtt,trunc(DE_out.Date)+Frac(TE_out.Time))) then
+   begin
+
+      MessageDlg(TrLangMSG(msgDatZavEndInCurShift),mtError, [mbOk], 0);
+       TE_out.SetFocus;
+      exit;
+   end
 
    if trunc(DE_in.Date)+Frac(TE_in.Time)>trunc(DE_out.Date)+Frac(TE_out.Time)
    then begin

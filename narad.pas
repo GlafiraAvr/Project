@@ -544,6 +544,17 @@ begin
     ProvDate(DE_dep.Date,DE_Out.Date,Time2Str(TE_dep.Time),Time2Str(TE_In.Time),true));
 
 end;
+
+function inShift():boolean;
+begin
+ result:=true;
+  if (de_dep.Date>0) then
+   result:=result and  dm_Shift.datInCurShift(F_OperAtt,int(DE_dep.Date)+frac(TE_dep.Time)) ;
+  if de_In.Date>0 then
+    result:=result and  dm_Shift.datInCurShift(F_OperAtt,int(DE_in.Date)+frac(TE_in.Time)) ;
+ if de_out.Date>0 then
+      result:=result and  dm_Shift.datInCurShift(F_OperAtt,int(DE_out.Date)+frac(TE_out.Time)) ;
+end;
 var ss:integer;
     tt_str:string;
 
@@ -557,9 +568,9 @@ LockSaveFlag:=TRUE;
                  mtError, [mbOk], 0);
      exit;
    end;}
-if not  dm_Shift.datInCurShift(F_OperAtt,int(DE_In.Date)+frac(TE_in.Time)) then
+if not  inShift() then
 begin
-  MessageDlg(TrLangMSG(msgDatBeginInCurShift),
+  MessageDlg(TrLangMSG(msgDatBeginInCurShift)+' '+DatetoStr((DM_shift.getShiftDate(F_OperAtt))),
                  mtError, [mbOk], 0);
   exit;
 end;
