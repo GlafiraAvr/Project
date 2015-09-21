@@ -359,6 +359,9 @@ type
     // Возможность редактирования справочников
     property CanEdidDic :boolean read FCanEdidDic write SetCanEdidDic; // ds
     property CanShift:boolean read F_CanShift write F_CanShift;
+
+    private
+      procedure SetHift();
   end;
 
 function NN(id,col:integer;var ss:string):integer;
@@ -1641,7 +1644,7 @@ begin
 end;}
 
 function ProvDate(date1,date2:TDateTime;time1,time2:string;date1InSmen:boolean):boolean;
-var h1,h2,m1,m2:integer;
+var h1,h2,m1,m2,s1,s2:integer;
     th,tm,ts,tms:word;
     seg,seg_next:TDateTime;
     fl:boolean;
@@ -1654,6 +1657,9 @@ begin
  h2:=strtointdef(copy(time2,1,2),-1);
  m2:=strtointdef(copy(time2,4,2),-1);
 
+ s1:=strtointdef(copy(time1,7,2),-1);
+ s2:=strtointdef(copy(time2,7,2),-1);
+
  if (date1<date2) or (date2=0) then
     Result:=true
  else if date1=date2 then
@@ -1664,6 +1670,8 @@ begin
         begin
           if m1<m2 then
              Result:=true
+          else if m1=m2 then
+           result:=(s1<=s2);  
         end;
    end;
 
@@ -2465,6 +2473,7 @@ procedure TFormMain.FormShow(Sender: TObject);
 begin
 { if not assigned(NastrF) then
    NastrF:=TNastrF.Create(application);}
+    SetHift();
 end;
 
 //*******************************************************************
@@ -2502,6 +2511,7 @@ begin
            FormPlacement1.IniSection:=IntToStr(CodUser);
            FormPlacement1.SaveFormPlacement;
          end;
+        
 end;
 
 //*******************************************************************
@@ -3852,6 +3862,17 @@ begin
        shiftForm.Free;
       end;
   end;
+  SetHift();
+end;
+
+procedure TFormMain.SetHift;
+var num_Shift:integer;
+    dat:TDate;
+begin
+  dm_Shift.getShiiftNumber(toaVoda,num_shift,dat);
+  SBM.Panels[1].Text:=Format('Смена Водопровод №%d '+ '%s %s' ,[num_shift,DateToStr(dat),StrShiftTimeBegin]);
+  dm_Shift.getShiiftNumber(toaKanal,num_shift,dat);
+  SBM.Panels[2].Text:=Format('Смена Водоотведение №%d '+ '%s %s' ,[num_shift,DateToStr(dat),StrShiftTimeBegin]);
 end;
 
 end.

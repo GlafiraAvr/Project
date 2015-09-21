@@ -99,6 +99,9 @@ type
     F_OperAtt: TOperAtt;
     F_DefaultAdres: TAdresRec;
     F_DefaultActiveRaskopID: integer;
+    F_CloseNarDate:TdateTime;
+    function SetCloseZavdate():TDateTime;
+    procedure SetReadOneRow(read:boolean);
   public
     { Public declarations }
     SaveFlag,LockSaveFlag:boolean;
@@ -200,6 +203,12 @@ begin
      EnableBottms( Qry_narad.FieldByName('id').AsInteger>0)
    else
      EnableBottms( false);
+   F_CloseNarDate:=SetCloseZavDate();
+   if F_CloseNarDate>0 then
+     if Qry_narad.FieldByName('dt_out').AsDateTime>0 then
+      if Qry_narad.FieldByName('dt_out').AsDateTime<=F_CloseNarDate then
+        SetReadOneRow(true or FReadOnly);
+
 end;
 
 procedure TFormNarad.FormClose(Sender: TObject; var Action: TCloseAction);
@@ -424,8 +433,19 @@ begin
 
    end;
 
+
  Qry_Narad.Locate('NOMER',TbC_nar.TabIndex+1,[]);
  RecUpdate(false);
+ if  F_CLoseNarDate>0 then
+  if Qry_narad.FieldByName('dt_out').AsDateTime>0 then
+   if Qry_narad.FieldByName('dt_out').AsDateTime<=F_CLoseNarDate then
+    SetReadOneRow(true)
+   else
+    SetReadOneRow(false or FReadOnly)
+  else
+   SetReadOneRow(false or FReadOnly)
+ else
+   SetReadOneRow(false or FReadOnly);
 end;
 
 procedure TFormNarad.BB_AddClick(Sender: TObject);
@@ -437,6 +457,8 @@ begin
   NewZap:=true;
   SwSave(true);
   EnableBottms( false);
+  SetReadOneRow(false);
+
 end;
 
 procedure TFormNarad.SwSave(st:boolean);
@@ -534,14 +556,14 @@ function correctDate:boolean;
 begin
  if DE_In.Date>0 then
  begin
-  result:=ProvDate(DE_In.Date,DE_Out.Date,Time2Str(TE_dep.Time),Time2Str(TE_out.Time),false);
+  result:=ProvDate(DE_In.Date,DE_Out.Date,Time2Str(TE_in.Time),Time2Str(TE_out.Time),false);
   if DE_dep.Date>0 then
    result:=result and (ProvDate(DE_dep.Date,DE_In.Date,Time2Str(TE_dep.Time),Time2Str(TE_In.Time),true));
 
  end
  else
   result:=(ProvDate(DE_dep.Date,DE_In.Date,Time2Str(TE_dep.Time),Time2Str(TE_In.Time),true) and
-    ProvDate(DE_dep.Date,DE_Out.Date,Time2Str(TE_dep.Time),Time2Str(TE_In.Time),true));
+    ProvDate(DE_dep.Date,DE_Out.Date,Time2Str(TE_dep.Time),Time2Str(TE_Out.Time),true));
 
 end;
 
@@ -1096,6 +1118,37 @@ BitBtn1.Enabled:=enable;
 BB_obor.Enabled:=enable;
 but_planWorjs.Enabled:=enable;
 btn_PlanObor.Enabled:=enable;
+end;
+
+function TFormNarad.SetCloseZavdate: TDateTime;
+begin
+if narTb='narad' then
+begin
+  MyOpenSQL(Qry_Tmp,'select dt_out from zavjav where id='+IntToStr(NrZajvCod));
+  result:=Qry_tmp.fieldByName('dt_out').AsDateTime;
+end
+else
+ result:=0;
+
+end;
+
+procedure TFormNarad.SetReadOneRow(read: boolean);
+begin
+   DBL_BrIg.Enabled:=not read;
+      DBL_BrIg3.Enabled:=not read;
+//      DBL_runw.Enabled:=false;
+      DBL_local.Enabled:=not read;
+      mm_dopinf.Enabled:=not read;
+      DE_dep.Enabled:=not read;
+      DE_in.Enabled:=not read;
+      DE_out.Enabled:=not read;
+      TE_dep.Enabled:=not read;
+      TE_in.Enabled:=not read;
+      Te_out.Enabled:=not read;
+
+      BB_Del.Enabled:=not read;
+      edNUMBERT.enabled:=not read;
+      edNUMTEAM.enabled:=not read;
 end;
 
 end.

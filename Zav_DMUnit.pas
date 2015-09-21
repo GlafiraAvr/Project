@@ -77,6 +77,7 @@ type
     procedure SaveDelZayavStatus(_ZavCode:integer;  _edDopInfText:string; isClosed:boolean; DelStatus:integer);
     function GetZavAttach(id_zav: integer): TOperAtt;
     function NWWATERCount(ZavCode:integer):integer;
+   
   end;
 
 var DM_Zavv:TDM_Zavv;
@@ -287,6 +288,8 @@ begin
      Result:=Qry_tmp.FieldByName('MM').asInteger;
    Qry_tmp.Close;
 end;
+
+
 
 
 initialization

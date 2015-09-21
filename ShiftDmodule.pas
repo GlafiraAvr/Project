@@ -26,8 +26,8 @@ type
 
   end;
 
-const    StrShiftTimeBegin = '8:00';
-         StrShiftTimeEnd = '9:00';
+const    StrShiftTimeBegin = '08:00';
+         StrShiftTimeEnd = '09:00';
          sel_notclosednar = 'select z.nomer, z.dt_in,sa.name_r  '+
                             ' from narad n join  zavjav z on n.id_zav=z.id '+
                             ' join s_attach sa on  sa.id=z.id_alien  '+
@@ -161,7 +161,7 @@ function Tdm_Shift.datInCurShift(typ: TOperAtt; dat: TdateTime): boolean;
 begin
   _shiftDate:=0;
   getShiiftNumber(typ,_shiftNum,_shiftDate);
-  result :=(int(F_shiftDate)+StrToTime(StrShiftTimeBegin)<dat) and (int(F_shiftDate)+StrToTime(StrShiftTimeBegin)+1>=dat);
+  result :=(int(F_shiftDate)+StrToTime(StrShiftTimeBegin)<=dat) and (int(F_shiftDate)+StrToTime(StrShiftTimeBegin)+1>=dat);
 end;
 
 function Tdm_Shift.getShiftDate(typ: TOperAtt): TDateTime;

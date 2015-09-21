@@ -118,6 +118,7 @@ type
     F_OnFindIncorrectField: TFindIncorrectFieldEvent;
     F_OnBeforeDataSetAbort: TDataSetNotifyEvent;
     F_OnAfterRaskopPost: TDataSetNotifyEvent;
+    F_CloseZavDateTime:TDateTime;
   public
     {Поля для ввода перед стартом транзакции}
     property ZavID: integer read F_ZavID write F_ZavID;
@@ -139,6 +140,7 @@ type
       write F_OnBeforeDataSetAbort;
     property OnAfterRaskopPost: TDataSetNotifyEvent read F_OnAfterRaskopPost
       write F_OnAfterRaskopPost;
+    property CloseZavDateTime:TDateTime read F_CloseZavDateTime write F_CloseZavDateTime;
     {/Поля для ввода перед стартом транзакции}
   public
     {После старта транзакции}

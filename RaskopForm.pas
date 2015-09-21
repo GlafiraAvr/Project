@@ -32,6 +32,7 @@ type
     F_IsZavClose: boolean;
     F_OperAtt: TOperAtt;
     F_MestTypeID: integer;
+
     procedure OnChangeEnabledBtnsHandler(_EnabledBtns: TEnabledBtns);
     procedure OnShowRaskopInfoHandler( _RaskopInfo: string );
     procedure BuildEnabledForRestoreBtn;
@@ -39,6 +40,7 @@ type
     constructor Create( AOwner: TComponent; ARaskop: Tdm_NGRaskop; AIsZavClose: boolean;
       AOperAtt: TOperAtt );
     property MestTypeID: integer read F_MestTypeID write F_MestTypeID;
+
   end;
 
 implementation
@@ -141,7 +143,7 @@ begin
     else _NaradMode := 1;
 
     _NarForm := TFormNarad.NarCreate( Self, _NaradMode, F_Raskop.ZavID,
-      not( rsNARAD in RightsSet ), F_OperAtt );
+      not( rsNARAD in RightsSet ), F_OperAtt);
     try
       _NarForm.DefaultActiveRaskopID := _RaskopID;
       _NarForm.MestTypeID := F_MestTypeID;

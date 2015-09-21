@@ -588,6 +588,9 @@ object FormMain: TFormMain
         Width = 150
       end
       item
+        Width = 300
+      end
+      item
         Width = 50
       end>
   end

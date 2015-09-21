@@ -681,10 +681,12 @@ begin
 
     if FormMode=tfmZayavNew then
     begin
-      if not (dm_Shift.datInCurShift( trunc(DE_In.Date)+Frac(TE_in.Time))) then
-       MessageDlg(TrLangMSG(msgDataTimeGRTemp),mtError, [mbOk], 0);
-         TE_Out.SetFocus;
+      if not (dm_Shift.datInCurShift(OperateAttach, trunc(DE_In.Date)+Frac(TE_in.Time))) then
+      begin
+       MessageDlg(TrLangMSG(msgDatZavEndInCurShift),mtError, [mbOk], 0);
+         TE_in.SetFocus;
          exit;
+      end;
     end;
 
    // тут будут дюймы с футами сохраняться by Vadim 11.02.2009
@@ -1227,7 +1229,7 @@ begin
       begin
         MessageDlg('Наряд закрыть нельзя, так как его тип "НА ВЫЯСНЕНИИ"',mtWarning, [mbOk], 0);
         exit;
-      end;  
+      end;
    if trunc(DE_out.Date)+Frac(TE_out.Time)>now
    then begin
        MessageDlg(TrLangMSG(msgDataTimeGRTemp),mtError, [mbOk], 0);
@@ -1235,13 +1237,19 @@ begin
        exit;
    end;
 
-   if not(dm_Shift.datInCurShift(F_OperAtt,trunc(DE_out.Date)+Frac(TE_out.Time))) then
+   if trunc(DE_out.Date)+Frac(TE_out.Time)<FDM_Zav.GetMaxDateTimeViezd(ZavCode) then
+    begin
+        MessageDlg('Наряд закрыть нельзя, дата закрытия последнего выезда больше даты закрытия наряда!"',mtWarning, [mbOk], 0);
+        TE_out.SetFocus;
+        exit;
+    end;
+   if not(dm_Shift.datInCurShift(OperateAttach,trunc(DE_out.Date)+Frac(TE_out.Time))) then
    begin
 
-      MessageDlg(TrLangMSG(msgDatZavEndInCurShift),mtError, [mbOk], 0);
+      MessageDlg(TrLangMSG(msgDatZavInCurShift),mtError, [mbOk], 0);
        TE_out.SetFocus;
       exit;
-   end
+   end;
 
    if trunc(DE_in.Date)+Frac(TE_in.Time)>trunc(DE_out.Date)+Frac(TE_out.Time)
    then begin
@@ -1409,7 +1417,7 @@ var NarForm:TFormNarad;
   _dt1:TDateTime;
 begin
   if isClosed then
-    NarForm:=TFormNarad.NarCreate(Self,0,ZavCode,not(rsNARAD in RightsSet), ZavAttach)
+    NarForm:=TFormNarad.NarCreate(Self,0,ZavCode,not(rsNARAD in RightsSet), ZavAttach)//
   else
     NarForm:=TFormNarad.NarCreate(Self,1,ZavCode,not(rsNARAD in RightsSet), ZavAttach);
 
@@ -1864,6 +1872,7 @@ begin
       _Raskop.ZavDT_IN := DE_in.Text;
       _Raskop.RaskopEditMode := remEditAll;
       _Raskop.IsReadOnly := not( rsRASK in RightsSet );
+      _Raskop.CloseZavDateTime:=frac(DE_Out.Date)+trunc(TE_out.Time);
 
       _frm := Tfrm_Raskop.Create( nil, _Raskop, isClosed, ZavAttach );
       try
