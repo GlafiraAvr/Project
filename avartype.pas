@@ -9,7 +9,6 @@ const
  IniFlAvar = 'avar.ini';
  FullPathIniFlParams :string = '';
  FullPathIniFlAvar :string = '';
- par2:string ='';
  _DiamPresent = 1;
  DefEmptyValue = -1;
 // RASKOPKA_ID :integer = 206;
@@ -19,7 +18,6 @@ const
  IdentUseSecInDate = 'UseSecInDate';
  UseSecInDate :boolean=true;
  isMapConnected :boolean=false;
-
 // month_day :[];
 type
   TPeriod = record
@@ -466,10 +464,9 @@ end;
 
 //===================================================================
 initialization
-  par2:=AnsiUpperCase(trim(ParamStr(1)));
- FullPathIniFlParams:=ExtractFilePath(ParamStr(0)) + IniFlParams;
+ FullPathIniFlParams:=  ExtractFilePath(ParamStr(0)) + IniFlParams;
  FullPathIniFlAvar:=ParamStr(1);
- if (Trim(FullPathIniFlAvar) = '') or (par2='-SCRIPT') then
+ if Trim(FullPathIniFlAvar) = '' then
     FullPathIniFlAvar:=ExtractFilePath(ParamStr(0)) + IniFlAvar;
 
 { MonthRec[1]:=FillMonthRec('январь',31);
