@@ -1,4 +1,7 @@
 inherited frm_shift: Tfrm_shift
+  Left = 486
+  Top = 539
+  Width = 405
   Caption = 'frm_shift'
   Position = poMainFormCenter
   OnCreate = FormCreate
@@ -74,7 +77,7 @@ inherited frm_shift: Tfrm_shift
     Transaction = tran
     SelectSQL.Strings = (
       'select SHIFTDATE, SHIFTNUMBER, SHIFTTYPE from SERVANTTABLE'
-      'where SHIFTTYPE  = :typ')
+      'where id= :id')
     Left = 160
     Top = 32
   end

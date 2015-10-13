@@ -6,8 +6,6 @@ object DM_main: TDM_main
   Height = 326
   Width = 388
   object IBDatabase: TIBDatabase
-    Connected = False
-    DatabaseName =''
     Params.Strings = (
       'user_name=sysdba'
       'password=masterkey'

@@ -679,9 +679,9 @@ begin
          exit;
      end;
 
-    if FormMode=tfmZayavNew then
+    if (FormMode=tfmZayavNew) or (FormMode=tfmZayavAfterInsert) then
     begin
-      if not (dm_Shift.datInCurShift(OperateAttach, trunc(DE_In.Date)+Frac(TE_in.Time))) then
+      if not (dm_Shift.datInCurShiftRevs(FDM_Zav.Qry_Revs.FieldByName('ID').AsInteger, trunc(DE_In.Date)+Frac(TE_in.Time))) then
       begin
        MessageDlg(TrLangMSG(msgDatZavEndInCurShift),mtError, [mbOk], 0);
          TE_in.SetFocus;
@@ -1243,7 +1243,7 @@ begin
         TE_out.SetFocus;
         exit;
     end;
-   if not(dm_Shift.datInCurShift(OperateAttach,trunc(DE_out.Date)+Frac(TE_out.Time))) then
+   if not(dm_Shift.datInCurShiftRevs(FDM_Zav.Qry_Revs.FieldByName('ID').AsInteger,trunc(DE_out.Date)+Frac(TE_out.Time))) then
    begin
 
       MessageDlg(TrLangMSG(msgDatZavInCurShift),mtError, [mbOk], 0);

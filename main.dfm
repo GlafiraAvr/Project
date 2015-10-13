@@ -37,8 +37,8 @@ object FormMain: TFormMain
     Visible = False
   end
   object old_SpeedBar1: TSpeedBar
-    Left = -47
-    Top = 324
+    Left = -63
+    Top = 260
     Width = 680
     Height = 24
     Font.Charset = DEFAULT_CHARSET
@@ -592,6 +592,16 @@ object FormMain: TFormMain
       end
       item
         Width = 50
+      end>
+  end
+  object StatusBar: TStatusBar
+    Left = 0
+    Top = 321
+    Width = 624
+    Height = 19
+    Panels = <
+      item
+        Width = 150
       end>
   end
   object MainMenu1: TMainMenu

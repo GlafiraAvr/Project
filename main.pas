@@ -188,6 +188,7 @@ type
     N85: TMenuItem;
     N86: TMenuItem;
     N87: TMenuItem;
+    StatusBar: TStatusBar;
     procedure S_Brig_miClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
@@ -362,6 +363,7 @@ type
 
     private
       procedure SetHift();
+      procedure AddMenuShift(MenuIt: TMenuItem);
   end;
 
 function NN(id,col:integer;var ss:string):integer;
@@ -691,7 +693,7 @@ begin
   //
   AddMenu(N83);
   Addmenu(N86); //сводка отключений
-  Addmenu(N87);//пересменка
+//  Addmenu(N87);//пересменка
 
 //  N83.Items[2].Visible:=false;
 
@@ -2474,6 +2476,7 @@ begin
 { if not assigned(NastrF) then
    NastrF:=TNastrF.Create(application);}
     SetHift();
+    AddMenuShift(N87);
 end;
 
 //*******************************************************************
@@ -3843,11 +3846,14 @@ procedure TFormMain.N87Click(Sender: TObject);
 var shiftForm:Tfrm_shift;
     nums:string;
     dateS:Tdate;
+    id_shift:integer;
 begin
   inherited;
-  OperAtt:=OperAttDetectFromMenuItem(Sender);
+//теперь смена зависит от s_revs и имееи собственное имя
 
-  if  not dm_Shift.perMitDoChangeShift(OperAtt,nums,dateS) then
+//  OperAtt:=OperAttDetectFromMenuItem(Sender);
+  id_shift:=(Sender as TMenuItem).Tag;
+  if  not dm_Shift.perMitDoChangeShift(id_shift,nums,dateS) then
   begin
     Application.MessageBox(PChar(Format(TrLangMSG(msgCloseNar),[nums]) ),
     PChar(TrLangMSG(msgChangeSmenDeny)),MB_OK+MB_ICONWARNING);
@@ -3857,6 +3863,8 @@ begin
       shiftForm:=Tfrm_shift.Create(Self);
       try
         shiftForm.OperateAttach:=OperAtt;
+        shiftForm.id_shift:=id_shift;
+        shiftForm.Name:= (Sender as TMenuItem).Caption;
         shiftForm.ShowModal;
       finally
        shiftForm.Free;
@@ -3868,11 +3876,69 @@ end;
 procedure TFormMain.SetHift;
 var num_Shift:integer;
     dat:TDate;
+    list:TList;
+    i:integer;
+    item: PShiftName;
+    textShift:string;
+
+    procedure AddPanel(status:TStatusBar;text:string);
+    var  panel:TStatusPanel;
+    begin
+      panel:= TStatusPanel.Create(Status.Panels);
+      panel.Text:=text;
+      panel.Width:=length(text)*5;
+
+    end;
 begin
-  dm_Shift.getShiiftNumber(toaVoda,num_shift,dat);
-  SBM.Panels[1].Text:=Format('Смена Водопровод №%d '+ '%s %s' ,[num_shift,DateToStr(dat),StrShiftTimeBegin]);
-  dm_Shift.getShiiftNumber(toaKanal,num_shift,dat);
-  SBM.Panels[2].Text:=Format('Смена Водоотведение №%d '+ '%s %s' ,[num_shift,DateToStr(dat),StrShiftTimeBegin]);
+  list:=dm_shift.getAllShiftName;
+  for i:=0 to list.Count-1 do
+  begin
+    item:=list[i];
+    if StatusBar.Panels.Count<=i+1 then
+    begin
+      AddPanel(StatusBar,item^.name);
+      StatusBar.Panels[i+1].Width:=length(text)*10;
+   end;
+
+    dm_Shift.getShiiftNumber(item^.id,num_shift,dat);
+    textShift:=Format('Смена №%d %s %s',[num_shift,DateToStr(dat),StrShiftTimeBegin]);
+    if SBM.Panels.Count<=i+1 then
+       begin
+        AddPanel(SBM,textShift);
+
+       end
+    else
+       SBM.Panels[i+1].Text:=textShift;
+    SBM.Panels[i+1].Width:=StatusBar.Panels[i+1].Width;   
+  end;
+
+end;
+
+procedure TFormMain.AddMenuShift(MenuIt: TMenuItem);
+var list:TList;
+    item:PShiftName;
+    i:integer;
+ procedure _Add( id_shift: integer; _Caption: string );
+  var
+    _mi: TMenuItem;
+  begin
+    _mi := TMenuItem.Create( MenuIt );
+    _mi.Name := MenuIt.Name + '_' + IntToStr(id_shift );
+    _mi.Tag := id_shift;
+    _mi.Caption := _Caption;
+    _mi.OnClick := MenuIt.OnClick;
+    MenuIt.Add( _mi );
+  end;
+begin
+ list:=dm_shift.getAllShiftName;
+ for i:=0 to list.Count-1 do
+ begin
+   item:=list[i];
+   _Add(item^.id,item^.name);
+
+ end;
+ list.Free;
+ MenuIt.OnClick:=nil;
 end;
 
 end.

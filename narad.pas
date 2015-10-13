@@ -571,11 +571,11 @@ function inShift():boolean;
 begin
  result:=true;
   if (de_dep.Date>0) then
-   result:=result and  dm_Shift.datInCurShift(F_OperAtt,int(DE_dep.Date)+frac(TE_dep.Time)) ;
+   result:=result and  dm_Shift.datInCurShiftZavjav(NrZajvCod,int(DE_dep.Date)+frac(TE_dep.Time)) ;
   if de_In.Date>0 then
-    result:=result and  dm_Shift.datInCurShift(F_OperAtt,int(DE_in.Date)+frac(TE_in.Time)) ;
+    result:=result and  dm_Shift.datInCurShiftZavjav(NrZajvCod,int(DE_in.Date)+frac(TE_in.Time)) ;
  if de_out.Date>0 then
-      result:=result and  dm_Shift.datInCurShift(F_OperAtt,int(DE_out.Date)+frac(TE_out.Time)) ;
+      result:=result and  dm_Shift.datInCurShiftZavjav(NrZajvCod,int(DE_out.Date)+frac(TE_out.Time)) ;
 end;
 var ss:integer;
     tt_str:string;
@@ -592,7 +592,7 @@ LockSaveFlag:=TRUE;
    end;}
 if not  inShift() then
 begin
-  MessageDlg(TrLangMSG(msgDatBeginInCurShift)+' '+DatetoStr((DM_shift.getShiftDate(F_OperAtt))),
+  MessageDlg(TrLangMSG(msgDatBeginInCurShift)+' '+DatetoStr((DM_shift.getShiftDateZavjav(NrZajvCod))),
                  mtError, [mbOk], 0);
   exit;
 end;
