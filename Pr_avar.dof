@@ -115,7 +115,7 @@ AutoIncBuild=1
 MajorVer=3
 MinorVer=3
 Release=5
-Build=180
+Build=181
 Debug=0
 PreRelease=0
 Special=0
@@ -126,7 +126,7 @@ CodePage=1251
 [Version Info Keys]
 CompanyName=ÊÏ ÑÏÊÁ ÀÑÓÂ
 FileDescription=Äèñïåò÷åğ ÀÂĞ
-FileVersion=3.3.5.180
+FileVersion=3.3.5.181
 InternalName=
 LegalCopyright=ÊÏ ÑÏÊÁ ÀÑÓÂ © 2006
 LegalTrademarks=
