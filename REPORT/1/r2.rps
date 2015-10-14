@@ -1,0 +1,48 @@
+.insert
+                                                  Âåäîìîñòü ó÷åòà çàñîğåíèé
+                                               çà ïåğèîä ñ @0  @1 ïî @2  @3
+.overwrite
++----------+----------+-----+----------+-----+-------------------------+--------+--------+----+-------+-----------+---------+--------+
+¦  Íîìåğ   ¦   Äàòà   ¦Âğåìÿ¦   Äàòà   ¦Âğåìÿ¦    Àäğåñ ïîâğåæäåíèÿ    ¦Âèä ñåòè¦Èñïîëíèò¦ÄÈÀÌ¦Ïğè÷èíû¦Ïîñëåäñòâèÿ¦  Ìåòîä  ¦Ïğèíàäëå¦
+¦  íàğÿäà  ¦  ïğèåìà  ¦ïğèåì¦ Çàêğûòèÿ ¦çàêğû¦                         ¦        ¦        ¦(ìì)¦       ¦           ¦ïğî÷èñòêè¦        ¦
++----------+----------+-----+----------+-----+-------------------------+--------+--------+----+-------+-----------+---------+--------+
+.eval @10 0
+.select
+  select z.nomer,z.fyear,z.dt_in,z.dt_out,u.name_r,v.name_r,z.id_ul2,n.name_r,
+         r.name_r,z.kod_ul,z.dop_adr,d.diam,c.name_r,l.name_r,o.name_r,z.id
+  from zavjav z,s_ulic u,s_vidul v,s_net n,s_revs r,s_diam d,s_clog c,s_leak l,s_owner o
+  where (delz=0) and z.dt_in>='@0 @1' and z.dt_in<='@2 @3'
+    and z.id_tzav=2 
+    and z.id_ul1=u.id and u.id_vidul=v.id and z.id_net=n.id and z.id_revs=r.id 
+    and z.id_diam=d.id and z.id_clog=c.id and z.id_leak=l.id and z.id_alien=o.id
+  union all
+  select z.nomer,z.fyear,z.dt_in,z.dt_out,u.name_r,v.name_r,z.id_ul2,n.name_r,
+         r.name_r,z.kod_ul,z.dop_adr,d.diam,c.name_r,l.name_r,o.name_r,z.id
+  from nzavjav z,s_ulic u,s_vidul v,s_net n,s_revs r,s_diam d,s_clog c,s_leak l,s_owner o
+  where (delz=0) and z.dt_in>='@0 @1' and z.dt_in<='@2 @3'
+    and z.id_tzav=2 
+    and z.id_ul1=u.id and u.id_vidul=v.id and z.id_net=n.id and z.id_revs=r.id 
+    and z.id_diam=d.id and z.id_clog=c.id and z.id_leak=l.id and z.id_alien=o.id
+  order by 9,5,2,1
+.for
+.eval @10 @10 1 +
+.eval @4 #0 '0' 5 lpad '/' || #1 ||
+.eval @5 #2 date
+.eval @9 #2 time
+.eval @6 #3 date
+.eval @11 #3 time
+.file addr.rps
+.eval @12 ''
+.select 
+  select k.name_r
+  from works w,s_killclog k
+  where w.id_zav=#15 
+    and w.id_killclog=k.id
+  order by w.id desc
+.for
+  .eval @12 #0
+.end
+¦@4        ¦@5        ¦@9   ¦@6        ¦@11  ¦@(25w)7                  ¦#(8)7   ¦#(8)8   ¦#11 ¦#(7)12 ¦#(11)13    ¦@(9)12   ¦#(8)14  ¦
+.end                                                                       
++----------+----------+-----+----------+-----+-------------------------+--------+--------+----+-------+-----------+---------+--------+ 
+Âñåãî çàñîğåíèé: @10

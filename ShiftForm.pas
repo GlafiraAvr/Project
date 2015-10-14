@@ -28,8 +28,12 @@ type
     typ:string;
     F_shiftNum:integer;
     F_ShiftDate:TDate;
+    F_Name:string;
+    F_id_shift:integer;
   public
     { Public declarations }
+    property Name:string write F_Name;
+    property  id_shift:integer write F_id_shift;
   end;
 
 const countSmen=4;
@@ -46,20 +50,20 @@ procedure Tfrm_shift.FormShow(Sender: TObject);
   var nsmen:integer;
 begin
   inherited;
-  Caption:='Смена '+GetAttachName(OperateAttach);
+  Caption:='Смена '+F_Name;
 
-  case OperateAttach of
+ { case OperateAttach of
    toaVoda,toaObjVoda : typ:='V';
     toaKanal,toaObjKanal : typ:='K';
     else typ :='V';
-  end;
-  dset.ParamByName('typ').AsString:=typ;
+  end;}
+  dset.ParamByName('id').AsInteger:=F_id_shift;
   dset.Open;
   F_shiftNum:=dset.fieldbyname('SHIFTNUMBER').AsInteger;
   F_shiftDate:=dset.fieldbyname('SHIFTDATE').asDateTime;
   nsmen:=F_shiftNum;
   oldShift:=F_shiftNum;
-  if (dm_Shift.isNeedChangeShift(OperateAttach)) then
+  if (dm_Shift.isNeedChangeShift(OperateAttach,F_id_shift)) then
    begin
 
    nsmen:=F_shiftNum+1;
@@ -87,8 +91,8 @@ try
       if tran.InTransaction then tran.Rollback;
       tran.StartTransaction;
       IBSQL_sh.SQL.Text:=
-      format('update SERVANTTABLE set shiftnumber=%d, shiftdate = ''%s'' where  shiftType=''%s'' ',
-      [sp_shiftnum.Value,DateTimeToStr(dt_shift.Date),typ]);
+      format('update SERVANTTABLE set shiftnumber=%d, shiftdate = ''%s'' where  id=%d ',
+      [sp_shiftnum.Value,DateTimeToStr(dt_shift.Date),F_id_shift]);
       IBSQL_sh.ExecQuery;
       tran.Commit;
 except

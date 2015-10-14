@@ -220,7 +220,12 @@ uses
   OborFrameIB in 'OborFrameIB.pas' {frame_Obor: TFrame},
   FormOborIB in 'FormOborIB.pas' {frm_OborIB},
   BaseGridForm in 'BaseGridForm.pas' {frm_BaseGrid},
-  NewDisconnections in 'NewDisconnections.pas' {frm_DisconNew};
+  NewDisconnections in 'NewDisconnections.pas' {frm_DisconNew},
+  NGReports2015 in 'NGReports2015.pas',
+  DiskonOptForm in 'DiskonOptForm.pas' {frm_DiskonOpt},
+  DiskondRepDModule in 'DiskondRepDModule.pas' {dm_DiskondRep: TDataModule},
+  ShiftForm in 'ShiftForm.pas' {frm_shift},
+  ShiftDmodule in 'ShiftDmodule.pas' {dm_Shift: TDataModule};
 
 {$R *.RES}
 
@@ -242,7 +247,7 @@ begin
   Application.CreateForm(TDM_main, DM_main);
   Application.CreateForm(TFormMain, FormMain);
   Application.CreateForm(Tfrm_sz_nar, frm_sz_nar);
-  Application.CreateForm(Tfrm_DisconNew, frm_DisconNew);
+  Application.CreateForm(Tdm_Shift, dm_Shift);
   //Application.CreateForm(TOborChoiseForm, OborChoiseForm);
   //  Application.CreateForm(TS_GroupsOfObjectsVDS, S_GroupsOfObjectsVDS); // temp by Vadim
 //  Application.CreateForm(TDM_GroupsOfObjectsVDS, DM_GroupsOfObjectsVDS); // temp by Vadim
@@ -257,4 +262,4 @@ begin
   DelFilesAfterExit.Items.Add(DelFilesAfterExit.GetCurrDir+'*.MB');
   DelFilesAfterExit.DeleteFiles;
   DelFilesAfterExit.Free;
-end.                                    
+end.

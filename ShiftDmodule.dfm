@@ -9,8 +9,8 @@ object dm_Shift: Tdm_Shift
     Transaction = tran
     SelectSQL.Strings = (
       
-        'select SHIFTDATE, SHIFTNUMBER, trim(SHIFTTYPE) SHIFTTYPE from SE' +
-        'RVANTTABLE')
+        'select  id, SHIFTNAME,SHIFTDATE, SHIFTNUMBER, trim(SHIFTTYPE) SH' +
+        'IFTTYPE from SERVANTTABLE where activity is null')
     Left = 64
     Top = 32
   end
@@ -44,5 +44,37 @@ object dm_Shift: Tdm_Shift
       'nowait')
     Left = 368
     Top = 72
+  end
+  object dsetShifts: TIBDataSet
+    Database = DM_main.IBDatabase
+    Transaction = tran
+    SelectSQL.Strings = (
+      'select shiftname,id from servanttable where activity is null ')
+    Left = 184
+    Top = 160
+  end
+  object dset_idshiftZav: TIBDataSet
+    Database = DM_main.IBDatabase
+    Transaction = tran
+    SelectSQL.Strings = (
+      
+        'select sr.id_shift id_shift from zavjav z join s_revs sr on sr.i' +
+        'd=z.id_revs'
+      'where z.id=:id_zav'
+      'union'
+      
+        'select sr.id_shift id_shift from nzavjav z join s_revs sr on sr.' +
+        'id=z.id_revs'
+      'where z.id=:id_zav')
+    Left = 352
+    Top = 272
+  end
+  object dset_shiftRevs: TIBDataSet
+    Database = DM_main.IBDatabase
+    Transaction = tran
+    SelectSQL.Strings = (
+      'select id_shift from s_revs sr where sr.id=:id_revs')
+    Left = 440
+    Top = 280
   end
 end
