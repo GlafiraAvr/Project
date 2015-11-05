@@ -411,6 +411,11 @@ var
   isAutoVvod:boolean;
   sentlog:boolean;    //отсілка на сервер http
 
+ NewUrl:string;//='http://infoxvod.com.ua/avr-exchange.php?ent=repair&action=add';
+ AddUrl:string;//='http://infoxvod.com.ua/avr-exchange.php?ent=stoplist&action=upd';
+
+ DelUrl:string;//='http://infoxvod.com.ua/avr-exchange.php?ent=stoplist&action=del';
+
   GL_Count :integer; // ds
 
   max_narnomer:integer;
@@ -552,6 +557,10 @@ begin
     MyNowFlag:=not mIni.ReadBool('Setup','SystemTimeFlag',true);
     LastMyNow:=StrToDateTime(mIni.ReadString('Setup','LastSystemTime',DateTimeToStr(now)));
     sentlog:=mIni.ReadBool('SentHttp','sentlog',true);
+    NewUrl:=mIni.ReadString('SentHttp','NewUrl','http://infoxvod.com.ua/avr-exchange.php?ent=repair&action=add');
+    AddUrl:=mIni.ReadString('SentHttp','AddUrl','http://infoxvod.com.ua/avr-exchange.php?ent=stoplist&action=upd');
+
+ DelUrl:=mIni.ReadString('SentHttp','DelUrl','http://infoxvod.com.ua/avr-exchange.php?ent=stoplist&action=del');
     N63.Checked:=not MyNowFlag;
     N35.Checked:=isAutoVvod;
     //

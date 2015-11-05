@@ -4,7 +4,7 @@ interface
 
 
 uses  SysUtils, Variants, Classes,Forms,
-uLkJSON, StdCtrls, ComCtrls,IniFiles,httpSentSynapse ;
+uLkJSON, StdCtrls, ComCtrls,IniFiles,httpSentSynapse,main ;
 
 const  formatdat = 'yyyy-mm-dd';
 const formattime = 'hh:mm';
@@ -14,10 +14,10 @@ const formatPlaces:array [1..2] of string =('водопровода', 'канализации');
 
 const IniDatafile='data.ini';
 
-const NewUrl='http://infoxvod.com.ua/avr-exchange.php?ent=repair&action=add';
-const AddUrl='http://infoxvod.com.ua/avr-exchange.php?ent=stoplist&action=upd';
+//const NewUrl='http://infoxvod.com.ua/avr-exchange.php?ent=repair&action=add';
+//const AddUrl='http://infoxvod.com.ua/avr-exchange.php?ent=stoplist&action=upd';
 
-const DelUrl='http://infoxvod.com.ua/avr-exchange.php?ent=stoplist&action=del';
+//const DelUrl='http://infoxvod.com.ua/avr-exchange.php?ent=stoplist&action=del';
 
 
 type
@@ -35,6 +35,7 @@ private
   http:ThttpSent;
    _iSsentHead:boolean;
    worklog:boolean;
+ 
  function _isSentAdd :boolean;
  function _isSentDel:boolean;
 
