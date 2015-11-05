@@ -2,7 +2,7 @@ inherited frm_DisconNew: Tfrm_DisconNew
   Left = 529
   Top = 211
   Width = 1018
-  Height = 679
+  Height = 694
   Caption = #1054#1090#1082#1083#1102#1095#1077#1085#1080#1103
   WindowState = wsMaximized
   PixelsPerInch = 96
@@ -39,8 +39,21 @@ inherited frm_DisconNew: Tfrm_DisconNew
         Caption = #1044#1086#1087'. '#1080#1085#1092'.'
       end
       inherited lbl_HouseNum: TLabel
-        Left = 569
+        Left = 513
         Top = 20
+      end
+      object Label2: TLabel [5]
+        Left = 761
+        Top = 18
+        Width = 15
+        Height = 13
+        Caption = #1087#1086
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'MS Sans Serif'
+        Font.Style = [fsBold]
+        ParentFont = False
       end
       inherited dbl_HouseType: TRxDBLookupCombo
         Visible = False
@@ -59,17 +72,53 @@ inherited frm_DisconNew: Tfrm_DisconNew
         OnKeyDown = FormKeyDown
       end
       inherited ed_HouseNum: TDBEdit
-        Left = 651
+        Left = 603
         Top = 16
-        Width = 310
+        Width = 150
         DataField = 'HOUSE'
         DataSource = ds_Main
         OnKeyDown = FormKeyDown
       end
+      object dbe_house_to: TDBEdit
+        Left = 779
+        Top = 16
+        Width = 78
+        Height = 21
+        DataField = 'HOUSES_TO'
+        DataSource = ds_Main
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'MS Sans Serif'
+        Font.Style = [fsBold]
+        ParentFont = False
+        TabOrder = 5
+        OnChange = CtrlsChange
+        OnEnter = TextFieldEnter
+        OnExit = EntryExit
+        OnKeyDown = FormKeyDown
+      end
+      object dbc_typ_houses: TDBComboBoxEh
+        Left = 880
+        Top = 16
+        Width = 81
+        Height = 21
+        DataField = 'TYP_HOUSE'
+        DataSource = ds_Main
+        Items.Strings = (
+          #1074#1089#1077
+          #1095#1077#1090
+          #1085#1077#1095)
+        KeyItems.Strings = (
+          '1'
+          '2'
+          '3')
+        TabOrder = 6
+      end
     end
     object mem_Disconnections: TMemo
       Left = 4
-      Top = 192
+      Top = 240
       Width = 999
       Height = 34
       Anchors = [akLeft, akTop, akRight, akBottom]
@@ -83,12 +132,12 @@ inherited frm_DisconNew: Tfrm_DisconNew
     object gb_DTTMExec: TGroupBox
       Left = 8
       Top = 81
-      Width = 985
-      Height = 103
+      Width = 993
+      Height = 160
       TabOrder = 1
       object Label8: TLabel
         Left = 2
-        Top = 11
+        Top = 51
         Width = 71
         Height = 26
         Alignment = taCenter
@@ -102,7 +151,7 @@ inherited frm_DisconNew: Tfrm_DisconNew
       end
       object Label9: TLabel
         Left = 5
-        Top = 39
+        Top = 119
         Width = 65
         Height = 26
         Alignment = taCenter
@@ -116,7 +165,7 @@ inherited frm_DisconNew: Tfrm_DisconNew
       end
       object Label10: TLabel
         Left = 173
-        Top = 9
+        Top = 49
         Width = 71
         Height = 26
         Alignment = taCenter
@@ -130,7 +179,7 @@ inherited frm_DisconNew: Tfrm_DisconNew
       end
       object Label11: TLabel
         Left = 174
-        Top = 42
+        Top = 122
         Width = 65
         Height = 26
         Alignment = taCenter
@@ -144,7 +193,7 @@ inherited frm_DisconNew: Tfrm_DisconNew
       end
       object Label13: TLabel
         Left = 330
-        Top = 11
+        Top = 51
         Width = 79
         Height = 26
         Alignment = taCenter
@@ -158,7 +207,7 @@ inherited frm_DisconNew: Tfrm_DisconNew
       end
       object Label14: TLabel
         Left = 328
-        Top = 40
+        Top = 120
         Width = 97
         Height = 26
         Alignment = taCenter
@@ -172,7 +221,7 @@ inherited frm_DisconNew: Tfrm_DisconNew
       end
       object DBT_disp1: TDBText
         Left = 764
-        Top = 17
+        Top = 57
         Width = 197
         Height = 17
         DataField = 'Name_discon_disp'
@@ -180,7 +229,7 @@ inherited frm_DisconNew: Tfrm_DisconNew
       end
       object DBT_disp2: TDBText
         Left = 768
-        Top = 43
+        Top = 123
         Width = 201
         Height = 17
         DataField = 'Name_Con_Disp'
@@ -188,7 +237,7 @@ inherited frm_DisconNew: Tfrm_DisconNew
       end
       object lbl_disp1: TLabel
         Left = 728
-        Top = 15
+        Top = 55
         Width = 31
         Height = 16
         Caption = #1076#1080#1089#1087'.'
@@ -201,7 +250,7 @@ inherited frm_DisconNew: Tfrm_DisconNew
       end
       object lbl_disp2: TLabel
         Left = 730
-        Top = 42
+        Top = 122
         Width = 31
         Height = 16
         Caption = #1076#1080#1089#1087'.'
@@ -212,23 +261,121 @@ inherited frm_DisconNew: Tfrm_DisconNew
         Font.Style = []
         ParentFont = False
       end
+      object Label3: TLabel
+        Left = 2
+        Top = 11
+        Width = 71
+        Height = 26
+        Alignment = taCenter
+        Caption = #1044#1072#1090#1072' '#1087#1083#1072#1085#13#10#1086#1090#1082#1083#1102#1095#1077#1085#1080#1103
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'MS Sans Serif'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object Label4: TLabel
+        Left = 173
+        Top = 9
+        Width = 71
+        Height = 26
+        Alignment = taCenter
+        Caption = #1042#1088#1077#1084#1103' '#1087#1083#1072#1085#13#10#1086#1090#1082#1083#1102#1095#1077#1085#1080#1103
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'MS Sans Serif'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object Label5: TLabel
+        Left = 728
+        Top = 15
+        Width = 31
+        Height = 16
+        Caption = #1076#1080#1089#1087'.'
+        Font.Charset = RUSSIAN_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -13
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+      end
+      object DBT_disp1plan: TDBText
+        Left = 764
+        Top = 17
+        Width = 197
+        Height = 17
+        DataField = 'Name_discon_disp_plan'
+        DataSource = ds_Main
+      end
+      object Label6: TLabel
+        Left = 2
+        Top = 83
+        Width = 65
+        Height = 26
+        Alignment = taCenter
+        Caption = #1044#1072#1090#1072' '#1087#1083#1072#1085#13#10#1074#1082#1083#1102#1095#1077#1085#1080#1103
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'MS Sans Serif'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object Label7: TLabel
+        Left = 173
+        Top = 81
+        Width = 71
+        Height = 26
+        Alignment = taCenter
+        Caption = #1042#1088#1077#1084#1103' '#1087#1083#1072#1085#13#10#1074#1082#1083#1102#1095#1077#1085#1080#1103
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'MS Sans Serif'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object Label12: TLabel
+        Left = 728
+        Top = 87
+        Width = 31
+        Height = 16
+        Caption = #1076#1080#1089#1087'.'
+        Font.Charset = RUSSIAN_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -13
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+      end
+      object DBT_disp2plan: TDBText
+        Left = 764
+        Top = 89
+        Width = 197
+        Height = 17
+        DataField = 'Name_Con_Disp_plan'
+        DataSource = ds_Main
+      end
       object de_Discon: TDBDateEdit
         Left = 77
-        Top = 11
+        Top = 51
         Width = 87
         Height = 21
         DataField = 'DTTM_DISCON'
         DataSource = ds_Main
         NumGlyphs = 2
         TabOrder = 0
-        OnChange = dbl_BrigConnectChange
+        OnChange = dbl_ExecutorChange
         OnEnter = EntryEnter
         OnExit = EntryExit
         OnKeyDown = FormKeyDown
       end
       object de_Con: TDBDateEdit
         Left = 77
-        Top = 42
+        Top = 122
         Width = 87
         Height = 21
         DataField = 'DTTM_CON'
@@ -242,7 +389,7 @@ inherited frm_DisconNew: Tfrm_DisconNew
       end
       object te_Discon: TDBDateTimeEditEh
         Left = 250
-        Top = 12
+        Top = 52
         Width = 73
         Height = 21
         DataField = 'DTTM_DISCON'
@@ -250,14 +397,14 @@ inherited frm_DisconNew: Tfrm_DisconNew
         EditButton.Style = ebsUpDownEh
         Kind = dtkTimeEh
         TabOrder = 1
-        OnChange = dbl_BrigConnectChange
+        OnChange = dbl_ExecutorChange
         OnEnter = EntryEnter
         OnExit = EntryExit
         OnKeyDown = FormKeyDown
       end
       object te_Con: TDBDateTimeEditEh
         Left = 250
-        Top = 44
+        Top = 124
         Width = 73
         Height = 21
         DataField = 'DTTM_CON'
@@ -272,7 +419,7 @@ inherited frm_DisconNew: Tfrm_DisconNew
       end
       object dbl_Executor: TRxDBLookupCombo
         Left = 427
-        Top = 13
+        Top = 53
         Width = 278
         Height = 21
         DropDownCount = 8
@@ -289,7 +436,7 @@ inherited frm_DisconNew: Tfrm_DisconNew
       end
       object dbl_BrigConnect: TRxDBLookupCombo
         Left = 426
-        Top = 42
+        Top = 122
         Width = 279
         Height = 21
         DropDownCount = 8
@@ -304,16 +451,74 @@ inherited frm_DisconNew: Tfrm_DisconNew
         OnExit = EntryExit
         OnKeyDown = FormKeyDown
       end
+      object DBDateEdit1: TDBDateEdit
+        Left = 77
+        Top = 11
+        Width = 86
+        Height = 21
+        DataField = 'DTTM_DISCON_PLAN'
+        DataSource = ds_Main
+        NumGlyphs = 2
+        TabOrder = 6
+        OnChange = DBDateEdit1Change
+        OnEnter = EntryEnter
+        OnExit = EntryExit
+        OnKeyDown = FormKeyDown
+      end
+      object DBDateTimeEditEh1: TDBDateTimeEditEh
+        Left = 250
+        Top = 12
+        Width = 73
+        Height = 21
+        DataField = 'DTTM_DISCON_PLAN'
+        DataSource = ds_Main
+        EditButton.Style = ebsUpDownEh
+        Kind = dtkTimeEh
+        TabOrder = 7
+        OnChange = DBDateEdit1Change
+        OnEnter = EntryEnter
+        OnExit = EntryExit
+        OnKeyDown = FormKeyDown
+      end
+      object DBDateEdit2: TDBDateEdit
+        Left = 77
+        Top = 83
+        Width = 86
+        Height = 21
+        DataField = 'DTTM_CON_PLAN'
+        DataSource = ds_Main
+        NumGlyphs = 2
+        TabOrder = 8
+        OnChange = DBDateEdit2Change
+        OnEnter = EntryEnter
+        OnExit = EntryExit
+        OnKeyDown = FormKeyDown
+      end
+      object DBDateTimeEditEh2: TDBDateTimeEditEh
+        Left = 250
+        Top = 84
+        Width = 73
+        Height = 21
+        DataField = 'DTTM_CON_PLAN'
+        DataSource = ds_Main
+        EditButton.Style = ebsUpDownEh
+        Kind = dtkTimeEh
+        TabOrder = 9
+        OnChange = DBDateEdit2Change
+        OnEnter = EntryEnter
+        OnExit = EntryExit
+        OnKeyDown = FormKeyDown
+      end
     end
   end
   inherited pnl_Bottom: TPanel
-    Top = 590
+    Top = 605
     Width = 1002
   end
   inherited dbg_Main: TDBGrid
     Top = 281
     Width = 1002
-    Height = 309
+    Height = 324
     ReadOnly = True
     Columns = <
       item
@@ -366,11 +571,8 @@ inherited frm_DisconNew: Tfrm_DisconNew
       end>
   end
   inherited sb_ProcessStatus: TStatusBar
-    Top = 622
+    Top = 637
     Width = 1002
-  end
-  inherited Tr_main: TIBTransaction
-    Active = True
   end
   inherited Tr_Voc: TIBTransaction
     Top = 200
@@ -385,6 +587,11 @@ inherited frm_DisconNew: Tfrm_DisconNew
     Top = 192
   end
   inherited dset_main: TIBDataSet
+    AfterDelete = dset_mainAfterDelete
+    AfterEdit = dset_mainAfterEdit
+    AfterInsert = dset_mainAfterEdit
+    AfterPost = dset_mainAfterPost
+    BeforeDelete = dset_mainBeforeDelete
     OnCalcFields = dset_mainCalcFields
     DeleteSQL.Strings = (
       'delete'
@@ -401,7 +608,14 @@ inherited frm_DisconNew: Tfrm_DisconNew
       'fk_discon_disp_disconnect,'
       'dttm_con,'
       'fk_discon_brig_connect,'
-      'fk_discon_disp_connect'
+      'fk_discon_disp_connect,'
+      ' DTTM_CON_PLAN,'
+      ' DTTM_DISCON_PLAN,'
+      ' FK_DISCON_DISP_CONNECT_PLAN, '
+      'FK_DISCON_DISP_DISCONNECT_PLAN, '
+      'HOUSES_TO,'
+      ' TYP_HOUSE'
+      ''
       ')'
       'values ('
       ':id_zav,'
@@ -413,7 +627,15 @@ inherited frm_DisconNew: Tfrm_DisconNew
       ':fk_discon_disp_disconnect,'
       ':dttm_con,'
       ':fk_discon_brig_connect,'
-      ':fk_discon_disp_connect'
+      ':fk_discon_disp_connect,'
+      ':DTTM_CON_PLAN,'
+      ':DTTM_DISCON_PLAN,'
+      ' :FK_DISCON_DISP_CONNECT_PLAN, '
+      ':FK_DISCON_DISP_DISCONNECT_PLAN, '
+      ':HOUSES_TO,'
+      ':TYP_HOUSE'
+      ''
+      ''
       ')')
     SelectSQL.Strings = (
       'select'
@@ -426,8 +648,14 @@ inherited frm_DisconNew: Tfrm_DisconNew
       ' , di.DTTM_CON'
       ' , di.FK_DISCON_BRIG'
       ' , di.FK_DISCON_BRIG_CONNECT'
-      ', FK_DISCON_DISP_CONNECT, '
-      'FK_DISCON_DISP_DISCONNECT'
+      ', FK_DISCON_DISP_CONNECT'
+      ',FK_DISCON_DISP_DISCONNECT'
+      ', DTTM_CON_PLAN '
+      ',DTTM_DISCON_PLAN'
+      ', FK_DISCON_DISP_CONNECT_PLAN ,FK_DISCON_DISP_DISCONNECT_PLAN'
+      ', HOUSES_TO'
+      ', TYP_HOUSE'
+      ', 0  modifi'
       'from  WWATER di'
       'where di.ID_ZAV = :porderid')
     ModifySQL.Strings = (
@@ -441,7 +669,15 @@ inherited frm_DisconNew: Tfrm_DisconNew
       'fk_discon_disp_disconnect=:fk_discon_disp_disconnect,'
       'dttm_con=:dttm_con,'
       'fk_discon_brig_connect=:fk_discon_brig_connect,'
-      'fk_discon_disp_connect=:fk_discon_disp_connect'
+      'fk_discon_disp_connect=:fk_discon_disp_connect,'
+      ' DTTM_CON_PLAN=:DTTM_CON_PLAN,'
+      ' DTTM_DISCON_PLAN=:DTTM_DISCON_PLAN ,'
+      ' FK_DISCON_DISP_CONNECT_PLAN=:FK_DISCON_DISP_CONNECT_PLAN, '
+      'FK_DISCON_DISP_DISCONNECT_PLAN=:FK_DISCON_DISP_DISCONNECT_PLAN, '
+      'HOUSES_TO=:HOUSES_TO,'
+      ' TYP_HOUSE=:TYP_HOUSE'
+      ''
+      ''
       'where id=:id')
     GeneratorField.Field = 'ID'
     GeneratorField.Generator = 'GEN_WWATER_ID'
@@ -535,6 +771,39 @@ inherited frm_DisconNew: Tfrm_DisconNew
       Size = 200
       Lookup = True
     end
+    object dset_mainDTTM_CON_PLAN: TDateTimeField
+      FieldName = 'DTTM_CON_PLAN'
+    end
+    object dset_mainDTTM_DISCON_PLAN: TDateTimeField
+      FieldName = 'DTTM_DISCON_PLAN'
+    end
+    object dset_mainFK_DISCON_DISP_CONNECT_PLAN: TIntegerField
+      FieldName = 'FK_DISCON_DISP_CONNECT_PLAN'
+    end
+    object dset_mainFK_DISCON_DISP_DISCONNECT_PLAN: TIntegerField
+      FieldName = 'FK_DISCON_DISP_DISCONNECT_PLAN'
+    end
+    object dset_mainHOUSES_TO: TStringField
+      FieldName = 'HOUSES_TO'
+    end
+    object dset_mainTYP_HOUSE: TIntegerField
+      FieldName = 'TYP_HOUSE'
+    end
+    object dset_mainName_discon_disp_plan: TStringField
+      FieldKind = fkCalculated
+      FieldName = 'Name_discon_disp_plan'
+      Size = 40
+      Calculated = True
+    end
+    object dset_mainName_Con_Disp_plan: TStringField
+      FieldKind = fkCalculated
+      FieldName = 'Name_Con_Disp_plan'
+      Size = 40
+      Calculated = True
+    end
+    object dset_mainmodifi: TSmallintField
+      FieldName = 'modifi'
+    end
   end
   inherited ds_HouseType: TDataSource
     Top = 216
@@ -590,7 +859,7 @@ inherited frm_DisconNew: Tfrm_DisconNew
     Transaction = Tr_Voc
     SelectSQL.Strings = (
       'select ID, NAME_R from S_BRIG where DEL='#39'-'#39' ')
-    Left = 448
+    Left = 464
     Top = 200
   end
   object dset_brig_connect_as_disp: TIBDataSet
@@ -598,17 +867,43 @@ inherited frm_DisconNew: Tfrm_DisconNew
     Transaction = Tr_Voc
     SelectSQL.Strings = (
       'select ID, NAME_R from S_BRIG where DEL='#39'-'#39' ')
-    Left = 480
+    Left = 496
     Top = 200
   end
   object ds_brigs_discon_as_disp: TDataSource
     DataSet = dset_brigs_discon_as_disp
-    Left = 448
+    Left = 464
     Top = 216
   end
   object ds_brig_connect_as_disp: TDataSource
     DataSet = dset_brig_connect_as_disp
-    Left = 488
+    Left = 504
+    Top = 216
+  end
+  object dset_brigs_discon_as_disp_plan: TIBDataSet
+    Database = DM_main.IBDatabase
+    Transaction = Tr_Voc
+    SelectSQL.Strings = (
+      'select ID, NAME_R from S_BRIG where DEL='#39'-'#39' ')
+    Left = 544
+    Top = 200
+  end
+  object dset_brig_connect_as_disp_plan: TIBDataSet
+    Database = DM_main.IBDatabase
+    Transaction = Tr_Voc
+    SelectSQL.Strings = (
+      'select ID, NAME_R from S_BRIG where DEL='#39'-'#39' ')
+    Left = 576
+    Top = 200
+  end
+  object ds_brig_connect_as_disp_plan: TDataSource
+    DataSet = dset_brig_connect_as_disp_plan
+    Left = 584
+    Top = 216
+  end
+  object ds_brigs_discon_as_disp_plan: TDataSource
+    DataSet = dset_brigs_discon_as_disp_plan
+    Left = 544
     Top = 216
   end
 end

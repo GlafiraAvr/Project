@@ -94,7 +94,7 @@ OutputDir=
 UnitOutputDir=
 PackageDLLOutputDir=
 PackageDCPOutputDir=
-SearchPath=E:\avar\Lib7\UTIL;E:\Program Files\Borland\Delphi7\Source\Samples
+SearchPath=E:\avar\Lib7\UTIL;E:\Program Files\Borland\Delphi7\Source\Samples;D:\work_odessa\kod\kod+git\Project\jsontest\forinstal
 Packages=Vcl50;Vclx50;VclSmp50;Vcldb50;Vclbde50;vcldbx50;Qrpt50;TeeUI50;TeeDB50;Tee50;TeeQR50;VCLIB50;Vclmid50;vclie50;Inetdb50;Inet50;NMFast50;webmid50;dclocx50;dclaxserver50;DSLib;RxCtl5;UpkComp;vcl;rtl;vclx;bdertl;VclSmp;RxCtl6;Util
 Conditionals=nodebug;nmap
 DebugSourceDirs=
@@ -115,7 +115,7 @@ AutoIncBuild=1
 MajorVer=3
 MinorVer=3
 Release=5
-Build=181
+Build=182
 Debug=0
 PreRelease=0
 Special=0
@@ -126,14 +126,14 @@ CodePage=1251
 [Version Info Keys]
 CompanyName=КП СПКБ АСУВ
 FileDescription=Диспетчер АВР
-FileVersion=3.3.5.181
+FileVersion=3.3.5.182
 InternalName=
 LegalCopyright=КП СПКБ АСУВ © 2006
 LegalTrademarks=
 OriginalFilename=
 ProductName=Диспетчер АВР. Одесса
 ProductVersion=3.3.2.0
-Comments=Поддержка аварий на карте
+Comments=
 [HistoryLists\hlConditionals]
 Count=1
 Item0=nodebug;nmap
@@ -141,6 +141,7 @@ Item0=nodebug;nmap
 Count=1
 Item0=WinTypes=Windows;WinProcs=Windows;DbiTypes=BDE;DbiProcs=BDE;DbiErrs=BDE;
 [HistoryLists\hlSearchPath]
-Count=2
-Item0=E:\avar\Lib7\UTIL;E:\Program Files\Borland\Delphi7\Source\Samples
-Item1=$(DELPHI)\Lib\Debug;E:\avar\Lib7\UTIL;E:\Program Files\Borland\Delphi7\Source\Samples
+Count=3
+Item0=E:\avar\Lib7\UTIL;E:\Program Files\Borland\Delphi7\Source\Samples;D:\work_odessa\kod\kod+git\Project\jsontest\forinstal
+Item1=E:\avar\Lib7\UTIL;E:\Program Files\Borland\Delphi7\Source\Samples
+Item2=$(DELPHI)\Lib\Debug;E:\avar\Lib7\UTIL;E:\Program Files\Borland\Delphi7\Source\Samples

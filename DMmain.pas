@@ -3,7 +3,7 @@ unit DMmain;
 interface
 
 uses
-  SysUtils, Classes, DB, IBDatabase, IBCustomDataSet,controls;
+  SysUtils, Classes, DB, IBDatabase, IBCustomDataSet,controls,httpSentSynapse;
 
 type
   TDM_main = class(TDataModule)
@@ -21,27 +21,62 @@ type
     { Private declarations }
     F_ShiftDate:TDate;
     F_shiftNum:integer;
+    F_http:ThttpSent;
   public
     { Public declarations }
     procedure ConnectToDB(const user, pwd: string);
     procedure ConnectToDB_AvrImage(const user, pwd: string);
     function GetZavAdres( _ActiveTran: TIBTransaction; _ZavID: integer ): string;
     function getTime():TdateTime;
+    function connectHttp():boolean;
+    property http:ThttpSent read f_http;
   end;
+
+function getProx( var proxHost,proxyPort,proxUser,proxPassword:string):boolean;
+
 
 var
   DM_main: TDM_main;
 
 implementation
 
-uses datam, IniFiles, avartype,Math;
+uses datam, IniFiles, avartype,Math,Forms;
 
 {$R *.dfm}
+function getProx( var proxHost,proxyPort,proxUser,proxPassword:string):boolean;
+var  Ini: TIniFile;
+path:string;
+
+begin
+try
+ path:=ExtractFilePath(Application.ExeName);
+
+  Ini:=TIniFile.Create(path+'proxy.ini');
+ path:=path+'1';
+try
+  proxHost:=Ini.ReadString('proxy','Host','');
+  proxyPort:=Ini.ReadString('proxy','Port','8080');
+  proxUser:=Ini.ReadString('proxy','User','');
+  proxPassword:=Ini.ReadString('proxy','Pass','');
+finally
+Ini.Free;
+end;
+except
+  proxHost:='';
+ proxyPort:='8080';
+ proxUser:='';
+ proxPassword:='';
+
+end;
+result:=true;
+end;
 
 procedure TDM_main.DataModuleDestroy(Sender: TObject);
 begin
   IBDataBase.Connected:=false;
   IBDB_AvrImage.Connected:=false;
+ if F_http<>nil then
+  F_http.free;
 end;
 
 procedure TDM_main.ConnectToDB(const user, pwd: string);
@@ -120,6 +155,15 @@ dset_dateTime.Open;
 dset_DateTime.First;
 result:=dset_DateTime.fieldByName('curTime').AsDateTime;
 
+end;
+
+
+function TDM_main.connectHttp: boolean;
+begin
+ result:=false;
+ if f_http=nil then
+  f_http:=ThttpSent.Create(getProx);
+  result:=true;
 end;
 
 end.

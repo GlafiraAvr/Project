@@ -409,6 +409,7 @@ var
   TekFl:array [0..50] of boolean;
   SL_DopInf:TStringList;
   isAutoVvod:boolean;
+  sentlog:boolean;    //отсілка на сервер http
 
   GL_Count :integer; // ds
 
@@ -550,6 +551,7 @@ begin
     RaonChar:=mIni.ReadString('Setup','RaonChar','A')[1];
     MyNowFlag:=not mIni.ReadBool('Setup','SystemTimeFlag',true);
     LastMyNow:=StrToDateTime(mIni.ReadString('Setup','LastSystemTime',DateTimeToStr(now)));
+    sentlog:=mIni.ReadBool('SentHttp','sentlog',true);
     N63.Checked:=not MyNowFlag;
     N35.Checked:=isAutoVvod;
     //

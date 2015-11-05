@@ -440,7 +440,6 @@ inherited frm_BaseGrid: Tfrm_BaseGrid
     Top = 256
   end
   object Tr_Voc: TIBTransaction
-    Active = True
     DefaultDatabase = DM_main.IBDatabase
     Params.Strings = (
       'read'

@@ -1,3 +1,13 @@
 $ cat .gitignore
 Pr_avar.exe
 Pr_avar.res
+*.res
+*.dll
+*dcu
+*.~*
+*.bat
+*.rar
+*.zip
+*.MB
+*.DB
+*.ddp
