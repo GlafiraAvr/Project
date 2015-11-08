@@ -64,11 +64,15 @@ inherited frm_DisconNew: Tfrm_DisconNew
         DataField = 'ID_UL'
         OnKeyDown = FormKeyDown
       end
+      inherited dbl_Street2: TRxDBLookupCombo
+        TabOrder = 5
+      end
       inherited ed_AddAdres: TDBEdit
         Left = 82
         Top = 48
         Width = 783
         DataField = 'COMMENT'
+        TabOrder = 6
         OnKeyDown = FormKeyDown
       end
       inherited ed_HouseNum: TDBEdit
@@ -92,7 +96,7 @@ inherited frm_DisconNew: Tfrm_DisconNew
         Font.Name = 'MS Sans Serif'
         Font.Style = [fsBold]
         ParentFont = False
-        TabOrder = 5
+        TabOrder = 3
         OnChange = CtrlsChange
         OnEnter = TextFieldEnter
         OnExit = EntryExit
@@ -113,7 +117,7 @@ inherited frm_DisconNew: Tfrm_DisconNew
           '1'
           '2'
           '3')
-        TabOrder = 6
+        TabOrder = 4
       end
     end
     object mem_Disconnections: TMemo
@@ -381,7 +385,7 @@ inherited frm_DisconNew: Tfrm_DisconNew
         DataField = 'DTTM_CON'
         DataSource = ds_Main
         NumGlyphs = 2
-        TabOrder = 3
+        TabOrder = 7
         OnChange = dbl_BrigConnectChange
         OnEnter = EntryEnter
         OnExit = EntryExit
@@ -411,7 +415,7 @@ inherited frm_DisconNew: Tfrm_DisconNew
         DataSource = ds_Main
         EditButton.Style = ebsUpDownEh
         Kind = dtkTimeEh
-        TabOrder = 4
+        TabOrder = 8
         OnChange = dbl_BrigConnectChange
         OnEnter = EntryEnter
         OnExit = EntryExit
@@ -445,7 +449,7 @@ inherited frm_DisconNew: Tfrm_DisconNew
         LookupField = 'ID'
         LookupDisplay = 'NAME'
         LookupSource = ds_Brig_connect
-        TabOrder = 5
+        TabOrder = 9
         OnChange = dbl_BrigConnectChange
         OnEnter = EntryEnter
         OnExit = EntryExit
@@ -459,7 +463,7 @@ inherited frm_DisconNew: Tfrm_DisconNew
         DataField = 'DTTM_DISCON_PLAN'
         DataSource = ds_Main
         NumGlyphs = 2
-        TabOrder = 6
+        TabOrder = 3
         OnChange = DBDateEdit1Change
         OnEnter = EntryEnter
         OnExit = EntryExit
@@ -474,7 +478,7 @@ inherited frm_DisconNew: Tfrm_DisconNew
         DataSource = ds_Main
         EditButton.Style = ebsUpDownEh
         Kind = dtkTimeEh
-        TabOrder = 7
+        TabOrder = 4
         OnChange = DBDateEdit1Change
         OnEnter = EntryEnter
         OnExit = EntryExit
@@ -488,7 +492,7 @@ inherited frm_DisconNew: Tfrm_DisconNew
         DataField = 'DTTM_CON_PLAN'
         DataSource = ds_Main
         NumGlyphs = 2
-        TabOrder = 8
+        TabOrder = 5
         OnChange = DBDateEdit2Change
         OnEnter = EntryEnter
         OnExit = EntryExit
@@ -503,7 +507,7 @@ inherited frm_DisconNew: Tfrm_DisconNew
         DataSource = ds_Main
         EditButton.Style = ebsUpDownEh
         Kind = dtkTimeEh
-        TabOrder = 9
+        TabOrder = 6
         OnChange = DBDateEdit2Change
         OnEnter = EntryEnter
         OnExit = EntryExit

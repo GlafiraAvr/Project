@@ -516,7 +516,7 @@ begin
   begin
     houses:=trim(Dataset.FieldByName('house').AsString);
     if not Dataset.FieldByName('houses_to').IsNull then
-      houses:=houses+'-'+trim(Dataset.FieldByName('housesto').AsString);
+      houses:=houses+'-'+trim(Dataset.FieldByName('houses_to').AsString);
  end;
 
  case Dataset.FieldByName('TYP_HOUSE').AsInteger of
