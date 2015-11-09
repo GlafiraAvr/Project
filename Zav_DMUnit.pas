@@ -77,7 +77,9 @@ type
     procedure SaveDelZayavStatus(_ZavCode:integer;  _edDopInfText:string; isClosed:boolean; DelStatus:integer);
     function GetZavAttach(id_zav: integer): TOperAtt;
     function NWWATERCount(ZavCode:integer):integer;
-   
+    function getidwwater(ZavCode:integer):integer;
+    function setwwaterid(ZavCode:integer;Wwaterid:integer; isclosed:boolean):boolean;
+    function getadresssent(ZavCode:integer):string;
   end;
 
 var DM_Zavv:TDM_Zavv;
@@ -291,6 +293,41 @@ end;
 
 
 
+
+function TDM_Zavv.getidwwater(ZavCode: integer): integer;
+begin
+  MyOpenSQL(Qry_tmp,'select z.fk_wwater w1 from zavjav  z  where z.ID='+IntToStr(ZavCode));
+
+  if   Qry_tmp.FieldByName('w1').IsNull then begin
+    MyOpenSQL(Qry_tmp,'select z.fk_wwater w1 from nzavjav  z  where z.ID='+IntToStr(ZavCode));
+    Result:=Qry_tmp.FieldByName('w1').asInteger
+    end
+  else
+   Result:=Qry_tmp.FieldByName('w1').asInteger;
+   Qry_tmp.Close;
+end;
+
+function TDM_Zavv.setwwaterid(ZavCode: integer;Wwaterid:integer;
+  isclosed: boolean): boolean;
+var s:string;
+begin
+result:=false;
+if isclosed then
+  s:='zavjav'
+else
+  s:='nzavjav';
+    MyExecSQL(Qry_Tmp,'UPDATE '+s+' SET fk_wwater='+IntToStr(Wwaterid)+
+  ' WHERE (id='+IntToStr(ZavCode)+')');
+
+  MyExecSQL(Qry_Tmp,'COMMIT');
+result:=true;
+end;
+
+function TDM_Zavv.getadresssent(ZavCode: integer): string;
+begin
+   MyOpenSQL(Qry_tmp,'select adres from  GET_ZAV_ADRES_sent('+IntToStr(ZavCode)+')');
+   result:=Qry_tmp.fieldbyname('adres').AsString;
+end;
 
 initialization
   DM_Zavv:=nil;

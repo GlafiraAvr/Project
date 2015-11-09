@@ -393,7 +393,8 @@ implementation
  uses main,strtool,cl_zadv,sporg,obor,fresult,ComObj, XLConst,
       avartype,support, VedManagerUnit, DM_VedomPublicUnit,
       WithOutWaterUnit, AvrImageViewForm, DMAvrImage, PoteriUnit,
-      NGRaskopDM, RaskopForm,NewDisconnections,ShiftDmodule;
+      NGRaskopDM, RaskopForm,NewDisconnections,ShiftDmodule,
+      testSetJson2, DMmain;
 {$R *.DFM}
 
 var
@@ -2054,6 +2055,7 @@ begin
     XLApp.Quit;
     XLApp:=UnAssigned;
   end;
+
 end;
 
 function TFormZav.PrepareDopInfBeforeSave:string;
@@ -2795,20 +2797,52 @@ end;
 {$ENDIF}
 
 procedure TFormZav.BB_WithoutWaterClick(Sender: TObject);
+
 var
  // WWatForm: TWithoutWaterForm;
  frm_newDiscon: Tfrm_DisconNew;
   IsReadOnly: boolean;
+  var sentserv:TSentToServ;
+procedure sent() ;
+//var  i:integer;
+begin
+  frm_newDiscon.dset_main.First;
+  while not frm_newDiscon.dset_main.Eof do
+  begin
+    if frm_newDiscon.dset_main.FieldByName('modifi').AsInteger=1 then
+    begin
+     FDM_Zav.setwwaterid(ZavCode,frm_newDiscon.dset_main.FieldByName('id').AsInteger,isClosed);
+     break;
+    end;
+  end;
+end;
+
 begin
   IsReadOnly:=not(rsZAV in RightsSet) or isClosed;
   frm_newDiscon:= Tfrm_DisconNew.Create(self, ZavCode,IsReadOnly);
   try
    // WWatForm.ID_zav:=ZavCode;
     frm_newDiscon.DateShift:=Date(); //!!даиа смены не ясно
+    //отсылка на сервер http
+    sentserv:=nil;
+    if DM_main.connectHttp then
+    begin
+      sentserv:=TSentToServ.create(DM_main.http,ZavCode,DE_in.Date,ord(ZavAttach),FDM_Zav.getadresssent(zavcode),sentlog);
+      frm_newDiscon.sentserv:=sentserv;
+    end;
     frm_newDiscon.ShowModal;
-
+    if  sentserv<>nil then
+    begin
+    if FDM_Zav.getidwwater(Zavcode)=0 then
+       if sentserv.SentHead then
+        FDM_Zav.setwwaterid(zavcode,1,isclosed);
+    sentserv.SentAdd;
+    sentserv.SentDel;
+    end;
+    //sent();
   finally
     FreeAndNil(frm_newDiscon);
+    FreeAndNil(sentserv);
   end;
   if (FDM_Zav.NWWATERCount(ZavCode)>0) then
     BB_WithoutWater.Font.Color:=ErrCol

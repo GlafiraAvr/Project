@@ -1,0 +1,112 @@
+28.10.2015 14:39:07 :: post to http://infoxvod.com.ua/avr-exchange.php?ent=repair&action=add:{"id":"123#v#2015","date":"26-10-2015","type":"Отключение воды","text":"Проведение аварийных работ по устранению течи  водопровода по адресу ул Кузнечная 48"}
+28.10.2015 14:39:54 :: Answer : ?
+28.10.2015 14:39:56 :: Status :  status -1
+28.10.2015 14:41:13 :: post to http://infoxvod.com.ua/avr-exchange.php?ent=stoplist&action=upd:{"repaierid":"123#v#2015","places":[{"id":"333#v#2015","street":"ул Кузнечная","rangeBuilding":["10-15 нчт"],"stopping":{"plan":"26-10-2015T10:00","fact":"26-10-2015T10:00"},"resumption":{"plan":"26-10-2015T20:00","fact":"26-10-2015T23:00"}},{"id":"334#v#2015","street":"ул Кутузовская","rangeBuilding":["2-15 все"],"stopping":{"plan":"26-10-2015T10:00","fact":"23-10-2015T08:00"},"resumption":{"plan":"26-10-2015T20:00","fact":"23-10-2015T08:00"}}]}
+28.10.2015 14:41:53 :: Answer : 0 
+28.10.2015 14:41:56 :: Status :  status -1
+28.10.2015 14:42:11 :: post to http://infoxvod.com.ua/avr-exchange.php?ent=stoplist&action=del:{"places":[{"id":"333#v#2015"}]}
+28.10.2015 14:43:27 :: Answer : ?
+28.10.2015 14:43:29 :: Status :  status -1
+28.10.2015 14:49:34 :: post to http://infoxvod.com.ua/avr-exchange.php?ent=stoplist&action=upd:{"repaierid":"123#v#2015","places":[{"id":"333#v#2015","street":"ул Кузнечная","rangeBuilding":["10-15 нчт"],"stopping":{"plan":"26-10-2015T10:00","fact":"26-10-2015T10:00"},"resumption":{"plan":"26-10-2015T20:00","fact":"26-10-2015T23:00"}},{"id":"334#v#2015","street":"ул Кутузовская","rangeBuilding":["2-15 все"],"stopping":{"plan":"26-10-2015T10:00","fact":"23-10-2015T08:00"},"resumption":{"plan":"26-10-2015T20:00","fact":"23-10-2015T08:00"}}]}
+28.10.2015 14:51:23 :: Answer : ?
+28.10.2015 14:51:24 :: Status :  status -1
+28.10.2015 14:51:48 :: post to http://infoxvod.com.ua/avr-exchange.php?ent=stoplist&action=del:{"places":[{"id":"333#v#2015"}]}
+28.10.2015 14:52:32 :: Answer : Resuly code is 0 not succses!!! RESULTSTRING 
+28.10.2015 14:52:33 :: Status :  status -1
+28.10.2015 14:52:42 :: post to http://infoxvod.com.ua/avr-exchange.php?ent=repair&action=add:{"id":"123#v#2015","date":"26-10-2015","type":"Отключение воды","text":"Проведение аварийных работ по устранению течи  водопровода по адресу ул Кузнечная 48"}
+28.10.2015 14:52:53 :: Answer : ?
+28.10.2015 14:52:54 :: Status :  status -1
+28.10.2015 15:14:51 :: post to http://infoxvod.com.ua/avr-exchange.php?ent=repair&action=add:{"id":"11273#v#2015","date":"14-09-2015","type":"Отключение воды","text":"Проведение аварийных работ по устранению течи  водопровода по адресу ул. ЕКАТЕРИНИНСКАЯ  \/ул. ТРОИЦКАЯ"}
+28.10.2015 15:15:27 :: Answer : Resuly code is 0 not succses!!! RESULTSTRING 
+28.10.2015 15:15:29 :: Status :  status -1
+28.10.2015 15:15:51 :: post to http://infoxvod.com.ua/avr-exchange.php?ent=repair&action=add:{"id":"11273#v#2015","date":"14-09-2015","type":"Отключение воды","text":"Проведение аварийных работ по устранению течи  водопровода по адресу ул. ЕКАТЕРИНИНСКАЯ  \/ул. ТРОИЦКАЯ"}
+28.10.2015 15:16:13 :: Answer : ?
+28.10.2015 15:16:15 :: Status :  status -1
+28.10.2015 15:16:25 :: post to http://infoxvod.com.ua/avr-exchange.php?ent=stoplist&action=upd:{"repaierid":"11273#v#2015","places":[{"id":"1025#v#2015","street":"ул. ТРОИЦКАЯ","rangeBuilding":["8-37 чтн"],"stopping":{"plan":"14-09-2015T14:50","fact":"14-09-2015T14:50"},"resumption":{"plan":"15-09-2015T00:20","fact":"15-09-2015T00:20"}},{"id":"1023#v#2015","street":"ул. РИШЕЛЬЕВСКОГО","rangeBuilding":["18-74 чтн"],"stopping":{"plan":"14-09-2015T14:50","fact":"14-09-2015T14:50"},"resumption":{"plan":"15-09-2015T00:20","fact":"15-09-2015T00:20"}}]}
+28.10.2015 15:18:34 :: Answer : Resuly code is 0 not succses!!! RESULTSTRING 
+28.10.2015 15:18:35 :: Status :  status -1
+28.10.2015 15:18:44 :: post to http://infoxvod.com.ua/avr-exchange.php?ent=stoplist&action=del:{"places":[{"id":"1025#v#2015"}]}
+28.10.2015 15:18:56 :: Answer : ?
+28.10.2015 15:18:57 :: Status :  status -1
+28.10.2015 15:19:15 :: post to http://infoxvod.com.ua/avr-exchange.php?ent=stoplist&action=upd:{"repaierid":"11273#v#2015","places":[{"id":"1025#v#2015","street":"ул. ТРОИЦКАЯ","rangeBuilding":["8-37 чтн"],"stopping":{"plan":"14-09-2015T14:50","fact":"14-09-2015T14:50"},"resumption":{"plan":"15-09-2015T00:20","fact":"15-09-2015T00:20"}},{"id":"1023#v#2015","street":"ул. РИШЕЛЬЕВСКОГО","rangeBuilding":["18-74 чтн"],"stopping":{"plan":"14-09-2015T14:50","fact":"14-09-2015T14:50"},"resumption":{"plan":"15-09-2015T00:20","fact":"15-09-2015T00:20"}}]}
+28.10.2015 15:20:21 :: Answer : Resuly code is 0 not succses!!! RESULTSTRING 
+28.10.2015 15:20:22 :: Status :  status -1
+28.10.2015 15:20:34 :: post to http://infoxvod.com.ua/avr-exchange.php?ent=stoplist&action=upd:{"repaierid":"11273#v#2015","places":[{"id":"1025#v#2015","street":"ул. ТРОИЦКАЯ","rangeBuilding":["8-37 чтн"],"stopping":{"plan":"14-09-2015T14:50","fact":"14-09-2015T14:50"},"resumption":{"plan":"15-09-2015T00:20","fact":"15-09-2015T00:20"}},{"id":"1023#v#2015","street":"ул. РИШЕЛЬЕВСКОГО","rangeBuilding":["18-74 чтн"],"stopping":{"plan":"14-09-2015T14:50","fact":"14-09-2015T14:50"},"resumption":{"plan":"15-09-2015T00:20","fact":"15-09-2015T00:20"}}]}
+28.10.2015 15:20:38 :: Answer : ?
+28.10.2015 15:20:53 :: Status :  status -1
+28.10.2015 15:21:14 :: post to http://infoxvod.com.ua/avr-exchange.php?ent=stoplist&action=del:{"places":[{"id":"1025#v#2015"}]}
+28.10.2015 15:21:31 :: Answer : Resuly code is 0 not succses!!! RESULTSTRING 
+28.10.2015 15:21:32 :: Status :  status -1
+28.10.2015 15:25:10 :: post to http://infoxvod.com.ua/avr-exchange.php?ent=repair&action=add:{"id":"11273#v#2015","date":"14-09-2015","type":"Отключение воды","text":"Проведение аварийных работ по устранению течи  водопровода по адресу ул. ЕКАТЕРИНИНСКАЯ  \/ул. ТРОИЦКАЯ"}
+28.10.2015 15:25:11 :: Answer : ?
+28.10.2015 15:25:12 :: Status :  status -1
+28.10.2015 15:25:18 :: post to http://infoxvod.com.ua/avr-exchange.php?ent=stoplist&action=upd:{"repaierid":"11273#v#2015","places":[{"id":"1025#v#2015","street":"ул. ТРОИЦКАЯ","rangeBuilding":["8-37 чтн"],"stopping":{"plan":"14-09-2015T14:50","fact":"14-09-2015T14:50"},"resumption":{"plan":"15-09-2015T00:20","fact":"15-09-2015T00:20"}},{"id":"1023#v#2015","street":"ул. РИШЕЛЬЕВСКОГО","rangeBuilding":["18-74 чтн"],"stopping":{"plan":"14-09-2015T14:50","fact":"14-09-2015T14:50"},"resumption":{"plan":"15-09-2015T00:20","fact":"15-09-2015T00:20"}}]}
+28.10.2015 15:25:38 :: Answer : ---Can't dpo post !!---- 
+28.10.2015 15:25:38 :: Status :  status 0
+28.10.2015 15:25:50 :: post to http://infoxvod.com.ua/avr-exchange.php?ent=stoplist&action=upd:{"repaierid":"11273#v#2015","places":[{"id":"1025#v#2015","street":"ул. ТРОИЦКАЯ","rangeBuilding":["8-37 чтн"],"stopping":{"plan":"14-09-2015T14:50","fact":"14-09-2015T14:50"},"resumption":{"plan":"15-09-2015T00:20","fact":"15-09-2015T00:20"}},{"id":"1023#v#2015","street":"ул. РИШЕЛЬЕВСКОГО","rangeBuilding":["18-74 чтн"],"stopping":{"plan":"14-09-2015T14:50","fact":"14-09-2015T14:50"},"resumption":{"plan":"15-09-2015T00:20","fact":"15-09-2015T00:20"}}]}
+28.10.2015 15:25:50 :: Answer : ?
+28.10.2015 15:25:51 :: Status :  status -1
+28.10.2015 15:25:56 :: post to http://infoxvod.com.ua/avr-exchange.php?ent=stoplist&action=del:{"places":[{"id":"1025#v#2015"}]}
+28.10.2015 15:26:09 :: Answer : ---Can't dpo post !!---- 
+28.10.2015 15:26:09 :: Status :  status 0
+28.10.2015 15:44:49 :: post to http://infoxvod.com.ua/avr-exchange.php?ent=repair&action=add:{"id":"11273#v#2015","date":"14-09-2015","type":"Отключение воды","text":"Проведение аварийных работ по устранению течи  водопровода по адресу ул. ЕКАТЕРИНИНСКАЯ  \/ул. ТРОИЦКАЯ"}
+28.10.2015 15:45:52 :: Answer : ---Can't dpo post !!---- 
+28.10.2015 15:45:53 :: Status :  status 0
+28.10.2015 15:46:00 :: post to http://infoxvod.com.ua/avr-exchange.php?ent=stoplist&action=upd:{"repaierid":"11273#v#2015","places":[{"id":"1025#v#2015","street":"ул. ТРОИЦКАЯ","rangeBuilding":["8-37 чтн"],"stopping":{"plan":"14-09-2015T14:50","fact":"14-09-2015T14:50"},"resumption":{"plan":"15-09-2015T00:20","fact":"15-09-2015T00:20"}},{"id":"1023#v#2015","street":"ул. РИШЕЛЬЕВСКОГО","rangeBuilding":["18-74 чтн"],"stopping":{"plan":"14-09-2015T14:50","fact":"14-09-2015T14:50"},"resumption":{"plan":"15-09-2015T00:20","fact":"15-09-2015T00:20"}}]}
+28.10.2015 15:46:18 :: Answer : ---Can't dpo post !!---- 
+28.10.2015 15:46:19 :: Status :  status 0
+28.10.2015 15:46:56 :: post to http://infoxvod.com.ua/avr-exchange.php?ent=repair&action=add:{"id":"11273#v#2015","date":"14-09-2015","type":"Отключение воды","text":"Проведение аварийных работ по устранению течи  водопровода по адресу ул. ЕКАТЕРИНИНСКАЯ  \/ул. ТРОИЦКАЯ"}
+28.10.2015 15:47:19 :: Answer : ---Can't dpo post !!---- 
+28.10.2015 15:47:20 :: Status :  status 0
+28.10.2015 15:49:21 :: post to http://infoxvod.com.ua/avr-exchange.php?ent=repair&action=add:{"id":"11273#v#2015","date":"14-09-2015","type":"Отключение воды","text":"Проведение аварийных работ по устранению течи  водопровода по адресу ул. ЕКАТЕРИНИНСКАЯ  \/ул. ТРОИЦКАЯ"}
+28.10.2015 15:50:20 :: post to http://infoxvod.com.ua/avr-exchange.php?ent=repair&action=add:{"id":"11273#v#2015","date":"14-09-2015","type":"Отключение воды","text":"Проведение аварийных работ по устранению течи  водопровода по адресу ул. ЕКАТЕРИНИНСКАЯ  \/ул. ТРОИЦКАЯ"}
+28.10.2015 15:50:34 :: Answer : ?
+28.10.2015 15:50:35 :: Status :  status -1
+28.10.2015 15:50:41 :: post to http://infoxvod.com.ua/avr-exchange.php?ent=stoplist&action=upd:{"repaierid":"11273#v#2015","places":[{"id":"1025#v#2015","street":"ул. ТРОИЦКАЯ","rangeBuilding":["8-37 чтн"],"stopping":{"plan":"14-09-2015T14:50","fact":"14-09-2015T14:50"},"resumption":{"plan":"15-09-2015T00:20","fact":"15-09-2015T00:20"}},{"id":"1023#v#2015","street":"ул. РИШЕЛЬЕВСКОГО","rangeBuilding":["18-74 чтн"],"stopping":{"plan":"14-09-2015T14:50","fact":"14-09-2015T14:50"},"resumption":{"plan":"15-09-2015T00:20","fact":"15-09-2015T00:20"}}]}
+28.10.2015 15:50:53 :: Answer : ?
+28.10.2015 15:51:01 :: Status :  status -1
+28.10.2015 15:51:06 :: post to http://infoxvod.com.ua/avr-exchange.php?ent=stoplist&action=del:{"places":[{"id":"1025#v#2015"}]}
+28.10.2015 15:51:08 :: Answer : ?
+28.10.2015 15:51:09 :: Status :  status -1
+28.10.2015 15:54:25 :: post to http://infoxvod.com.ua/avr-exchange.php?ent=stoplist&action=del:{"places":[{"id":"1025#v#2015"}]}
+28.10.2015 15:54:28 :: Answer : ?
+28.10.2015 15:54:29 :: Status :  status -1
+28.10.2015 16:36:02 :: post to http://infoxvod.com.ua/avr-exchange.php?ent=repair&action=add:{"id":"1#v#2015","date":"13-09-2015","type":"Отключение воды","text":"Проведение аварийных работ по устранению течи  водопровода по адресу МАЧТОВАЯ УЛ.,24\/26"}
+28.10.2015 16:36:21 :: Answer : ?
+28.10.2015 16:36:21 :: Status :  status -1
+28.10.2015 16:36:41 :: post to http://infoxvod.com.ua/avr-exchange.php?ent=stoplist&action=upd:{"repaierid":"1#v#2015","places":[{"id":"1135#v#2015","street":"ул. Мачтовая","rangeBuilding":["26-28 чтн"],"stopping":{"plan":"19-09-2015T10:30","fact":"19-09-2015T10:30"},"resumption":{"plan":"19-09-2015T15:50","fact":"19-09-2015T15:50"}},{"id":"1157#v#2015","street":"ул. Мачтовая","rangeBuilding":["26-28 чтн"],"stopping":{"plan":"20-09-2015T11:00","fact":"20-09-2015T11:00"},"resumption":{"plan":"20-09-2015T16:30","fact":"20-09-2015T16:30"}}]}
+28.10.2015 16:36:47 :: Answer : ?
+28.10.2015 16:36:47 :: Status :  status -1
+28.10.2015 16:40:02 :: post to http://infoxvod.com.ua/avr-exchange.php?ent=repair&action=add:{"id":"1#v#2015","date":"13-09-2015","type":"Отключение воды","text":"Проведение аварийных работ по устранению течи  водопровода по адресу МАЧТОВАЯ УЛ.,24\/26"}
+28.10.2015 16:40:07 :: Answer : ?
+28.10.2015 16:40:08 :: Status :  status -1
+28.10.2015 16:40:16 :: post to http://infoxvod.com.ua/avr-exchange.php?ent=stoplist&action=upd:{"repaierid":"1#v#2015","places":[{"id":"1135#v#2015","street":"ул. Мачтовая","rangeBuilding":["26-28 чтн"],"stopping":{"plan":"19-09-2015T10:30","fact":"19-09-2015T10:30"},"resumption":{"plan":"19-09-2015T15:50","fact":"19-09-2015T15:50"}},{"id":"1157#v#2015","street":"ул. Мачтовая","rangeBuilding":["26-28 чтн"],"stopping":{"plan":"20-09-2015T11:00","fact":"20-09-2015T11:00"},"resumption":{"plan":"20-09-2015T16:30","fact":"20-09-2015T16:30"}}]}
+28.10.2015 16:40:19 :: Answer : ?
+28.10.2015 16:40:19 :: Status :  status -1
+28.10.2015 16:40:26 :: post to http://infoxvod.com.ua/avr-exchange.php?ent=stoplist&action=del:{"places":[{"id":"1135#v#2015"}]}
+28.10.2015 16:40:29 :: Answer : ?
+28.10.2015 16:40:29 :: Status :  status -1
+29.10.2015 9:22:50 :: post to http://infoxvod.com.ua/avr-exchange.php?ent=repair&action=add:{"id":"11273#v#2015","date":"14-09-2015","type":"Отключение воды","text":"Проведение аварийных работ по устранению течи  водопровода по адресу ул. ЕКАТЕРИНИНСКАЯ  \/ул. ТРОИЦКАЯ"}
+29.10.2015 9:22:51 :: Answer : ?
+29.10.2015 9:22:51 :: Status :  status -1
+29.10.2015 9:22:58 :: post to http://infoxvod.com.ua/avr-exchange.php?ent=stoplist&action=upd:{"repaierid":"11273#v#2015","places":[{"id":"1025#v#2015","street":"ул. ТРОИЦКАЯ","rangeBuilding":["8-37 чет"],"stopping":{"plan":"2015-09-14T14:50","fact":"2015-09-14T14:50"},"resumption":{"plan":"2015-09-15T00:20","fact":"2015-09-15T00:20"}},{"id":"1023#v#2015","street":"ул. РИШЕЛЬЕВСКОГО","rangeBuilding":["18-74 чет"],"stopping":{"plan":"2015-09-14T14:50","fact":"2015-09-14T14:50"},"resumption":{"plan":"2015-09-15T00:20","fact":"2015-09-15T00:20"}}]}
+29.10.2015 9:22:59 :: Answer : ?
+29.10.2015 9:22:59 :: Status :  status -1
+29.10.2015 9:23:23 :: post to http://infoxvod.com.ua/avr-exchange.php?ent=stoplist&action=del:{"places":[{"id":"1025#v#2015"}]}
+29.10.2015 9:23:24 :: Answer : ?
+29.10.2015 9:23:24 :: Status :  status -1
+29.10.2015 10:12:03 :: post to http://infoxvod.com.ua/avr-exchange.php?ent=stoplist&action=upd:{"repaierid":"1#v#2015","places":[{"id":"1037#v#2015","street":"сп-к. Военный","rangeBuilding":["1-18 все"],"stopping":{"plan":"2015-09-14T12:00","fact":"2015-09-14T12:00"},"resumption":{"plan":"2015-09-14T15:45","fact":"2015-09-14T15:45"}},{"id":"1039#v#2015","street":"ул. Гаванная","rangeBuilding":["1-5 все"],"stopping":{"plan":"2015-09-14T12:00","fact":"2015-09-14T12:00"},"resumption":{"plan":"2015-09-14T15:45","fact":"2015-09-14T15:45"}},{"id":"1031#v#2015","street":"ул. Некрасова","rangeBuilding":["1-10 все"],"stopping":{"plan":"2015-09-14T12:00","fact":"2015-09-14T12:00"},"resumption":{"plan":"2015-09-14T15:45","fact":"2015-09-14T15:45"}},{"id":"1031#v#2015","street":"ул. Приморская","rangeBuilding":["3-25 все"],"stopping":{"plan":"2015-09-14T12:00","fact":"2015-09-14T12:00"},"resumption":{"plan":"2015-09-14T15:45","fact":"2015-09-14T15:45"}},{"id":"1033#v#2015","street":"ул. Приморская","rangeBuilding":["3-25 все"],"stopping":{"plan":"2015-09-14T12:00","fact":"2015-09-14T12:00"},"resumption":{"plan":"2015-09-14T15:45","fact":"2015-09-14T15:45"}},{"id":"1035#v#2015","street":"ул. Екатерининская","rangeBuilding":["6 все"],"stopping":{"plan":"2015-09-14T12:00","fact":"2015-09-14T12:00"},"resumption":{"plan":"2015-09-14T15:45","fact":"2015-09-14T15:45"}}]}
+29.10.2015 10:12:03 :: Answer : ?
+29.10.2015 10:12:03 :: Status :  status -1
+29.10.2015 10:25:24 :: post to http://infoxvod.com.ua/avr-exchange.php?ent=repair&action=add:{"id":"1#v#2015","date":"14-09-2015","type":"Отключение воды","text":"Проведение аварийных работ по устранению течи  водопровода по адресу ул. КОРДОННАЯ,72"}
+29.10.2015 10:25:26 :: Answer : ?
+29.10.2015 10:25:26 :: Status :  status -1
+29.10.2015 10:29:48 :: post to http://infoxvod.com.ua/avr-exchange.php?ent=repair&action=add:{"id":"11305#v#2015","date":"14-09-2015","type":"Отключение воды","text":"Проведение аварийных работ по устранению течи  водопровода по адресу ул. КОРДОННАЯ,72"}
+29.10.2015 10:29:48 :: Answer : ?
+29.10.2015 10:29:48 :: Status :  status -1
+29.10.2015 10:30:41 :: post to http://infoxvod.com.ua/avr-exchange.php?ent=stoplist&action=upd:{"repaierid":"11305#v#2015","places":[{"id":"1085#v#2015","street":"ул. ЦВЕТОЧНАЯ","rangeBuilding":["1-11а все"],"stopping":{"plan":"2015-09-15T12:30","fact":"2015-09-15T12:30"},"resumption":{"plan":"2015-09-15T16:00","fact":"2015-09-15T16:00"}},{"id":"1083#v#2015","street":"ул. КОРДОННАЯ","rangeBuilding":["17-35а все"],"stopping":{"plan":"2015-09-15T12:03","fact":"2015-09-15T12:03"},"resumption":{"plan":"2015-09-15T16:00","fact":"2015-09-15T16:00"}},{"id":"1081#v#2015","street":"ул. ГАСТЕЛЛО","rangeBuilding":["9-55а все"],"stopping":{"plan":"2015-09-15T12:30","fact":"2015-09-15T12:30"},"resumption":{"plan":"2015-09-15T16:00","fact":"2015-09-15T16:00"}},{"id":"1079#v#2015","street":"ул. КОСТРОВА","rangeBuilding":["2-28 все"],"stopping":{"plan":"2015-09-15T12:30","fact":"2015-09-15T12:30"},"resumption":{"plan":"2015-09-15T16:00","fact":"2015-09-15T16:00"}},{"id":"1087#v#2015","street":"ул. ЩОРСА","rangeBuilding":["62-120 все"],"stopping":{"plan":"2015-09-15T12:30","fact":"2015-09-15T12:30"},"resumption":{"plan":"2015-09-15T16:00","fact":"2015-09-15T16:00"}}]}
+29.10.2015 10:30:41 :: Answer : ?
+29.10.2015 10:30:41 :: Status :  status -1
+29.10.2015 11:38:02 :: post to http://infoxvod.com.ua/avr-exchange.php?ent=stoplist&action=del:{"places":[{"id":"1085#v#2015"}]}
+29.10.2015 11:38:02 :: Answer : ?
+29.10.2015 11:38:02 :: Status :  status -1

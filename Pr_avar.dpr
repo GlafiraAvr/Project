@@ -225,7 +225,9 @@ uses
   DiskonOptForm in 'DiskonOptForm.pas' {frm_DiskonOpt},
   DiskondRepDModule in 'DiskondRepDModule.pas' {dm_DiskondRep: TDataModule},
   ShiftForm in 'ShiftForm.pas' {frm_shift},
-  ShiftDmodule in 'ShiftDmodule.pas' {dm_Shift: TDataModule};
+  ShiftDmodule in 'ShiftDmodule.pas' {dm_Shift: TDataModule},
+  httpSentSynapse in 'jsontest\httpSentSynapse.pas',
+  testSetJson2 in 'jsontest\testSetJson2.pas';
 
 {$R *.RES}
 

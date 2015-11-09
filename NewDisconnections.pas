@@ -6,7 +6,7 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, BaseGridForm, DB, IBCustomDataSet, IBDatabase, ComCtrls, Grids,
   DBGrids, StdCtrls, Buttons, Mask, DBCtrls, RxLookup, ExtCtrls,
-  DBCtrlsEh, ToolEdit, RXDBCtrl,frmLANG,cntsLANG;
+  DBCtrlsEh, ToolEdit, RXDBCtrl,frmLANG,cntsLANG,testSetJson2;
 
 type
   Tfrm_DisconNew = class(Tfrm_BaseGrid)
@@ -19,7 +19,7 @@ type
     Label11: TLabel;
     Label13: TLabel;
     Label14: TLabel;
-    de_Discon: TDBDateEdit;
+    de_Discon  : TDBDateEdit;
     de_Con: TDBDateEdit;
     te_Discon: TDBDateTimeEditEh;
     te_Con: TDBDateTimeEditEh;
@@ -54,6 +54,34 @@ type
     dset_mainlook_streets: TStringField;
     dset_mainlook_DISCON_BRIG: TStringField;
     dset_mainlook_BRIG_CONNECT: TStringField;
+    dset_mainDTTM_CON_PLAN: TDateTimeField;
+    dset_mainDTTM_DISCON_PLAN: TDateTimeField;
+    dset_mainFK_DISCON_DISP_CONNECT_PLAN: TIntegerField;
+    dset_mainFK_DISCON_DISP_DISCONNECT_PLAN: TIntegerField;
+    dset_mainHOUSES_TO: TStringField;
+    dset_mainTYP_HOUSE: TIntegerField;
+    dbe_house_to: TDBEdit;
+    dbc_typ_houses: TDBComboBoxEh;
+    Label2: TLabel;
+    Label3: TLabel;
+    DBDateEdit1: TDBDateEdit;
+    Label4: TLabel;
+    DBDateTimeEditEh1: TDBDateTimeEditEh;
+    Label5: TLabel;
+    DBT_disp1plan: TDBText;
+    Label6: TLabel;
+    DBDateEdit2: TDBDateEdit;
+    Label7: TLabel;
+    DBDateTimeEditEh2: TDBDateTimeEditEh;
+    Label12: TLabel;
+    DBT_disp2plan: TDBText;
+    dset_brigs_discon_as_disp_plan: TIBDataSet;
+    dset_brig_connect_as_disp_plan: TIBDataSet;
+    ds_brig_connect_as_disp_plan: TDataSource;
+    ds_brigs_discon_as_disp_plan: TDataSource;
+    dset_mainName_discon_disp_plan: TStringField;
+    dset_mainName_Con_Disp_plan: TStringField;
+    dset_mainmodifi: TSmallintField;
    procedure btn_InsertClick(Sender: TObject);
    procedure btn_EditClick(Sender: TObject);       
    procedure FormCreate(Sender: TObject);
@@ -66,6 +94,13 @@ type
     procedure dset_mainAfterScroll(DataSet: TDataSet);
     procedure dbl_BrigConnectChange(Sender: TObject);
     procedure dbl_ExecutorChange(Sender: TObject);
+    procedure DBDateEdit1Change(Sender: TObject);
+    procedure DBDateEdit2Change(Sender: TObject);
+    procedure dset_mainAfterEdit(DataSet: TDataSet);
+    procedure FormDestroy(Sender: TObject);
+    procedure dset_mainAfterPost(DataSet: TDataSet);
+    procedure dset_mainAfterDelete(DataSet: TDataSet);
+    procedure dset_mainBeforeDelete(DataSet: TDataSet);
   protected
     class function GetGUID: string; override;
     procedure EnableCtrls(value: boolean); override;
@@ -82,15 +117,19 @@ type
     F_RayonS: string;
     F_IsResStrChange: boolean;
 
-
+     ischanges:boolean;
+     F_sentserv:TSentToServ;
+     f_idDel:integer;
   public
     { Public declarations }
+    listdel:TStringlist;
     property ResultString: string read F_ResultString write F_ResultString;
     property ReadOnlyFrm: boolean read F_ReadOnlyFrm write F_ReadOnlyFrm;
     property OrderID: integer read F_OrderID write F_OrderID;
     property RayonS: string read F_RayonS write F_RayonS;
     property DateShift: TDate write F_DateShift;
     procedure LoadData;
+    property sentserv:TSentToServ write F_sentserv;
   end;
 
 var
@@ -107,13 +146,20 @@ begin
   inherited;
   F_IsResStrChange := false;
   EnableOpenCtrls(false);
+  listdel:=TStringlist.Create;
+  ischanges:=false;
 end;
 
 procedure Tfrm_DisconNew.EnableCtrls(value: boolean);
 begin
+  dbe_house_to.Enabled:=value;
+  dbc_typ_houses.Enabled:=value;
 //  mem_Disconnections.Enabled:=value;
   de_Discon.Enabled := value;
   de_Con.Enabled := value;
+
+  DBDateEdit1.Enabled:=value;
+  DBDateTimeEditEh1.Enabled:=value;
 
   te_Discon.Enabled := value;
   te_Con.Enabled := value;
@@ -122,6 +168,9 @@ begin
   dbl_BrigConnect.Enabled := value;
 
 //  bb_ConnectTimeAll.Enabled := value;
+  DBDateEdit2.Enabled:=value;
+  DBDateTimeEditEh2.Enabled:=value;
+
   inherited EnableCtrls(value);
 end;
 
@@ -181,8 +230,9 @@ begin
   dset_executor.Open;
   dset_Brig_connect.Open;
   dset_brigs_discon_as_disp.Open;
+  dset_brigs_discon_as_disp_plan.Open;
   dset_brig_connect_as_disp.Open ;
-
+  dset_brig_connect_as_disp_plan.Open;
 
   mem_Disconnections.Text := ResultString;
   mem_Disconnections.ReadOnly  := ReadOnlyFrm;
@@ -195,6 +245,7 @@ begin
   Enable_ConnectTimeAllFill;
 //  bb_ConnectTimeAll.Enabled := btn_Insert.Enabled;
   dset_mainCalcFields(dset_main);
+   F_CtrlsChange:=false;
 end;
 
 procedure Tfrm_DisconNew.btn_InsertClick(Sender: TObject);
@@ -237,6 +288,20 @@ begin
    begin
      Dataset.FieldByName('Name_discon_disp').AsString:=dset_brigs_discon_as_disp.fieldByname('name_r').AsString;
    end;
+
+ Dataset.FieldByName('Name_discon_disp_plan').AsString:='';
+ if not Dataset.fieldbyname('FK_DISCON_DISP_DISCONNECT_plan').IsNull then
+  if dset_brigs_discon_as_disp_plan.Active then
+  if (Dataset.fieldbyname('FK_DISCON_DISP_DISCONNECT_plan').AsInteger<=0)or
+  (not(dset_brigs_discon_as_disp_plan.Locate('ID',
+                                    VarArrayOf([Dataset.fieldbyname('FK_DISCON_DISP_DISCONNECT_plan').AsInteger]),
+                                    [loCaseInsensitive])) )then
+    Dataset.FieldByName('Name_discon_Disp_plan').AsString:=TrLangMSG(msgAdmin)
+   else
+   begin
+     Dataset.FieldByName('Name_discon_disp_plan').AsString:=dset_brigs_discon_as_disp_plan.fieldByname('name_r').AsString;
+   end;
+
  Dataset.FieldByName('Name_Con_Disp').AsString:='';
  if not Dataset.fieldbyname('DTTM_CON').IsNull then
  if  not Dataset.fieldbyname('FK_DISCON_DISP_CONNECT').IsNull then
@@ -250,7 +315,22 @@ begin
    begin
      Dataset.FieldByName('Name_Con_Disp').AsString:=dset_brig_connect_as_disp.fieldByname('name_r').AsString;
    end;
- end;  
+
+
+  Dataset.FieldByName('Name_Con_Disp_plan').AsString:='';
+ if not Dataset.fieldbyname('DTTM_CON_plan').IsNull then
+ if  not Dataset.fieldbyname('FK_DISCON_DISP_CONNECT_plan').IsNull then
+ if dset_brig_connect_as_disp_plan.Active then
+  if (Dataset.fieldbyname('FK_DISCON_DISP_CONNECT_plan').AsInteger<=0)or
+  (not(dset_brig_connect_as_disp_plan.Locate('ID',
+                                    VarArrayOf([Dataset.fieldbyname('FK_DISCON_DISP_CONNECT_plan').AsInteger]),
+                                    [loCaseInsensitive])) )then
+    Dataset.FieldByName('Name_Con_Disp_plan').AsString:=TrLangMSG(msgAdmin)
+   else
+   begin
+     Dataset.FieldByName('Name_Con_Disp_plan').AsString:=dset_brig_connect_as_disp_plan.fieldByname('name_r').AsString;
+   end;
+ end;
 end;
 
 procedure Tfrm_DisconNew.mem_DisconnectionsChange(Sender: TObject);
@@ -388,6 +468,82 @@ begin
   if dset_main.State in [dsEdit, DsInsert] then
     dset_main.FieldByName('FK_DISCON_DISP_DISCONNECT').AsInteger:=CodUser;
  CtrlsChange(sender);
+end;
+
+procedure Tfrm_DisconNew.DBDateEdit1Change(Sender: TObject);
+begin
+  inherited;
+
+  if dset_main.State in [dsEdit, dsInsert] then
+  if not  dset_main.FieldByName('DTTM_DIsCON_plan').IsNull then
+     dset_main.FieldByName('FK_DISCON_DISP_DISCONNECT_plan').AsInteger:=CodUser
+  else
+     dset_main.FieldByName('FK_DISCON_DISP_DISCONNECT_plan').AsVariant:=0;
+  CtrlsChange(Sender);
+end;
+
+procedure Tfrm_DisconNew.DBDateEdit2Change(Sender: TObject);
+begin
+  inherited;
+if dset_main.State in [dsEdit, dsInsert] then
+  if not  dset_main.FieldByName('DTTM_CON_plan').IsNull then
+     dset_main.FieldByName('FK_DISCON_DISP_CONNECT_plan').AsInteger:=CodUser
+  else
+     dset_main.FieldByName('FK_DISCON_DISP_CONNECT_plan').AsVariant:=0;
+  CtrlsChange(Sender);
+end;
+
+procedure Tfrm_DisconNew.dset_mainAfterEdit(DataSet: TDataSet);
+begin
+  inherited;
+dset_main.FieldByName('modifi').AsInteger:=1;
+if dset_main.FieldByName('TYP_HOUSE').IsNull then
+   dset_main.FieldByName('TYP_HOUSE').AsInteger:=1;
+end;
+
+procedure Tfrm_DisconNew.FormDestroy(Sender: TObject);
+begin
+  inherited;
+    listdel.Free;
+end;
+
+procedure Tfrm_DisconNew.dset_mainAfterPost(DataSet: TDataSet);
+var houses:string;
+begin
+  inherited;
+  houses:='';
+  if not Dataset.FieldByName('house').IsNull then
+  begin
+    houses:=trim(Dataset.FieldByName('house').AsString);
+    if not Dataset.FieldByName('houses_to').IsNull then
+      houses:=houses+'-'+trim(Dataset.FieldByName('houses_to').AsString);
+ end;
+
+ case Dataset.FieldByName('TYP_HOUSE').AsInteger of
+  0,1:houses:=houses+' все';
+  2:houses:=houses+' чет';
+  3:houses:=houses+' неч';
+ end;
+
+
+
+//заполняем посілку
+F_sentserv.AddPlace(dset_main.fieldbyname('id').AsInteger,Dataset.fieldbyname('look_streets').asstring,houses,
+Dataset.fieldbyname('DTTM_DISCON_PLAN').asdatetime,Dataset.fieldbyname('DTTM_DISCON').asdatetime,
+Dataset.fieldbyname('DTTM_CON_PLAN').asdatetime,Dataset.fieldbyname('DTTM_CON').asdatetime);
+end;
+
+procedure Tfrm_DisconNew.dset_mainAfterDelete(DataSet: TDataSet);
+begin
+  inherited;
+  //заполняем посілку
+  F_sentserv.AddDel(f_idDel);
+end;
+
+procedure Tfrm_DisconNew.dset_mainBeforeDelete(DataSet: TDataSet);
+begin
+  inherited;
+f_idDel:=dset_main.fieldbyname('id').AsInteger;
 end;
 
 end.

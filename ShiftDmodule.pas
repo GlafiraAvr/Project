@@ -48,22 +48,21 @@ const    StrShiftTimeBegin = '08:00';
          StrShiftTimeEnd = '08:00';
          sel_notclosednar = ' select z.nomer, z.dt_in,sa.name_r '+
                                ' from narad n join  zavjav z on n.id_zav=z.id '+
-                               ' join s_attach sa on  sa.id=z.id_alien '+
+                               ' join s_attach sa on  sa.id=z.id_attach '+
                                '  join s_revs sr on sr.id =z.id_revs '+
                                '  join servanttable st on st.id=sr.id_shift and st.id=:id_shift '+
-                               '  where n.dt_in>:dat -2   and n.dt_in<:dat +1 '+
-                               ' and n.dt_dep>:dat-2   and  n.dt_dep<:dat +1 '+
+                               '  where ((n.dt_in>:dat -2   and n.dt_in<:dat +1)  '+
+                               '  or (n.dt_dep>:dat-2   and  n.dt_dep<:dat +1)) '+
                                '  and n.dt_out is null '+
                                '  union '+
                                '  select z.nomer, z.dt_in,sa.name_r '+
                                '  from nnarad n join  nzavjav z on n.id_zav=z.id '+
-                               '  join s_attach sa on sa.id=z.id_alien'+
+                               '  join s_attach sa on sa.id=z.id_attach'+
                                '  join s_revs sr on sr.id =z.id_revs '+
                                '  join servanttable st on st.id=sr.id_shift and st.id=:id_shift '+
-
-                               '  where n.dt_in>:dat-2   and  n.dt_in<:dat +1 '+
-                               ' and n.dt_dep>:dat-2   and  n.dt_dep<:dat +1'+
-                               '  and n.dt_out is null';
+                               '  where ((n.dt_in>:dat -2   and n.dt_in<:dat +1)  '+
+                               '  or (n.dt_dep>:dat-2   and  n.dt_dep<:dat +1)) '+
+                               '  and n.dt_out is null ';
 
 var
   dm_Shift: Tdm_Shift;

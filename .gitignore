@@ -1,4 +1,17 @@
 $ cat .gitignore
 Pr_avar.exe
 Pr_avar.res
+<<<<<<< HEAD
 /jsontest/*
+=======
+*.res
+*.dll
+*dcu
+*.~*
+*.bat
+*.rar
+*.zip
+*.MB
+*.DB
+*.ddp
+>>>>>>> e2d5fbb7674bfeb22a4736c965c01102b6e9b496
