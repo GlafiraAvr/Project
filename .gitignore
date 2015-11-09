@@ -1,9 +1,9 @@
 $ cat .gitignore
 Pr_avar.exe
 Pr_avar.res
-<<<<<<< HEAD
-/jsontest/*
-=======
+
+/jsontest/forinstal/*
+
 *.res
 *.dll
 *dcu
@@ -14,4 +14,4 @@ Pr_avar.res
 *.MB
 *.DB
 *.ddp
->>>>>>> e2d5fbb7674bfeb22a4736c965c01102b6e9b496
+

@@ -101,6 +101,8 @@ type
     procedure dset_mainAfterPost(DataSet: TDataSet);
     procedure dset_mainAfterDelete(DataSet: TDataSet);
     procedure dset_mainBeforeDelete(DataSet: TDataSet);
+    procedure DBDateTimeEditEh1Change(Sender: TObject);
+    procedure DBDateTimeEditEh2Change(Sender: TObject);
   protected
     class function GetGUID: string; override;
     procedure EnableCtrls(value: boolean); override;
@@ -449,6 +451,7 @@ begin
   inherited;
  Enable_ConnectTimeAllFill;
   dset_mainCalcFields(Dataset);
+  f_idDel:=dset_main.fieldbyname('id').AsInteger;
 end;
 
 procedure Tfrm_DisconNew.dbl_BrigConnectChange(Sender: TObject);
@@ -529,7 +532,7 @@ begin
 
 //заполняем посілку
 F_sentserv.AddPlace(dset_main.fieldbyname('id').AsInteger,Dataset.fieldbyname('look_streets').asstring,houses,
-Dataset.fieldbyname('DTTM_DISCON_PLAN').asdatetime,Dataset.fieldbyname('DTTM_DISCON').asdatetime,
+Dataset.fieldbyname('DTTM_DISCON_Plan').asdatetime,Dataset.fieldbyname('DTTM_DISCON').asdatetime,
 Dataset.fieldbyname('DTTM_CON_PLAN').asdatetime,Dataset.fieldbyname('DTTM_CON').asdatetime);
 end;
 
@@ -543,7 +546,24 @@ end;
 procedure Tfrm_DisconNew.dset_mainBeforeDelete(DataSet: TDataSet);
 begin
   inherited;
-f_idDel:=dset_main.fieldbyname('id').AsInteger;
+  f_idDel:=dset_main.fieldbyname('id').AsInteger;
+end;
+
+procedure Tfrm_DisconNew.DBDateTimeEditEh1Change(Sender: TObject);
+begin
+if dset_main.FieldByName('DTTM_DISCON_PLAN').IsNull then
+   dset_main.FieldByName('DTTM_DISCON_PLAN').AsDateTime:=Date();
+DBDateEdit1Change(Sender);
+  inherited;
+
+end;
+
+procedure Tfrm_DisconNew.DBDateTimeEditEh2Change(Sender: TObject);
+begin
+  inherited;
+DBDateEdit2Change(Sender);
+if dset_main.FieldByName('DTTM_CON_PLAN').IsNull then
+   dset_main.FieldByName('DTTM_CON_PLAN').AsDateTime:=Date();
 end;
 
 end.

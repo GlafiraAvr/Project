@@ -100,7 +100,7 @@ var stop,res,place:TlkJSONObject;
   buildlist:TlkJSONlist;
    str:string;
 
- function addInter(obj:TlkJSONObject;fact,plan:TDateTime):integer;
+ function addInter(obj:TlkJSONObject;plan,fact:TDateTime):integer;
   begin
    if plan>0 then
    str:=formatDateTime(formatDat,plan)+'T'+formatDateTime(formatTime,plan)
@@ -122,7 +122,7 @@ begin
   res:=TlkJSONObject.Create();
   addInter(res,resplan,resfact);
   place:=TlkJSONObject.Create();
-  str:=IntToStr(id)+strAtt+formatDateTime('yyyy',stopplan);
+  str:=IntToStr(id)+strAtt+formatDateTime('yyyy',stopfact);
   place.Add('id',str);
   place.Add('street',street);
   buildlist:=TlkJSONlist.Create;
@@ -189,7 +189,7 @@ begin
   begin
     json:=TlkJSONObject.Create();
     try
-      json.Add('repaierid',self.id);
+      json.Add('repairId',self.id);
       json.Add('places',jplaces);
       try
         result:=sentJson(json,Addurl);
@@ -219,7 +219,7 @@ begin
     if jdel.Count>0 then
     begin
 
-     json.Add('repaierid',id);
+     json.Add('repairId',id);
      json.Add('places',jdel);
      try
        result:=sentJson(json,DelUrl);
