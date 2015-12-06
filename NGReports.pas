@@ -1979,7 +1979,7 @@ begin
 
 frVariables[ 'dt_begin' ] := FormatDateTime('dd.mm.yyyy hh:mm', F_dt_begin );
 frVariables[ 'dt_end' ] := FormatDateTime('dd.mm.yyyy hh:mm', F_dt_end );
-frVariables[ 'typ' ] : =F_typ;
+frVariables[ 'typ' ] :=F_typ;
 
 end;
 
@@ -2003,7 +2003,7 @@ if F_OptFrm.ShowModal <> mrOk then
  F_dm.dt_end:=F_Dt_end;
  F_dm.operAttach:= F_optFrm.OperateAttach;
  f_dm.revsID:=F_optFrm.revsID;
- F_typ:=F_optFrm.TypeDiscon
+ F_typ:=F_optFrm.TypeDiscon ;
  F_DM.TypeDiscon:=F_typ;
 
  if f_dm.Preparedsets then
