@@ -1,6 +1,6 @@
 inherited frm_DisconNew: Tfrm_DisconNew
-  Left = 529
-  Top = 211
+  Left = 162
+  Top = 212
   Width = 1018
   Height = 694
   Caption = #1054#1090#1082#1083#1102#1095#1077#1085#1080#1103
@@ -371,7 +371,7 @@ inherited frm_DisconNew: Tfrm_DisconNew
         DataField = 'DTTM_DISCON'
         DataSource = ds_Main
         NumGlyphs = 2
-        TabOrder = 0
+        TabOrder = 2
         OnChange = dbl_ExecutorChange
         OnEnter = EntryEnter
         OnExit = EntryExit
@@ -400,7 +400,7 @@ inherited frm_DisconNew: Tfrm_DisconNew
         DataSource = ds_Main
         EditButton.Style = ebsUpDownEh
         Kind = dtkTimeEh
-        TabOrder = 1
+        TabOrder = 3
         OnChange = dbl_ExecutorChange
         OnEnter = EntryEnter
         OnExit = EntryExit
@@ -432,7 +432,7 @@ inherited frm_DisconNew: Tfrm_DisconNew
         LookupField = 'ID'
         LookupDisplay = 'NAME'
         LookupSource = ds_Executor
-        TabOrder = 2
+        TabOrder = 4
         OnChange = dbl_ExecutorChange
         OnEnter = EntryEnter
         OnExit = EntryExit
@@ -463,7 +463,7 @@ inherited frm_DisconNew: Tfrm_DisconNew
         DataField = 'DTTM_DISCON_PLAN'
         DataSource = ds_Main
         NumGlyphs = 2
-        TabOrder = 3
+        TabOrder = 0
         OnChange = DBDateEdit1Change
         OnEnter = EntryEnter
         OnExit = EntryExit
@@ -478,8 +478,8 @@ inherited frm_DisconNew: Tfrm_DisconNew
         DataSource = ds_Main
         EditButton.Style = ebsUpDownEh
         Kind = dtkTimeEh
-        TabOrder = 4
-        OnChange = DBDateEdit1Change
+        TabOrder = 1
+        OnChange = DBDateTimeEditEh1Change
         OnEnter = EntryEnter
         OnExit = EntryExit
         OnKeyDown = FormKeyDown
@@ -508,7 +508,7 @@ inherited frm_DisconNew: Tfrm_DisconNew
         EditButton.Style = ebsUpDownEh
         Kind = dtkTimeEh
         TabOrder = 6
-        OnChange = DBDateEdit2Change
+        OnChange = DBDateTimeEditEh2Change
         OnEnter = EntryEnter
         OnExit = EntryExit
         OnKeyDown = FormKeyDown
@@ -603,6 +603,7 @@ inherited frm_DisconNew: Tfrm_DisconNew
       ' where id=:id')
     InsertSQL.Strings = (
       'insert into wwater ('
+      'id,'
       'id_zav,'
       'id_ul,'
       'house,'
@@ -622,6 +623,7 @@ inherited frm_DisconNew: Tfrm_DisconNew
       ''
       ')'
       'values ('
+      ':id,'
       ':id_zav,'
       ':id_ul,'
       ':house,'
