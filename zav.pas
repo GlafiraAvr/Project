@@ -163,7 +163,7 @@ type
     dbl_podpor: TRxDBLookupCombo;
     dbl_settlers: TRxDBLookupCombo;
     Label_settler: TLabel;
-    BB_WithoutWater: TButton;
+    BB_WithoutWater: TBitBtn;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure CB_tAdrChange(Sender: TObject);

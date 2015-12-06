@@ -460,7 +460,7 @@ begin
   else
     BB_Narad.Font.Color:=TextCol;
   //
-  {Jnrk.xtybz}
+  {Отключения}
   if (FDM_Zav.NWWATERCount(ZavCode)>0) then
     BB_WithoutWater.Font.Color:=ErrCol
    else

@@ -438,7 +438,7 @@ Const
   vsgVip:TLangMSG=('Выполнение','Виконання');
   msgNumNar:TLangMSG=('№ этапа','№ виїзду');
   msgWithoutWater:TLangMSG=('Без воды','Без води');
-  msgWithoutWaterKanal:TLangMSG=('Отключения водоотведения','Відключення водовідведення');
+  msgWithoutWaterKanal:TLangMSG=('Отключения ' +#13+ 'водоотведения','Відключення' +#13+ ' водовідведення');
   msgCloseNar:TLangMSG = ('Предыдущая смена должна закрыть выезды   '+
                       'в нарядах %s ',
                       'Попередня  зміна має закрити виїзд '+

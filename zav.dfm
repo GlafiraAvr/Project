@@ -33,6 +33,9 @@ object FormZav: TFormZav
     BevelInner = bvLowered
     BorderWidth = 1
     TabOrder = 0
+    DesignSize = (
+      734
+      668)
     object Label7: TLabel
       Left = 10
       Top = 108
@@ -1278,6 +1281,12 @@ object FormZav: TFormZav
       Height = 24
       Hint = #1056#1072#1089#1082#1086#1087#1082#1080
       Caption = '&'#1056#1072#1089#1082#1086#1087#1082#1080' '
+      Font.Charset = RUSSIAN_CHARSET
+      Font.Color = clBlack
+      Font.Height = -13
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
       ParentShowHint = False
       ShowHint = True
       TabOrder = 16
@@ -1915,18 +1924,21 @@ object FormZav: TFormZav
       OnChange = DBL_RaonChange
       OnKeyPress = DBL_RaonKeyPress
     end
-    object BB_WithoutWater: TButton
+    object BB_WithoutWater: TBitBtn
       Left = 608
       Top = 248
       Width = 105
       Height = 41
-      Caption = #1041#1077#1079' '#1074#1086#1076#1099
+      Anchors = []
+      Caption = #1041#1077#1079' '#1074#1086#1076#1099' '
       Font.Charset = RUSSIAN_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
+      Font.Color = clBlack
+      Font.Height = -13
       Font.Name = 'Tahoma'
       Font.Style = [fsBold]
       ParentFont = False
+      ParentShowHint = False
+      ShowHint = False
       TabOrder = 37
       WordWrap = True
       OnClick = BB_WithoutWaterClick

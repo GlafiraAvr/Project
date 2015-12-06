@@ -33,6 +33,7 @@ type
     F_dt_end:TDateTime;
     F_operAttach:TOperAtt;
     F_RevsID:string;
+    F_type:integer;
     function prepareSQL:boolean;
     procedure fillMainrm();
   public
@@ -42,7 +43,7 @@ type
     property dt_end :TDateTime read F_dt_end write F_dt_end ;
     property operAttach:TOperAtt write F_operAttach;
     property revsID:string write F_RevsID;
-
+    property TypeDiscon :integer write F_type;// 2 - закрытые 1 - незакрытые  0 - все
 
   end;
 const main_sql='select w.id id_wwater,'+
@@ -176,14 +177,24 @@ begin
  else
    result:='';
 end;
-var revs:string;
+function prepereType():string;
+begin
+ case F_type of
+  0 : result:='';
+  1 : result := ' and  DTTM_CON is null ';
+  2 :result := ' and  DTTM_CON is not null';
+ end;
+end;
+var revs ,sQL_typ:string;
 begin
 try
    revs:= prepareRevs();
+   sQL_typ:=prepereType();
+
    if dset_main.Active then
       dset_main.Close;
 
-     dset_main.SelectSQL.Text:=format(main_SQL,[revs,revs]) ;
+     dset_main.SelectSQL.Text:=format(main_SQL,[revs + Sql_typ ,revs + Sql_typ]) ;
 
 
     dset_main.ParamByName('dt_begin').asstring:=DateTimeToStr(f_dt_begin);

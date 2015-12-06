@@ -5,6 +5,7 @@ inherited frm_DiskonOpt: Tfrm_DiskonOpt
   Height = 265
   Caption = 'frm_DiskonOpt'
   OldCreateOrder = True
+  Position = poMainFormCenter
   PixelsPerInch = 96
   TextHeight = 13
   inline Frm_Date1: TFrm_Date
@@ -47,7 +48,7 @@ inherited frm_DiskonOpt: Tfrm_DiskonOpt
   end
   object btn_ok: TBitBtn
     Left = 16
-    Top = 168
+    Top = 192
     Width = 81
     Height = 25
     Caption = #1055#1088#1080#1085#1103#1090#1100
@@ -80,7 +81,7 @@ inherited frm_DiskonOpt: Tfrm_DiskonOpt
   end
   object btn_cansel: TBitBtn
     Left = 160
-    Top = 168
+    Top = 192
     Width = 89
     Height = 25
     Caption = #1054#1090#1084#1077#1085#1080#1090#1100
@@ -125,5 +126,18 @@ inherited frm_DiskonOpt: Tfrm_DiskonOpt
     ParentFont = False
     TabOrder = 3
     OnClick = btn_revsClick
+  end
+  object rg_disconType: TRadioGroup
+    Left = 16
+    Top = 136
+    Width = 233
+    Height = 49
+    Columns = 2
+    ItemIndex = 0
+    Items.Strings = (
+      #1042#1089#1077
+      #1053#1077' '#1079#1072#1082#1086#1085#1095#1077#1085#1085#1099#1077
+      #1047#1072#1082#1086#1085#1095#1077#1085#1085#1099#1077)
+    TabOrder = 4
   end
 end
