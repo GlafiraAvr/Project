@@ -1,5 +1,6 @@
 unit testSetJson2;
 
+//{$define sent}
 interface
 
 
@@ -303,12 +304,14 @@ begin
      TlkJSONstreamed.SaveToStream(json,stream);
      if worklog then
        myworklog('post to '+url+':' +stream.DataString);
+     {$ifdef sent}
      result:=http.doPost(url,stream,answer);
      if worklog then
       begin
         myworklog('Answer : '+answer);
         myworklog('Status : '+http.pErrr+' status '+BoolToStr(http.pStatus,true) );
     end;
+    {$endif}
  finally
  stream.free;
  end;
