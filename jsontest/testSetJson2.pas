@@ -244,7 +244,7 @@ json:=TlkJSONObject.Create();
 try
 
 json.Add('id',id);
-json.Add('date',formatdatetime('dd-mm-yyyy',date));
+json.Add('date',formatdatetime(formatdat,date));
 json.Add('type',typDiscon[tAttach]);
 json.Add('text',format(fromatText,[formatPlaces[tAttach],adres]));
 try

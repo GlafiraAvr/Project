@@ -14,4 +14,15 @@ Pr_avar.res
 *.MB
 *.DB
 *.ddp
-
+*.txt
+*.log
+*.exe*
+*.htm
+*.bmp
+*.xml
+*.todo
+*.log
+*.doc
+*.xls
+_AvarOnMap/*
+AppErrPics/

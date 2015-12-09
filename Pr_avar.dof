@@ -133,7 +133,7 @@ LegalTrademarks=
 OriginalFilename=
 ProductName=Диспетчер АВР. Одесса
 ProductVersion=3.3.2.0
-Comments=
+Comments=Поддержка аварий на карте
 [HistoryLists\hlConditionals]
 Count=1
 Item0=nodebug;nmap
