@@ -523,9 +523,9 @@ begin
  end;
 
  case Dataset.FieldByName('TYP_HOUSE').AsInteger of
-  0,1:houses:=houses+' все';
-  2:houses:=houses+' чет';
-  3:houses:=houses+' неч';
+  0,1:houses:=houses+' все дома';
+  2:houses:=houses+' четные дома';
+  3:houses:=houses+' нечетные дома';
  end;
 
 
@@ -551,8 +551,7 @@ end;
 
 procedure Tfrm_DisconNew.DBDateTimeEditEh1Change(Sender: TObject);
 begin
-if dset_main.FieldByName('DTTM_DISCON_PLAN').IsNull then
-   dset_main.FieldByName('DTTM_DISCON_PLAN').AsDateTime:=Date();
+
 DBDateEdit1Change(Sender);
   inherited;
 
@@ -562,8 +561,7 @@ procedure Tfrm_DisconNew.DBDateTimeEditEh2Change(Sender: TObject);
 begin
   inherited;
 DBDateEdit2Change(Sender);
-if dset_main.FieldByName('DTTM_CON_PLAN').IsNull then
-   dset_main.FieldByName('DTTM_CON_PLAN').AsDateTime:=Date();
+
 end;
 
 end.

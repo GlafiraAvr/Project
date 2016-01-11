@@ -1,6 +1,6 @@
 unit testSetJson2;
 
-//{$define sent}
+{$define sent}
 interface
 
 
