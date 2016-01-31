@@ -53,7 +53,7 @@ const mainSQL='select  z.id_attach, '+
               ' left join s_brig sb on sb.id=n.id_brig '+
               ' join s_mest sp on sp.id= z.id_mest '+
               ' join s_revs ssr on ssr.id=z.id_revs '+
-              ' where n.dt_dep>:dt and n.dt_dep<:dt+1 '+
+              ' where (z.delz = 0 and (z.is_otl<>1 and z.is_otl is null)) and n.dt_dep>:dt and n.dt_dep<:dt+1 '+
                ' %s %s '+
               ' union '+
               ' select  z.id_attach, '+
@@ -64,7 +64,7 @@ const mainSQL='select  z.id_attach, '+
               '  left join s_brig sb on sb.id=n.id_brig '+
               ' join s_mest sp on sp.id= z.id_mest '+
               ' join s_revs ssr on ssr.id=z.id_revs '+
-              ' where n.dt_dep>:dt and n.dt_dep<:dt+1 '+
+              ' where (z.delz = 0 and (z.is_otl<>1 and z.is_otl is null)) and  n.dt_dep>:dt and n.dt_dep<:dt+1 '+
               ' %s %s '+
               ' order by  1,4 ';
 

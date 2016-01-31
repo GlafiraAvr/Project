@@ -55,7 +55,6 @@ implementation
 uses main,zav,fresult,strtool, avartype, AvrDBConst;
 {$R *.DFM}
 
-
 constructor TFormSZ_nzav.SZ_NzavCreate(AOwner:TComponent;Mode:integer);
  begin
    ZMode:=Mode;
@@ -198,9 +197,10 @@ begin
                  'select z.id,z.id_ul1,z.id_ul2,z.kod_ul,z.dop_adr, z.id_dopadres, z.dt_in pole0,'+
                  'cast(z.nomer as char(8))||"/"||cast(z.fyear as char(8)) pole1,'+
                  'sd.name_r pole4,dm.diam pole5,z.dop_inf pole6, a.name_r pole3, " " pole7 from nzavjav z,s_diam dm, s_revs a, s_sod sd '+
-                 'where (delz=0) and z.id_comment=sd.id '+Kollector+StrAttach+' and dm.id=z.id_diam and a.id=z.id_revs'+tzav_sql+rayon_sql+
+                 'where (delz=0 and (z. is_otl<>1 or z.is_otl is null) ) and z.id_comment=sd.id '+Kollector+StrAttach+' and dm.id=z.id_diam and a.id=z.id_revs'+tzav_sql+rayon_sql+
                  ' order by z.dt_in,z.nomer'
-                 ,sTit,2,NN,false);
+                 ,sTit,2,NN,false); //исключим отложеннные
+
        Fres.ShowModal;
        Qry_tmp.Close;
      end // if Zmode = 1 ...
@@ -240,7 +240,7 @@ begin
               1{незакрытые} :
                    tt_sql2:='select z.id,z.id_ul1,z.id_ul2,z.kod_ul,z.dop_adr, z.id_dopadres,cast(z.nomer as char(8))||"/"||cast(z.fyear as char(8)) pole0,z.dt_in pole1,'+
                      'sd.name_r pole3,dm.diam pole4,z.dop_inf pole5," " pole6," " pole7 from nzavjav z,s_diam dm,s_ulic u,s_sod sd '+
-                     'where (delz=0) and z.id_ul1=u.id '+Kollector+StrAttach+' and dm.id=z.id_diam and z.id_comment=sd.id'+
+                     'where (delz=0 and (z. is_otl<>1 or z.is_otl is null)) and z.id_ul1=u.id '+Kollector+StrAttach+' and dm.id=z.id_diam and z.id_comment=sd.id'+
                      tzav_sql+rayon_sql+
                      {'sd.name_r pole3,dm.diam pole4,z.dop_inf pole5," " pole6,z.dt_out pole7 from zavjav z,s_sod sd,s_diam dm '+
                      'where sd.id=z.id_sod and dm.id=z.id_diam'+tzav_sql+rayon_sql+}
@@ -249,7 +249,7 @@ begin
                0 {закрытые} :// 'union '
                    tt_sql2:='select z.id,z.id_ul1,z.id_ul2,z.kod_ul,z.dop_adr,z.id_dopadres,cast(z.nomer as char(8))||"/"||cast(z.fyear as char(8)) pole0,z.dt_in pole1,'+
                      'sd.name_r pole3,dm.diam pole4,z.dop_inf pole5," " pole6,z.dt_out pole7 from zavjav z,s_diam dm,s_ulic u,s_sod sd '+
-                     'where (delz=0) and z.id_comment=sd.id and z.id_ul1=u.id '+Kollector+StrAttach+' and dm.id=z.id_diam'+
+                     'where (delz=0 and (z. is_otl<>1 or z.is_otl is null)) and z.id_comment=sd.id and z.id_ul1=u.id '+Kollector+StrAttach+' and dm.id=z.id_diam'+
                      tzav_sql+rayon_sql+
                      {'sd.name_r pole3,dm.diam pole4,z.dop_inf pole5," " pole6,z.dt_out pole7 from zavjav z,s_sod sd,s_diam dm '+
                      'where sd.id=z.id_sod and dm.id=z.id_diam'+tzav_sql+rayon_sql+}
@@ -312,7 +312,7 @@ begin
                          'z.dt_in pole1,'+
                          'cast(z.nomer as char(8))||"/"||cast(z.fyear as char(8)) pole2,'+
                          'sd.name_r pole3,dm.diam pole4," " pole5," " pole6,z.dop_inf pole7,dg.name_r pole8 from zavjav z,s_sod sd,s_diam dm,s_tzav dg '+
-                         'where (delz=0) and sd.id=z.id_comment'+Kollector+StrAttach+' and dm.id=z.id_diam and z.id_tzav=dg.id '+rayon_sql+
+                         'where (delz=0 and (z. is_otl<>1 or z.is_otl is null)) and sd.id=z.id_comment'+Kollector+StrAttach+' and dm.id=z.id_diam and z.id_tzav=dg.id '+rayon_sql+
                          ' and '+tt_sql+'exists (select rs.id from raskop rs where rs.id_zavin=z.id)'+
                          ' order by z.nomer',sTit,0,NN2,false);
                Fres.ShowModal;

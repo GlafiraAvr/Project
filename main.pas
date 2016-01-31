@@ -1892,12 +1892,12 @@ begin
      begin
        FormSah.Frm_Dt.min_dt:='dt_in';
        FormSah.Frm_Dt.max_dt:='dt_in';
-       MyOpenSQL(FormMain.Qry_tmp,'select count(id) mm from zavjav z where (delz=0) and id_revs='
+       MyOpenSQL(FormMain.Qry_tmp,'select count(id) mm from zavjav z where (delz=0 and (is_otl is null or is_otl<>1))  and id_revs='
                                   +TekRevs+StrAttach4+FormSah.Frm_Dt.SQLStr);
        ss:=FormMain.Qry_tmp.FieldByName('MM').asString;
        FormSah.Frm_Dt.min_dt:='dt_in';
        FormSah.Frm_Dt.max_dt:='dt_in';
-       MyOpenSQL(FormMain.Qry_tmp,'select count(id) mm from nzavjav z where (delz=0) and id_revs='
+       MyOpenSQL(FormMain.Qry_tmp,'select count(id) mm from nzavjav z where (delz=0 and (is_otl is null or is_otl<>1) ) and id_revs='
                                    +TekRevs+StrAttach4+FormSah.Frm_Dt.SQLStr);
        ss:=inttostr(strtointdef(ss,0)+strtointdef(FormMain.Qry_tmp.FieldByName('MM').asString,0));
        cn1:=strtointdef(ss,0);
@@ -1916,7 +1916,7 @@ begin
      begin
        FormSah.Frm_Dt.min_dt:='dt_in';
        FormSah.Frm_Dt.max_dt:='dt_in';
-       MyOpenSQL(FormMain.Qry_tmp,'select count(id) mm from zavjav z where (delz=0) and id_revs='+TekRevs+StrAttach4+
+       MyOpenSQL(FormMain.Qry_tmp,'select count(id) mm from zavjav z where (delz=0 and (is_otl is null or is_otl<>1) ) and id_revs='+TekRevs+StrAttach4+
        FormSah.Frm_Dt.SQLStr+ ' and id_tzav'+ss);
        ss:=FormMain.Qry_tmp.FieldByName('MM').asString;
        FormMain.Qry_tmp.Close;
@@ -1926,14 +1926,14 @@ begin
          old_res:=old_res+strtointdef(ss,0)
        else if col=7 then
          old_resR:=old_resR+strtointdef(ss,0)
-       else                                      
+       else
          old_cn:=old_cn+strtointdef(ss,0);
      end
     else if (col=4) or (col=6) or (col=8) or (col=10) then
      begin
        FormSah.Frm_Dt.min_dt:='dt_in';
        FormSah.Frm_Dt.max_dt:='dt_in';
-       MyOpenSQL(FormMain.Qry_tmp,'select count(id) mm from nzavjav z where (delz=0) and id_revs='+TekRevs+StrAttach4+
+       MyOpenSQL(FormMain.Qry_tmp,'select count(id) mm from nzavjav z where (delz=0 and (is_otl is null or is_otl<>1) ) and id_revs='+TekRevs+StrAttach4+
        FormSah.Frm_Dt.SQLStr+ ' and id_tzav'+ss);
        ss:=FormMain.Qry_tmp.FieldByName('MM').asString;
        FormMain.Qry_tmp.Close;
@@ -1960,7 +1960,7 @@ begin
       begin
         if TBitBtn(OwnerForm.Controls[i]).Tag<>555 then
           TBitBtn(OwnerForm.Controls[i]).Visible:=vis;
-      end;  
+      end;
    end;
 end;
 

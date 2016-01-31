@@ -172,7 +172,7 @@ begin
     end;
    }
     _cond :=
-      ' where ( delz=0 )' +
+      ' where ( delz=0 and (z.is_otl=0 or z.is_otl<>1))' +
       ' and ( z.dt_in >= ''' + DateToStr( F_DtBeg ) + ''' )' +
       ' and ( z.dt_in < ''' + DateToStr( F_DtEnd + 1 ) + ''')' +
       ' and' +

@@ -362,6 +362,7 @@ begin
     ' left join s_place sp on (sp.id = ss.place_type)' +
     ' left join s_owner so on ( so.id = z.id_alien )' +
     ' where (delz=0) and (z.id_attach = %d) and (so.owner_type in( %s ) ) and  %s'+
+    ' and  (z.is_otl is null or z.is_otl<>1) ' + //всегда выбираем не отложенные
     revs_cond +
     ' order by sr.name_r, z.dt_in';
 end;

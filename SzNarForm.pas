@@ -86,7 +86,7 @@ Const SQL_STRing='select z.id ,z.id_ul1,z.id_ul2,z.kod_ul,z.dop_adr,z.id_dopadre
  ' n.dop_inf pole14, '+
  '  1 pole10, 1 pole11, 1 pole13, z.dt_out pole15, '+
  ' (select ss.name_r from s_sod ss where ss.id=z.id_sod) pole12 '+
- ' from nnarad n inner join nzavjav z on n.id_zav=z.id '+
+ ' from nnarad n inner join nzavjav z on n.id_zav=z.id  and (z.delz=0 and (z.is_otl is null or z.is_otl<>1))'+
   ' where' +
   ' %s '+
   ' union '+
@@ -109,7 +109,7 @@ Const SQL_STRing='select z.id ,z.id_ul1,z.id_ul2,z.kod_ul,z.dop_adr,z.id_dopadre
  ' n.dop_inf pole14, '+
  '  1 pole10, 1 pole11, 1 pole13, z.dt_out pole15, '+
  ' (select ss.name_r from s_sod ss where ss.id=z.id_sod) pole12 '+
- ' from narad n inner join zavjav z on n.id_zav=z.id '+
+ ' from narad n inner join zavjav z on n.id_zav=z.id  and (z.delz=0 and (z.is_otl is null or z.is_otl<>1)) '+
   ' where' +
   ' %s '+
   {  + 'union '+
@@ -178,7 +178,7 @@ begin
  t_db:='n';
  Min_dt:='dt_in';
  Max_dt:='dt_in';
- tt_sql:=DateTime2SQL;
+ tt_sql:=DateTime2SQL + ' and  ( z.is_otl is null or z.is_otl <>1 ) ' ;
  tt_str:=DateTime2Tit;
 end  ;
  cn:=0;old_res:=0;old_id:=0;TekWord:=1;fl:=false;

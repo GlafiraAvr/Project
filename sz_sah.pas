@@ -142,6 +142,7 @@ const MasBuk: array [1..26] of string =
              ('A','B','C','D','E','F','G','H','I','J',
               'K','L','N','M','O','P','Q','R','S','T',
               'U','V','W','X','Y','Z');
+const cond_otl = ' and (id_otl=0 or id_otl is null) ';
 var zSQL,nzSQL,tzSQL,tnzSQL,tt_str,tt_str2,zag,zag2,zag3,zag4:string;
     line,db_sql:string;
     i,nom,all,vsego,t1,t2,dlin,dlin1,kol_sah:integer;
@@ -257,11 +258,11 @@ begin
                         end;
                     end;
                  {кол-во заявок закрытых и незакрытых - перех}
-                  zSQL:='select count(id) mm from zavjav where (delz=0) and '+db_sql+
+                  zSQL:='select count(id) mm from zavjav where (delz=0 ) and '+db_sql+
                          'dt_in<="'+
                          DE_In.Text+' '+Time2Str(TE_In.Time)+'" and dt_out >="'+
                          DE_In.Text+' '+Time2Str(TE_in.Time)+'"'+zStrAttach;
-                  nzSQL:='select count(id) mm from nzavjav where (delz=0) and '+db_sql+
+                  nzSQL:='select count(id) mm from nzavjav where (delz=0 ) and '+db_sql+
                          'dt_in<="'+DE_In.Text+' '+Time2Str(TE_In.Time)+'"'+zStrAttach;
                  end
                else if nom=2 then
@@ -270,11 +271,11 @@ begin
                  if ChB_Excel.Checked then
                     Sheet.Cells[XLRow,2]:=trim(POSTU);
                   {кол-во заявок закрытых и незакрытых - пост}
-                  zSQL:='select count(id) mm from zavjav where (delz=0) and '+db_sql+
+                  zSQL:='select count(id) mm from zavjav where (delz=0 ) and '+db_sql+
                          'dt_in>="'+
                          DE_In.Text+' '+Time2Str(TE_In.Time)+'" and dt_in<="'+
                          DE_Out.Text+' '+Time2Str(TE_Out.Time)+'"'+zStrAttach;
-                  nzSQL:='select count(id) mm from nzavjav where (delz=0) and '+db_sql+
+                  nzSQL:='select count(id) mm from nzavjav where (delz=0 ) and '+db_sql+
                          'dt_in>="'+
                          DE_In.Text+' '+Time2Str(TE_In.Time)+'" and dt_in<="'+
                          DE_Out.Text+' '+Time2Str(TE_Out.Time)+'"'+zStrAttach;
@@ -285,11 +286,11 @@ begin
                  if ChB_Excel.Checked then
                     Sheet.Cells[XLRow,2]:=VIPOL;
                   {кол-во заявок закрытых и незакрытых - выпол}  
-                  zSQL:='select count(id) mm from zavjav where (delz=0) and '+db_sql+
+                  zSQL:='select count(id) mm from zavjav where (delz=0 ) and '+db_sql+
                          'dt_out>="'+
                          DE_In.Text+' '+Time2Str(TE_In.Time)+'" and dt_out<="'+
                          DE_Out.Text+' '+Time2Str(TE_Out.Time)+'"'+zStrAttach;
-                  nzSQL:='select count(id) mm from nzavjav where (delz=0) and id<-1000'+zStrAttach;
+                  nzSQL:='select count(id) mm from nzavjav where (delz=0 ) and id<-1000'+zStrAttach;
                  end
                else if nom=4 then
                  begin
@@ -297,12 +298,12 @@ begin
                  if ChB_Excel.Checked then
                     Sheet.Cells[XLRow,2]:=OSTAT;
                   {кол-во заявок закрытых и незакрытых - остат}
-                  zSQL:='select count(id) mm from zavjav where (delz=0) and '+db_sql+
+                  zSQL:='select count(id) mm from zavjav where (delz=0 ) and '+db_sql+
                          'dt_in<="'+
                          DE_Out.Text+' '+Time2Str(TE_Out.Time)+
                          '" and dt_out>="'+
                          DE_Out.Text+' '+Time2Str(TE_Out.Time)+'"'+zStrAttach;
-                  nzSQL:='select count(id) mm from nzavjav where (delz=0) and '+db_sql+
+                  nzSQL:='select count(id) mm from nzavjav where (delz=0 ) and '+db_sql+
                          'dt_in<="'+
                          DE_Out.Text+' '+Time2Str(TE_Out.Time)+'"'+zStrAttach;
                  end;
@@ -351,10 +352,10 @@ begin
                                  end;
                                  {Qry_sah - магистраль, квартальные, колодцы, ПГ, ВРК, прочие,
                                  арматура, коллектор}
-                               tzSQL:=zSQL+' and id_sod in (select id from s_sod where sah='+
+                               tzSQL:=zSQL+ cond_otl + '  and id_sod in (select id from s_sod where sah='+
                                     Qry_sah.FieldByName('ID').asString+' and ftype='+
                                     Qry_tzav.FieldByName('ID').asString+')';
-                               tnzSQL:=nzSQL+' and id_sod in (select id from s_sod where sah='+
+                               tnzSQL:=nzSQL+cond_otl +' and id_sod in (select id from s_sod where sah='+
                                     Qry_sah.FieldByName('ID').asString+' and ftype='+
                                     Qry_tzav.FieldByName('ID').asString+')';
                                MyOpenSQL(Qry_tmp,tzSQL);
@@ -514,7 +515,7 @@ where dt_out <="07.06.1999 08:00" and dt_out<="07.06.1999 08:00" group by id_to
 
               { 'where dt_out >="'+DE_in.Text+' '+Time2Str(TE_in.Time)+
                '" and dt_out<="'+DE_out.Text+' '+Time2Str(TE_out.Time)+
-               '" and '+}'where (delz=0) and '+
+               '" and '+}'where (delz=0 ) and '+
                'id_revs in (select id from s_revs where id>0) '+zStrAttach+
                frm_Dt.SQLStr
                );
@@ -589,7 +590,7 @@ begin
     cn1:=0;old_id:=0;old_res:=0;
     frm_Dt.min_dt:='dt_out';
     frm_Dt.max_dt:='dt_out';
-    MyOpenSQL(Qry_tmp,'select sum(m.kol_mat) mm from maters m,zavjav z where (delz=0) and m.id_mat='
+    MyOpenSQL(Qry_tmp,'select sum(m.kol_mat) mm from maters m,zavjav z where (delz=0 and (is_otl<>1 or is_otl is null )) and m.id_mat='
     +Qry_mat.FieldByName('ID').asString+
     {'and m.id_zav=z.id and z.dt_in >="'+DE_in.Text+' '+Time2Str(TE_in.Time)+
     '" and z.dt_in<="'+DE_out.Text+' '+Time2Str(TE_out.Time)+'"');}
@@ -606,7 +607,7 @@ begin
                       Qry_mat.FieldByName('NAME_R').asString,
                'select d.name_r pole0,cast(sum(m.kol_mat) as numeric(9,2)) pole1,cast((sum(m.kol_mat)/'+
                //'select d.name_r pole0,sum(m.kol_mat) pole1,(sum(m.kol_mat)/'+
-               RepChar(',','.',floattostr(cnf))+')*100 as numeric(2,2)) pole2,"0" id from maters m,zavjav z,s_revs d where (delz=0) and m.id_mat='+
+               RepChar(',','.',floattostr(cnf))+')*100 as numeric(2,2)) pole2,"0" id from maters m,zavjav z,s_revs d where (delz=0 and (is_otl<>1 or is_otl is null )) and m.id_mat='+
   //             inttostr(cn)+')*100 pole2,"0" id from maters m,zavjav z,s_revs d where m.id_mat='+
                Qry_mat.FieldByName('ID').asString+
                ' and m.id_zav=z.id '+frm_dt.sqlstr+zStrAttach+{'and z.dt_in >="'+
@@ -638,7 +639,7 @@ begin
    frm_Dt.min_dt:='dt_out';
    frm_Dt.max_dt:='dt_out';
    //cn1:=0;old_id:=0;old_res:=0;
-   MyOpenSQL(Qry_tmp,'select sum(m.kol_mat) mm from maters m,zavjav z where (delz=0) and m.id_mat='
+   MyOpenSQL(Qry_tmp,'select sum(m.kol_mat) mm from maters m,zavjav z where (delz=0 and (is_otl<>1 or is_otl is null ) ) and m.id_mat='
    +Qry_mat.FieldByName('ID').asString+zStrAttach+' and m.id_diam>0 '+
    'and m.id_zav=z.id '+frm_dt.sqlstr{and z.dt_in >="'+DE_in.Text+' '+Time2Str(TE_in.Time)+
    '" and z.dt_in<="'+DE_out.Text+' '+Time2Str(TE_out.Time)+'"'});
@@ -655,7 +656,7 @@ begin
                       ' '+
                       Qry_mat.FieldByName('NAME_R').asString,
                 'select d.diam pole0,cast(sum(m.kol_mat) as numeric(9,2)) pole1,cast((sum(m.kol_mat)/'+
-                RepChar(',','.',floattostr(cnf))+')*100 as numeric(2,2)) pole2,"0" id from maters m,zavjav z,s_diam d where (delz=0) and m.id_mat='+
+                RepChar(',','.',floattostr(cnf))+')*100 as numeric(2,2)) pole2,"0" id from maters m,zavjav z,s_diam d where (delz=0 and (is_otl<>1 or is_otl is null ) ) and m.id_mat='+
 
                {'select d.diam pole0,sum(m.kol_mat) pole1,(sum(m.kol_mat)/'+
                inttostr(cn)+')*100 pole2,"0" id from maters m,zavjav z,s_diam d where m.id_mat='+}
@@ -761,13 +762,13 @@ begin
         ' left join s_tzav st on (st.id=ss.ftype)'+
         ' left join s_place sp on (sp.id=ss.place_type)'+
         ' where ss.id>0 and '+
-        ' ss.id in (select z.id_sod from zavjav z where (delz=0) and z.dt_in >="'+frm_Dt.DE_in.Text+' '+Time2Str(frm_Dt.TE_in.Time)+
+        ' ss.id in (select z.id_sod from zavjav z where (delz=0 and (is_otl<>1 or is_otl is null ) ) and z.dt_in >="'+frm_Dt.DE_in.Text+' '+Time2Str(frm_Dt.TE_in.Time)+
                '" and z.dt_in<="'+frm_Dt.DE_out.Text+' '+Time2Str(frm_Dt.TE_out.Time)+'"'+zStrAttach+')'+
         ' order by 2'
                {
                'select id,name_r pole0,'+tt_sql+
                ' from s_sod where id>0 and '+
-               'id in (select z.id_sod from zavjav z where (delz=0) and z.dt_in >="'+frm_Dt.DE_in.Text+' '+Time2Str(frm_Dt.TE_in.Time)+
+               'id in (select z.id_sod from zavjav z where (delz=0 and (is_otl<>1 or is_otl is null ) ) and z.dt_in >="'+frm_Dt.DE_in.Text+' '+Time2Str(frm_Dt.TE_in.Time)+
                '" and z.dt_in<="'+frm_Dt.DE_out.Text+' '+Time2Str(frm_Dt.TE_out.Time)+'"'+zStrAttach+')'
                }
                ,sTit,-1,NN7,false);
@@ -891,20 +892,20 @@ begin
        tt_ras:='('+TrLangMSG(msgTempNotDig)+') ';
 {
        tt_sql:='select z.id id,z.id_ul1,z.id_ul2,z.kod_ul,z.dop_adr,z.nomer pole1,z.dt_in pole2,z.id_dopadres from zavjav z '+
-               'where (delz=0) and exists (select id from raskop r where (r.id_zavin=z.id) and (r.dt_out is null)) '+
+               'where (delz=0 and (is_otl<>1 or is_otl is null ) ) and exists (select id from raskop r where (r.id_zavin=z.id) and (r.dt_out is null)) '+
                frm_dt.sqlstr+zStrAttach+
                ' union all '+
                'select z.id id,z.id_ul1,z.id_ul2,z.kod_ul,z.dop_adr,z.nomer pole1,z.dt_in pole2,z.id_dopadres from nzavjav z '+
-               'where (delz=0) and exists (select id from raskop r where (r.id_zavin=z.id) and (r.dt_out is null)) '+
+               'where (delz=0 and (is_otl<>1 or is_otl is null ) ) and exists (select id from raskop r where (r.id_zavin=z.id) and (r.dt_out is null)) '+
                frm_dt.sqlstr+zStrAttach+
                ' order by 6';
 }
        tt_sql:='select z.id id,z.id_ul1,z.id_ul2,z.kod_ul,z.dop_adr,z.nomer pole1,z.dt_in pole2,z.id_dopadres from zavjav z '+
-               'where (delz=0) and exists (select out_id from get_zav_raskops( z.id, ' + IntToStr( Ord( tsc_sw_ZASIPKA ) ) + ', -1, -1, -1 ) where out_dt_work1 is null) '+
+               'where (delz=0 and (is_otl<>1 or is_otl is null ) ) and exists (select out_id from get_zav_raskops( z.id, ' + IntToStr( Ord( tsc_sw_ZASIPKA ) ) + ', -1, -1, -1 ) where out_dt_work1 is null) '+
                frm_dt.sqlstr+zStrAttach+
                ' union all '+
                'select z.id id,z.id_ul1,z.id_ul2,z.kod_ul,z.dop_adr,z.nomer pole1,z.dt_in pole2,z.id_dopadres from nzavjav z '+
-               'where (delz=0) and exists (select out_id from get_zav_raskops( z.id, ' + IntToStr( Ord( tsc_sw_ZASIPKA ) ) + ', -1, -1, -1 ) where out_dt_work1 is null) '+
+               'where (delz=0 and (is_otl<>1 or is_otl is null ) ) and exists (select out_id from get_zav_raskops( z.id, ' + IntToStr( Ord( tsc_sw_ZASIPKA ) ) + ', -1, -1, -1 ) where out_dt_work1 is null) '+
                frm_dt.sqlstr+zStrAttach+
                ' order by 6';
 
@@ -915,24 +916,24 @@ begin
        tt_ras:='('+TrLangMSG(msgTempNotDig)+') ';
 {
        tt_sql:='select z.id id,z.id_ul1,z.id_ul2,z.kod_ul,z.dop_adr,z.nomer pole1,z.dt_in pole2,z.id_dopadres from zavjav z '+
-              'where (delz=0) and exists (select id from raskop r where (r.id_zavin=z.id) and (r.dt_rec is null)) '+
+              'where (delz=0 and (is_otl<>1 or is_otl is null ) ) and exists (select id from raskop r where (r.id_zavin=z.id) and (r.dt_rec is null)) '+
               ' and (z.id_mest in (1,2)) '+
               frm_dt.sqlstr+zStrAttach+
               ' union all '+
               'select z.id id,z.id_ul1,z.id_ul2,z.kod_ul,z.dop_adr,z.nomer pole1,z.dt_in pole2,z.id_dopadres from nzavjav z '+
-              'where (delz=0) and exists (select id from raskop r where (r.id_zavin=z.id) and (r.dt_rec is null)) '+
+              'where (delz=0 and (is_otl<>1 or is_otl is null ) ) and exists (select id from raskop r where (r.id_zavin=z.id) and (r.dt_rec is null)) '+
               ' and (z.id_mest in (1,2)) '+
               frm_dt.sqlstr+zStrAttach+
               ' order by 6';
 }
 
        tt_sql:='select z.id id,z.id_ul1,z.id_ul2,z.kod_ul,z.dop_adr,z.nomer pole1,z.dt_in pole2,z.id_dopadres from zavjav z '+
-              'where (delz=0) and exists (select out_id from get_zav_raskops( z.id, ' + IntToStr( Ord( tsc_sw_ASFALT ) ) + ', -1, -1, -1 ) where out_dt_work1 is null) '+
+              'where (delz=0 and (is_otl<>1 or is_otl is null ) ) and exists (select out_id from get_zav_raskops( z.id, ' + IntToStr( Ord( tsc_sw_ASFALT ) ) + ', -1, -1, -1 ) where out_dt_work1 is null) '+
               ' and (z.id_mest in (1,2)) '+
               frm_dt.sqlstr+zStrAttach+
               ' union all '+
               'select z.id id,z.id_ul1,z.id_ul2,z.kod_ul,z.dop_adr,z.nomer pole1,z.dt_in pole2,z.id_dopadres from nzavjav z '+
-              'where (delz=0) and exists (select out_id from get_zav_raskops( z.id, ' + IntToStr( Ord( tsc_sw_ASFALT ) ) + ', -1, -1, -1 ) where out_dt_work1 is null) '+
+              'where (delz=0 and (is_otl<>1 or is_otl is null ) ) and exists (select out_id from get_zav_raskops( z.id, ' + IntToStr( Ord( tsc_sw_ASFALT ) ) + ', -1, -1, -1 ) where out_dt_work1 is null) '+
               ' and (z.id_mest in (1,2)) '+
               frm_dt.sqlstr+zStrAttach+
               ' order by 6';
@@ -943,10 +944,10 @@ begin
    else if (rbAll.Checked) then
      begin
        tt_sql:='select z.id id,z.id_ul1,z.id_ul2,z.kod_ul,z.dop_adr,z.nomer pole1,z.dt_in pole2, z.id_dopadres from raskop r,zavjav z '+
-              'where (delz=0) and r.id_zavin=z.id '+frm_dt.sqlstr+zStrAttach+
+              'where (delz=0 and (is_otl<>1 or is_otl is null ) ) and r.id_zavin=z.id '+frm_dt.sqlstr+zStrAttach+
               ' union all '+
               'select z.id id,z.id_ul1,z.id_ul2,z.kod_ul,z.dop_adr,z.nomer pole1,z.dt_in pole2, z.id_dopadres from raskop r,nzavjav z '+
-              'where (delz=0) and r.id_zavin=z.id '+frm_dt.sqlstr+zStrAttach+
+              'where (delz=0 and (is_otl<>1 or is_otl is null ) ) and r.id_zavin=z.id '+frm_dt.sqlstr+zStrAttach+
               ' order by 6';
      end;         //Exception
     FRes:=TFormResult.ResCreate(Self,false,'dbn_avar','Результат',
