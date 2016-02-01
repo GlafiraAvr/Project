@@ -71,7 +71,7 @@ implementation
 {$R *.DFM}
 
 var
-  old_id, wwater_col: integer;
+   wwater_col: integer;
   fl: boolean;
 
 function NN1_PrintPerZ(id,col:integer;var ss:string):integer;

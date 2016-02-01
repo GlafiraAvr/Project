@@ -2847,6 +2847,7 @@ procedure TFormMain.N51Click(Sender: TObject);
 var SpForm1:TFormSah1;
 begin
   SpForm1:=TFormSah1.Create(Self);
+  OperAtt:=SpForm1.OperAttFormFill(sender);
   SpForm1.ShowModal;
 end;
 
