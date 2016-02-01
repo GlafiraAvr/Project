@@ -202,7 +202,7 @@ begin
     '     ID_DOPADRES,'+
     '     0 IS_CLOSED'+
     ' from nzavjav'+
-    ' where (delz=0)'+
+    ' where (delz=0 and (is_otl is null or is_otl<>1))'+
     cond_attach+
     cond_date+
     cond_revs+
@@ -224,7 +224,7 @@ begin
     '     ID_DOPADRES,'+
     '     1 IS_CLOSED'+
     ' from zavjav'+
-    ' where (delz=0)'+
+    ' where (delz=0 and (is_otl is null or is_otl<>1) )'+
     cond_attach+
     cond_date+
     cond_revs+

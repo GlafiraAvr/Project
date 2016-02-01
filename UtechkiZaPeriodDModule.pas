@@ -191,7 +191,7 @@ begin
     '                 z.op_protyazh) Oporozhn,'+
     ' POTERIPOVREZHD1(z.dt_in, (select dt_end from get_utechenddate(z.id)), z.q) Povrezhd'+
     ' from nzavjav z'+
-    ' where delz=0'+cond_attach+cond_date+
+    ' where (delz=0  and (is_otl is null or is_otl<>1 ))'+cond_attach+cond_date+
       ' union all'+
     ' select z.id, z.nomer, z.dt_in, id_revs,'+
     ' (select name_r from s_revs where id=z.id_revs) revs,'+
@@ -203,7 +203,7 @@ begin
     '                 z.op_protyazh) Oporozhn,'+
     ' POTERIPOVREZHD1(z.dt_in, (select dt_end from get_utechenddate(z.id)), z.q) Povrezhd'+
     ' from zavjav z'+
-    ' where delz=0'+cond_attach+cond_date+';';
+    ' where delz=0 and (is_otl is null or is_otl<>1 ) '+cond_attach+cond_date+';';
 end;
 
 end.

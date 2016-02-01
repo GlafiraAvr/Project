@@ -95,6 +95,7 @@ begin
     ' and (z.id_attach = sa.id)' +
     ' and (z.dt_in >= ''' + DateToStr( F_BeginDate ) + ''')' +
     ' and (z.dt_in < ''' + DateToStr( F_EndDate ) + ''')' +
+    ' and (z.delz = 0 ) '+
     _cond( ' and (z.id_attach in (%s) )', F_AttSelItems ) +
     //_cond( ' and (z.id_revs in (%s) )',   F_RevsSelItems ) +
     _cond( ' and (m.id_mat in ( %s) )',   F_MatSelItems ) +
@@ -121,7 +122,7 @@ begin
 
     ResultDset[ 'dt_in' ] := dset[ 'dt_in' ];
     ResultDset[ 'nomer' ] := dset[ 'nomer' ];
-    ResultDset[ 'mat' ] := _mat( dset[ 'mat' ], dset[ 'ed_izm' ] );
+    ResultDset[ 'mat' ] := _mat( dset.fieldbyname( 'mat' ).AsString, dset.fieldbyname('ed_izm').AsString );
     ResultDset[ 'diam' ] := dset[ 'diam' ];
     ResultDset[ 'zav_id' ] := dset[ 'zav_id' ];
     ResultDset[ 'kol_mat' ] := dset[ 'kol_mat' ];

@@ -384,8 +384,10 @@ begin
                 mtConfirmation, [mbYes, mbNo], 0)=mrYes then
   }
   F_IsDeleted:=false;
+
   if Application.MessageBox('Удалить запись?', PChar(TrLangMSG(msgKiev)), MB_YESNO+MB_ICONQUESTION)=IDYES then
-  begin
+    begin
+      
     dset_Main.Delete;
     EnableCtrls(false);
     Tr_Main.CommitRetaining;

@@ -61,7 +61,7 @@ const main_sql='select w.id id_wwater,'+
                   '  join s_rayon sr on sr.id=z.id_rayon '+
                   ' where  w.dttm_discon<:dt_end   '+
                   '  and( w.dttm_con>:dt_begin or (w.dttm_con is null)) '+
-                  ' and z.id_attach = :attach ' +
+                  ' and z.id_attach = :attach and (z.delz=0 and z.is_otl=0) ' +
                   '  %s '+
                ' union '+
                ' select w.id, '+
@@ -79,7 +79,7 @@ const main_sql='select w.id id_wwater,'+
                   '   join s_rayon sr on sr.id=z.id_rayon '+
                   ' where  w.dttm_discon<:dt_end   '+
                   '  and( w.dttm_con>:dt_begin or (w.dttm_con is null)) '+
-                  ' and z.id_attach = :attach '+
+                  ' and z.id_attach = :attach and (z.delz=0 and z.is_otl=0) '+
                   '   %s '+
                   '     order by 9,4 ';
 
@@ -188,7 +188,7 @@ end;
 var revs ,sQL_typ:string;
 begin
 try
-   revs:= prepareRevs();
+    revs:= prepareRevs();
    sQL_typ:=prepereType();
 
    if dset_main.Active then

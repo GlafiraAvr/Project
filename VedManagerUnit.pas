@@ -88,7 +88,7 @@ begin
   '   and (u.id=z.id_ul1)) as ul1,'+
   '   id_ul2, dop_adr, z.id_dopadres'+
   '  from %s z,s_diam dm, s_sod sd, s_matpipe smat '+
-  '  where (delz=0) and (dm.id=z.id_diam) and (smat.id=z.id_matpipe) and '+
+  '  where (delz=0 and (is_otl is null or is_otl<>1)) and (dm.id=z.id_diam) and (smat.id=z.id_matpipe) and '+
   '  (z.dt_in>='''+DateTimeToStr(Fdt_in)+''') and (z.dt_in<='''+DateTimeToStr(Fdt_out)+''')'+
   '   and (z.id_sod=sd.id)'+
   '   and ((z.id_alien=2) or (z.id_alien=5))'+FAttachStr;
@@ -107,7 +107,7 @@ procedure TDM_VedManager.SetFOperateAttach(value:TOperAtt);
 begin
   FOperateAttach:=value;
   FAttachStr:=' and (z.id_attach='+IntToStr(integer(FOperateAttach))+') ';
-end;  
+end;
 
 function TDM_VedManager.GetUlByID(_ul2:integer):string;
 begin
@@ -144,7 +144,7 @@ begin
       ' z.id_dopadres '+
       ' from %s z, '+
       ' s_diam dm, s_sod sd '+
-      ' where (delz=0) and (dm.id=z.id_diam) and '+
+      ' where (delz=0 and (is_otl is null or is_otl<>1) ) and (dm.id=z.id_diam) and '+
       ' (z.dt_in>='''+DateTimeToStr(Fdt_in)+''') and (z.dt_in<='''+DateTimeToStr(Fdt_out)+''') '+
       ' and (z.id_sod=sd.id) '+
       //' and (z.kod_ul=0) '+
@@ -229,7 +229,7 @@ begin
   dset_tmp.SelectSQL.Add('  id_ul2, dop_adr, z.id_dopadres ');
   //
   dset_tmp.SelectSQL.Add(' from nzavjav z,s_diam dm, s_sod sd, s_matpipe smat ');
-  dset_tmp.SelectSQL.Add(' where (delz=0) and (dm.id=z.id_diam) and (smat.id=z.id_matpipe) and ');
+  dset_tmp.SelectSQL.Add(' where (delz=0 and is_otl=0 ) and (dm.id=z.id_diam) and (smat.id=z.id_matpipe) and ');
   dset_tmp.SelectSQL.Add(' (z.dt_in<='''+DateTimeToStr(Fdt_in)+''')');
   dset_tmp.SelectSQL.Add('  and (z.id_sod=sd.id)');
   //
@@ -287,7 +287,7 @@ begin
   dset_tmp.SelectSQL.Add('  id_ul2, dop_adr, z.id_dopadres ');
   //
   dset_tmp.SelectSQL.Add(' from nzavjav z,s_diam dm, s_sod sd, s_owner so');
-  dset_tmp.SelectSQL.Add(' where (delz=0) and (z.id_alien=so.id) and (so.owner_type<>4) and (dm.id=z.id_diam) and');
+  dset_tmp.SelectSQL.Add(' where (delz=0 and is_otl=0) and (z.id_alien=so.id) and (so.owner_type<>4) and (dm.id=z.id_diam) and');
   dset_tmp.SelectSQL.Add(' (z.dt_in<='''+DateTimeToStr(Fdt_in)+''')');
   dset_tmp.SelectSQL.Add('  and (z.id_sod=sd.id)'+FAttachStr);
   //
@@ -334,7 +334,7 @@ begin
   dset_tmp.SelectSQL.Add('  id_ul2, dop_adr, z.id_dopadres ');
   //
   dset_tmp.SelectSQL.Add(' from zavjav z,s_diam dm, s_sod sd');
-  dset_tmp.SelectSQL.Add(' where (delz=0) and (dm.id=z.id_diam) and');
+  dset_tmp.SelectSQL.Add(' where (delz=0 and is_otl=0) and (dm.id=z.id_diam) and');
   dset_tmp.SelectSQL.Add(' (z.dt_out>='''+DateTimeToStr(Fdt_in)+''') and (z.dt_out<='''+DateTimeToStr(Fdt_out)+''')');
   dset_tmp.SelectSQL.Add('  and (z.id_sod=sd.id) and (z.id_alien<>3)'+FAttachStr);
   dset_tmp.SelectSQL.Add('order by 4,z.dt_in,z.nomer');
