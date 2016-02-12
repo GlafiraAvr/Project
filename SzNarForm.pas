@@ -16,6 +16,7 @@ type
     Q_count: TQuery;
     sel_revs: TButton;
     sel_brig: TButton;
+    cb_otl: TCheckBox;
     procedure btnCanselClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure BtnOkClick(Sender: TObject);
@@ -157,6 +158,7 @@ var FRes:TFormResult;
     Sql_Count:string;
     attach:integer;
     Cols:integer;
+    tt_otl:string;
 begin
   inherited;
   attach:=ord(OperateAttach);
@@ -194,25 +196,31 @@ StrAttach:=StrAttach+ ' and z.id_revs in'+F_RevsID+' ';
 if F_BrigID<>'' then
 StrAttach:=StrAttach+ ' and n.id_brig in'+F_brigID+' ';
 
+{отложеннные}
+if  cb_otl.Checked then
+ tt_otl:=''
+else
+ tt_otl:='  and (is_otl<>1 or is_otl is null ) ';
+
 sql_Count:='select count (*),1 from nnarad n inner join nzavjav z on n.id_zav=z.id '+
             ' where '+
             StrAttach+
-            tt_sql+
+            tt_sql+tt_otl+
             ' union '+
             'select count (*),2 from narad n inner join zavjav z on n.id_zav=z.id '+
             ' where '+
             StrAttach+
-            tt_sql+
+            tt_sql+tt_otl+
              ' union '+
             'select count (*),3 from nnarad n inner join zavjav z on n.id_zav=z.id '+
             ' where '+
             StrAttach+
-            tt_sql+
+            tt_sql+tt_otl+
              ' union '+
             'select count (*),4 from narad n inner join nzavjav z on n.id_zav=z.id '+
             ' where '+
             StrAttach+
-            tt_sql;
+            tt_sql+tt_otl;
 
 if Count(sql_Count,Cols)=mryes then
 begin
@@ -234,7 +242,7 @@ begin
  stit.Add(TrLangMsg( msgMaterMany)); //13материалы
  stit.Add(TrLangMsg(msgNotice));   ///14 примечание
  stit.Add(TrLangMsg(msgDateClose));  //15 Дата закрытия
-  str1:=Format(SQL_STRing, [StrAttach+tt_sql,StrAttach+tt_sql,{StrAttach+ tt_sql,
+  str1:=Format(SQL_STRing, [StrAttach+tt_sql+tt_otl,StrAttach+tt_sql+tt_otl,{StrAttach+ tt_sql,
                           StrAttach+tt_sql}sOrder]);
  FRes:=TFormResult.ResCreate(Self,True,'dbn_avar','Результат',
                               TrLangMSG(mcsVedNarPeriod)+' '+tt_str+' '+GetAttachName(OperateAttach),

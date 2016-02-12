@@ -3,7 +3,7 @@ inherited frm_SvodVed2Opt: Tfrm_SvodVed2Opt
   Top = 260
   BorderStyle = bsDialog
   Caption = 'frm_SvodVed2Opt'
-  ClientHeight = 287
+  ClientHeight = 326
   ClientWidth = 249
   OldCreateOrder = True
   Position = poMainFormCenter
@@ -13,7 +13,7 @@ inherited frm_SvodVed2Opt: Tfrm_SvodVed2Opt
     Left = 4
     Top = 36
     Width = 241
-    Height = 214
+    Height = 240
   end
   object Bevel1: TBevel
     Left = 4
@@ -69,7 +69,7 @@ inherited frm_SvodVed2Opt: Tfrm_SvodVed2Opt
   end
   object btn_ok: TBitBtn
     Left = 6
-    Top = 258
+    Top = 282
     Width = 83
     Height = 25
     Caption = #1055#1088#1080#1085#1103#1090#1100
@@ -103,7 +103,7 @@ inherited frm_SvodVed2Opt: Tfrm_SvodVed2Opt
   end
   object btn_cancel: TBitBtn
     Left = 164
-    Top = 258
+    Top = 282
     Width = 81
     Height = 25
     Cancel = True
@@ -227,5 +227,21 @@ inherited frm_SvodVed2Opt: Tfrm_SvodVed2Opt
       Caption = #1051#1086#1078#1085#1099#1077
       TabOrder = 3
     end
+  end
+  object chb_otl: TCheckBox
+    Left = 24
+    Top = 248
+    Width = 113
+    Height = 17
+    Caption = #1054#1090#1083#1086#1078#1077#1085#1085#1099#1077
+    Checked = True
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'MS Sans Serif'
+    Font.Style = [fsBold]
+    ParentFont = False
+    State = cbChecked
+    TabOrder = 7
   end
 end

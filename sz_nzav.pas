@@ -31,6 +31,7 @@ type
     rbAllCrash: TRadioButton;
     rbCrashColl: TRadioButton;
     rbCrashNotColl: TRadioButton;
+    chb_otl: TCheckBox;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure BB_ESCClick(Sender: TObject);
@@ -83,7 +84,9 @@ begin
     RB_NoRask.Enabled:=false;
     Label4.Visible:=false;
     DBL_rayon.Visible:=false;
+
     DBL_rayon.Enabled:=false;
+    chb_otl.Visible:=true;
     FormSZ_nzav.Caption:=TrLangMSG(msgVedNoCloseZajav);{'¬едомость учета незакрытых за€вок';}
    end
   else if Zmode=2 then
@@ -93,6 +96,7 @@ begin
     Label3.Caption:=TrLangMSG(msgCrash);
     ZayavType_rgClick(self);
     DBL_rayon.DisplayValue:=Qry_rayon.FieldByName('NAME_R').asString;
+    chb_otl.Visible:=true;
     FormSZ_nzav.Caption:=TrLangMSG(msgVedZajav)+' за '+ansilowercase(TrLangMSG(msgRange));
    end
   else if Zmode=3 then
@@ -103,6 +107,7 @@ begin
     DBL_rayon.Enabled:=false;
     DBL_tzav.Visible:=false;
     DBL_tzav.Enabled:=false;
+    chb_otl.Visible:=false;
     FormSZ_nzav.Caption:=TrLangMSG(msgVedLikvidirPovr);
    end;
 
@@ -138,6 +143,7 @@ var FRes:TFormResult;
     rayon_n,rayon_sql:string;
     str1 :string;
     Kollector:string;
+    tt_otl:string;
 begin
  if rbAllCrash.checked then Kollector:='';
  if rbCrashColl.checked then Kollector:=' and sd.sah=9';
@@ -176,7 +182,9 @@ begin
       rayon_sql:={' and z.id_rayon=-' ds}
                 ' and z.id_revs='+Qry_rayon.FieldByName('ID').asString;
     end;
-
+   tt_otl:=''; 
+   if ((Zmode=2)or (Zmode=1)) and ( not chb_otl.Checked) then
+    tt_otl:=' and (z.is_otl<>1 or z.is_otl is null) ';
 
    sTit:=TStringList.Create;
    sTit.Clear;
@@ -198,7 +206,8 @@ begin
                  'select z.id,z.id_ul1,z.id_ul2,z.kod_ul,z.dop_adr, z.id_dopadres, z.dt_in pole0,'+
                  'cast(z.nomer as char(8))||"/"||cast(z.fyear as char(8)) pole1,'+
                  'sd.name_r pole4,dm.diam pole5,z.dop_inf pole6, a.name_r pole3, " " pole7 from nzavjav z,s_diam dm, s_revs a, s_sod sd '+
-                 'where (delz=0) and z.id_comment=sd.id '+Kollector+StrAttach+' and dm.id=z.id_diam and a.id=z.id_revs'+tzav_sql+rayon_sql+
+                 'where (delz=0)'+ tt_otl+
+                  ' and z.id_comment=sd.id '+Kollector+StrAttach+' and dm.id=z.id_diam and a.id=z.id_revs'+tzav_sql+rayon_sql+
                  ' order by z.dt_in,z.nomer'
                  ,sTit,2,NN,false);
        Fres.ShowModal;
@@ -241,7 +250,7 @@ begin
                    tt_sql2:='select z.id,z.id_ul1,z.id_ul2,z.kod_ul,z.dop_adr, z.id_dopadres,cast(z.nomer as char(8))||"/"||cast(z.fyear as char(8)) pole0,z.dt_in pole1,'+
                      'sd.name_r pole3,dm.diam pole4,z.dop_inf pole5," " pole6," " pole7 from nzavjav z,s_diam dm,s_ulic u,s_sod sd '+
                      'where (delz=0) and z.id_ul1=u.id '+Kollector+StrAttach+' and dm.id=z.id_diam and z.id_comment=sd.id'+
-                     tzav_sql+rayon_sql+
+                     tzav_sql+rayon_sql+tt_otl+
                      {'sd.name_r pole3,dm.diam pole4,z.dop_inf pole5," " pole6,z.dt_out pole7 from zavjav z,s_sod sd,s_diam dm '+
                      'where sd.id=z.id_sod and dm.id=z.id_diam'+tzav_sql+rayon_sql+}
 //                     ' and '+tt_sql+'exists (select rs.id from works rs where rs.id_zav=z.id and rs.id_work=206)'+

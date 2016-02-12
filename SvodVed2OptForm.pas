@@ -26,6 +26,7 @@ type
     chb_Open: TCheckBox;
     chb_Viesnen: TCheckBox;
     chb_Lozh: TCheckBox;
+    chb_otl: TCheckBox;
     procedure FormShow(Sender: TObject);
     procedure btn_revsClick(Sender: TObject);
     procedure btn_okClick(Sender: TObject);
@@ -111,6 +112,7 @@ begin
   _check( chb_Open );
   _check( chb_Viesnen );
   _check( chb_Lozh );
+  _check( chb_otl );
 
   Delete( Result, 1, 2 );
 end;

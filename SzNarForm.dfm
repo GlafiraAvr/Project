@@ -2,7 +2,7 @@ inherited frm_sz_nar: Tfrm_sz_nar
   Left = 427
   Top = 277
   Width = 517
-  Height = 192
+  Height = 222
   Caption = 'frm_sz_nar'
   Position = poDesktopCenter
   OnCreate = FormCreate
@@ -84,7 +84,7 @@ inherited frm_sz_nar: Tfrm_sz_nar
   end
   object BtnOk: TBitBtn
     Left = 312
-    Top = 112
+    Top = 144
     Width = 83
     Height = 25
     Caption = #1055#1088#1080#1085#1103#1090#1100
@@ -117,7 +117,7 @@ inherited frm_sz_nar: Tfrm_sz_nar
   end
   object btnCansel: TBitBtn
     Left = 400
-    Top = 112
+    Top = 144
     Width = 89
     Height = 25
     Cancel = True
@@ -152,7 +152,7 @@ inherited frm_sz_nar: Tfrm_sz_nar
   end
   object sel_revs: TButton
     Left = 8
-    Top = 112
+    Top = 144
     Width = 89
     Height = 25
     Caption = #1059#1095#1072#1089#1090#1086#1082
@@ -161,16 +161,30 @@ inherited frm_sz_nar: Tfrm_sz_nar
   end
   object sel_brig: TButton
     Left = 120
-    Top = 112
+    Top = 144
     Width = 75
     Height = 25
     Caption = #1041#1088#1080#1075#1072#1076#1080#1088
     TabOrder = 5
     OnClick = sel_brigClick
   end
+  object cb_otl: TCheckBox
+    Left = 16
+    Top = 112
+    Width = 129
+    Height = 17
+    Caption = #1054#1090#1083#1086#1078#1077#1085#1085#1099#1077
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'MS Sans Serif'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 6
+  end
   object Q_count: TQuery
     DatabaseName = 'DBN_AVAR'
-    Left = 96
+    Left = 160
     Top = 104
   end
 end

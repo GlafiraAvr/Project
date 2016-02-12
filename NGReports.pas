@@ -498,6 +498,8 @@ begin
     F_DM.IsViesnenZavInc := F_OptFrm.chb_Viesnen.Checked;
     F_DM.IsLozhZavInc := F_OptFrm.chb_Lozh.Checked;
     //
+
+    f_DM.IsOtl := F_OptFrm.chb_otl.Checked;
     F_DM.PrepareDset;
 
     PrepareResultFormHeader;

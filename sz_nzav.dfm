@@ -4,7 +4,7 @@ object FormSZ_nzav: TFormSZ_nzav
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = #1042#1077#1076#1086#1084#1086#1089#1090#1100' '#1091#1095#1077#1090#1072'  '#1085#1072#1088#1103#1076#1086#1074
-  ClientHeight = 253
+  ClientHeight = 293
   ClientWidth = 434
   Color = clBtnFace
   Font.Charset = RUSSIAN_CHARSET
@@ -22,7 +22,7 @@ object FormSZ_nzav: TFormSZ_nzav
     Left = 0
     Top = 0
     Width = 434
-    Height = 253
+    Height = 293
     Align = alClient
     BevelInner = bvLowered
     BorderWidth = 2
@@ -42,9 +42,9 @@ object FormSZ_nzav: TFormSZ_nzav
       ParentFont = False
     end
     object Label4: TLabel
-      Left = 63
+      Left = 31
       Top = 103
-      Width = 36
+      Width = 114
       Height = 16
       Caption = #1056#1069#1042#1057
       Font.Charset = RUSSIAN_CHARSET
@@ -56,7 +56,7 @@ object FormSZ_nzav: TFormSZ_nzav
     end
     object Bevel1: TBevel
       Left = 5
-      Top = 217
+      Top = 241
       Width = 422
       Height = 11
       Shape = bsTopLine
@@ -170,9 +170,9 @@ object FormSZ_nzav: TFormSZ_nzav
       Visible = False
     end
     object DBL_rayon: TRxDBLookupCombo
-      Left = 111
+      Left = 151
       Top = 100
-      Width = 125
+      Width = 178
       Height = 24
       DropDownCount = 8
       LookupField = 'NAME_R'
@@ -182,7 +182,7 @@ object FormSZ_nzav: TFormSZ_nzav
     end
     object BB_Ok: TBitBtn
       Left = 235
-      Top = 223
+      Top = 255
       Width = 93
       Height = 25
       Caption = #1055#1088#1080#1085#1103#1090#1100
@@ -209,7 +209,7 @@ object FormSZ_nzav: TFormSZ_nzav
     end
     object BB_esc: TBitBtn
       Left = 333
-      Top = 223
+      Top = 255
       Width = 92
       Height = 25
       Caption = #1054#1090#1084#1077#1085#1072
@@ -236,7 +236,7 @@ object FormSZ_nzav: TFormSZ_nzav
     end
     object CheckBox1: TCheckBox
       Left = 8
-      Top = 232
+      Top = 264
       Width = 217
       Height = 17
       Caption = #1087#1077#1095#1072#1090#1072#1090#1100' '#1074#1089#1077' '#1088#1072#1073#1086#1090#1099' '#1074' '#1079#1072#1103#1074#1082#1077
@@ -285,6 +285,16 @@ object FormSZ_nzav: TFormSZ_nzav
         Caption = #1042#1089#1077', '#1082#1088#1086#1084#1077' '#1087#1086#1074#1088#1077#1078#1076#1077#1085#1080#1081' '#1085#1072' '#1082#1086#1083#1083#1077#1082#1090#1086#1088#1072#1093
         TabOrder = 2
       end
+    end
+    object chb_otl: TCheckBox
+      Left = 8
+      Top = 216
+      Width = 97
+      Height = 17
+      Caption = #1054#1090#1083#1086#1078#1077#1085#1085#1099#1077
+      Checked = True
+      State = cbChecked
+      TabOrder = 10
     end
   end
   object Qry_damg: TQuery

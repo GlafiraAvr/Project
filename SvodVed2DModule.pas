@@ -52,6 +52,7 @@ type
     F_SEL_ZAV: string;
     F_IsVoda, F_IsKanal, F_IsVrk, F_IsObjVoda, F_IsObjKanal: boolean;
     F_IsCloseZavInc, F_IsOpenZavInc, F_IsViesnenZavInc, F_IsLozhZavInc: boolean;
+    f_isOtl:boolean; //отложенные
     F_GroupByState: boolean;
     procedure InitSEL_ZAV; virtual;
     function get_ownertype_id( IsForCloseZav: boolean ): string; virtual;
@@ -65,6 +66,7 @@ type
     property IsVrk: boolean read F_IsVrk write F_IsVrk;
     property IsObjVoda: boolean read F_IsObjVoda write F_IsObjVoda;
     property IsObjKanal: boolean read F_IsObjKanal write F_IsObjKanal;
+    property IsOtl:boolean read F_isOtl write F_isOtl;
     //
     property IsCloseZavInc: boolean read F_IsCloseZavInc write F_IsCloseZavInc;
     property IsOpenZavInc: boolean read F_IsOpenZavInc write F_IsOpenZavInc;
@@ -113,7 +115,8 @@ begin
 
   cond:='z.cont<>0 and '+get_dt_cond('z.dt_in');
   {Открытые заявки в которых нет галочки "отложенные "}
-  cond:=cond + ' and (z.is_otl<>1 or z.is_otl is null )';
+  if not( F_isOtl) then
+    cond:=cond + ' and (z.is_otl<>1 or z.is_otl is null )';
 
   MyOpenIBDS(dset_tmp, Format(F_SEL_ZAV, ['nzavjav',
                                           ord(OperAtt),
@@ -223,6 +226,7 @@ begin
     ' )';
 
 {Открытые заявки в которых нет галочки "отложенные "}
+ if not (F_isOtl) then
   cond:=cond + ' and (z.is_otl<>1 or z.is_otl is null )';
   MyOpenIBDS(dset_tmp, Format(F_SEL_ZAV, ['nzavjav',
                                           ord(OperAtt),
@@ -279,6 +283,7 @@ begin
 
   cond:='z.cont=0 and '+get_dt_cond('z.dt_in');
 {Открытые заявки в которых нет галочки "отложенные "}
+if not (F_isOtl) then
   cond:=cond + ' and (z.is_otl<>1 or z.is_otl is null )';
   MyOpenIBDS(dset_tmp, Format(F_SEL_ZAV, ['nzavjav',
                                           ord(OperAtt),
