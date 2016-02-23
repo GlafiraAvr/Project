@@ -80,6 +80,7 @@ type
     function getidwwater(ZavCode:integer):integer;
     function setwwaterid(ZavCode:integer;Wwaterid:integer; isclosed:boolean):boolean;
     function getadresssent(ZavCode:integer):string;
+    function getNumberLinkOrder(ZavCode:integer):string;
   end;
 
 var DM_Zavv:TDM_Zavv;
@@ -327,6 +328,18 @@ function TDM_Zavv.getadresssent(ZavCode: integer): string;
 begin
    MyOpenSQL(Qry_tmp,'select adres from  GET_ZAV_ADRES_sent('+IntToStr(ZavCode)+')');
    result:=Qry_tmp.fieldbyname('adres').AsString;
+end;
+
+function TDM_Zavv.getNumberLinkOrder(ZavCode:integer):string;
+begin
+ result:='';
+   MyOpenSQL(Qry_tmp,' select z.nomer from nzavjav z join LINKOTLORDER li on li.ID_OTLZAVJAV=z.id ' +
+                    ' where li.isactual  is not null and li.ID_ZAVJAV='+intToStr(zavCode));
+   if  Qry_tmp.fieldbyname('nomer').IsNull then
+       MyOpenSQL(Qry_tmp,' select z.nomer from zavjav z join LINKOTLORDER li on li.ID_OTLZAVJAV=z.id where li.isactual  is not null'+
+        ' and li.ID_ZAVJAV='+intToStr(zavCode));
+   result:=Qry_tmp.fieldbyname('nomer').AsString;
+
 end;
 
 initialization

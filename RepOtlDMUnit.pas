@@ -9,16 +9,57 @@ uses
 
 type
   Tdm_OtlReport = class(Tdm_SvodVed2)
+    md_reslinkedzav: TStringField;
+    MD_RESGROUP: TRxMemoryData;
+    MD_RESGROUPID: TIntegerField;
+    MD_RESGROUPnomer: TIntegerField;
+    MD_RESGROUPrev: TStringField;
+    MD_RESGROUPattach: TStringField;
+    md_resall: TRxMemoryData;
+    IntegerField1: TIntegerField;
+    StringField1: TStringField;
+    IntegerField2: TIntegerField;
+    IntegerField3: TIntegerField;
+    DateTimeField1: TDateTimeField;
+    IntegerField4: TIntegerField;
+    IntegerField5: TIntegerField;
+    StringField2: TStringField;
+    StringField3: TStringField;
+    StringField4: TStringField;
+    StringField5: TStringField;
+    StringField6: TStringField;
+    StringField7: TStringField;
+    StringField8: TStringField;
+    StringField9: TStringField;
+    StringField10: TStringField;
+    DateTimeField2: TDateTimeField;
+    StringField11: TStringField;
+    md_resallid_link: TIntegerField;
+    md_resallnomer_link: TIntegerField;
+    md_resallrevs_link: TStringField;
+    md_resallattach_link: TStringField;
+    md_resallsod_link: TStringField;
+    md_resalldt_out_link: TDateTimeField;
+    MD_RESGROUPadres: TStringField;
+    MD_RESGROUPsod: TStringField;
+    MD_RESGROUPdt_in: TDateTimeField;
+    md_reslist_zav: TStringField;
   private
     { Private declarations }
+    F_dtBegin,F_dtEnd:TDateTime;
      procedure InitSEL_ZAV; override;
      procedure FILL(OperAtt: TOperAtt);
      procedure append_otl(OperAtt: TOperAtt);
      procedure insert_base_field(zav_type_name: string; dset_src, dset_des: TDataSet);
-     function get_primech(id_zav: integer): string;          
+     function get_primech(id_zav: integer): string;
+
   public
     { Public declarations }
     procedure PrepareDset;
+    function preparebygroup(id_zav:integer):boolean;
+    property dtBegin:TDateTime write F_dtBegin;
+    property dtEnd:TDateTime write F_dtEnd;
+
   end;
 
 var
@@ -65,7 +106,9 @@ begin
     ' sr.name_r revs, att.name_r attach,' +
     ' (select adres from get_adres(z.id_ul1,z.id_ul2,z.kod_ul,z.dop_adr,z.id_dopadres)) adres,' +
     ' rtrim(ss.name_r)||"("||rtrim(st.name_r)||","||rtrim(sp.name_r)||")" as sod,' +
-    ' (select wwater_list from get_wwater_list( z.id ) ) wwater_list' +
+    ' (select wwater_list from get_wwater_list( z.id ) ) wwater_list,' +
+    ' (select list(zz.nomer,'',  '') from linkotlorder lo join   nzavjav zz on zz.id=lo.id_zavjav  where lo.id_otlzavjav=z.id ) zav_list,'+
+    ' (select list(zz.nomer,'',  '' ) from linkotlorder lo join   zavjav zz on zz.id=lo.id_zavjav  where lo.id_otlzavjav=z.id ) zav_listclose' +
     ' from %s z'+
     ' left join s_revs sr on ( sr.id = z.id_revs )' +
     ' left join s_attach att on ( att.id = z.id_attach )' +
@@ -116,6 +159,8 @@ var
   cond, _sql: string;
 begin
   cond:=cond + ' and (z.is_otl=1)';
+  cond:=cond + Format(' and z.dt_in between ''%s'' and ''%s'' ',
+              [dateTimeToStr(F_dtbegin),dateTimeToStr(F_dtend)]);
 
  // MyOpenIBDS(dset_tmp, F_SEL_ZAV);
 
@@ -140,9 +185,11 @@ begin
   dset_des.FieldByName('main_gr').AsInteger:=0;
   dset_des.FieldByName('zav_type_name').AsString:=zav_type_name;
   dset_des.FieldByName('sod').AsString:=DeletePusto(dset_src.FieldByName('sod').AsString);
+
   for i:=low(ARR_COM_FIELD) to high(ARR_COM_FIELD) do
     dset_des.FieldByName(ARR_COM_FIELD[i]).Value:=dset_src.FieldByName(ARR_COM_FIELD[i]).Value;
-
+  dset_des.FieldByName('list_zav').AsString:=dset_src.FieldByName('zav_list').AsString+
+  ' '+dset_src.FieldByName('zav_listclose').AsString;
   dset_des.FieldByName('primech').AsString:=get_primech(dset_src.FieldByName('id').AsInteger);
 end;
 
@@ -164,6 +211,60 @@ begin
     dset_tmp3.Last;
     Result:=dset_tmp3.FieldByName('dop_inf').AsString;
   end;
+end;
+
+function Tdm_OtlReport.preparebygroup(id_zav: integer): boolean;
+const sel_zavs = 'select z.id, z.nomer, sr.name_r revs,z.id_attach, '+
+                 ' sa.name_r attach, '+
+                 ' (select adres from get_adres(z.id_ul1, z.id_ul2,z.kod_ul, '+
+                          'z.dop_adr,z.id_dopadres )) adres, '+
+                 '  sd.name_r sod, z.dt_in '+
+                 ' from zavjav z join linkotlorder lo on lo.id_zavjav=z.id '+
+                 '  join s_revs sr on sr.id=z.id_revs '+
+                 '  join s_attach sa on sa.id=z.id_attach '+
+                 '   join s_sod sd on sd.id=z.id_sod '+
+                 '   where  lo.id_otlzavjav=%d '+
+                 ' union '+
+                  'select z.id, z.nomer, sr.name_r rev, z.id_attach,'+
+                 ' sa.name_r attach, '+
+                 ' (select adres from get_adres(z.id_ul1, z.id_ul2,z.kod_ul, '+
+                          'z.dop_adr,z.id_dopadres )) adres, '+
+                 '  sd.name_r sod, z.dt_in '+
+                 ' from nzavjav z join linkotlorder lo on lo.id_zavjav=z.id '+
+                 '  join s_revs sr on sr.id=z.id_revs '+
+                 '  join s_attach sa on sa.id=z.id_attach '+
+                 '   join s_sod sd on sd.id=z.id_sod '+
+                 '   where  lo.id_otlzavjav=%d '+
+                 ' order by 5,8 ';
+
+
+var table:string;
+i:integer;
+begin
+ result:=false;
+ if MD_RESGROUP.Active then
+   MD_RESGROUP.Close;
+ if dset_tmp.Active then dset_tmp.Close;
+ dset_tmp.SelectSQL.Text:=Format(sel_zavs,[id_zav,id_zav]);
+ dset_tmp.Open;
+ dset_tmp.First;
+ MD_RESGROUP.Open;
+ while not dset_tmp.Eof do
+ begin
+  MD_RESGROUP.Append;
+  for i:=0 to MD_RESGROUP.FieldCount-1 do
+  begin
+     MD_RESGROUP.Fields[i].AsString:=dset_tmp.fieldbyname(MD_RESGROUP.Fields[i].FieldName).AsString;
+  if i=0 then
+   MD_RESGROUP.Fields[i].AsInteger:=dset_tmp.fieldbyname(MD_RESGROUP.Fields[i].FieldName).AsInteger
+  else if i=6 then
+    MD_RESGROUP.Fields[i].AsDateTime:=dset_tmp.fieldbyname(MD_RESGROUP.Fields[i].FieldName).AsDateTime;
+end;
+
+  MD_RESGROUP.Post;
+  dset_tmp.Next;
+ end;
+ result:=true;
 end;
 
 end.

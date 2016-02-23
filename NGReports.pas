@@ -9,7 +9,8 @@ uses Classes, Controls, NGBaseReport, FR_Class, Aligrid, DB, Graphics, SysUtils,
      SvodVed2AlienOptForm, OptEkonomPokazForm, RepEkonomPokazDM,
      OptTrudoZatrat, RepTrudoZatratDModule, OptMatUseForm, RepMatUseDM, RepOtlDMUnit,
      SvodkaSESOptForm, SvodkaSESDModule, GridViewBuilder, Forms, Windows, FrPreviewForm,
-     svodPlanVorksDM,SvodPlanWorksOpt,DateUtils,  DiskonOptForm,DiskondRepDModule;
+     svodPlanVorksDM,SvodPlanWorksOpt,DateUtils,  DiskonOptForm,DiskondRepDModule,
+     SvodVedOtlNar;
 
 type
   TWWater=class(TNGBaseReport)
@@ -96,17 +97,26 @@ type
   TOtlRep=class(TNGBaseReport)
   private
     F_DM: Tdm_OtlReport;
-    F_OptFrm: Tfrm_SvodVed2AlienOpt;
+    F_OptFrm: Tfrm_SvodVedOtlNar;
     F_ResFrm: Tfrm_AnalysisView;
+    F_DocherFrm: Tfrm_AnalysisView; //ПОКАЗЫВАЕТ СВЯЗЯНЫЕ С ОТОЛОДЕННОЙ ЗАЯВКИ
     procedure PrepareResultFormBtns;
     procedure PrepareResultFormGrid;
     procedure PrepareResultFormHeader;
     procedure PrintBtnClick(Sender: TObject);
     procedure ZavBtnClick(Sender: TObject);
+    procedure PrepareDocherFormGrid;
+    procedure PrepareDocherFormBtns;
+    procedure OnDocherFormOrderClick(Sender: TObject);
+    procedure OnExel(Sender: TObject);
+    procedure OnDochPrintClick(Sender: TObject);
     procedure OnAttachShow(DataSet: TDataSet;
                AggregateValueArr: array of double; var OutRow: TStringList);
     procedure OnMainFooterShow(DataSet: TDataSet;
                AggregateValueArr: array of double; var OutRow: TStringList);
+    procedure onGroupPrepareDoch(Sender: TObject);
+    procedure OnGroupHeaderShow(DataSet: TDataSet;
+        AggregateValueArr: array of double; var OutRow: TStringList);
   protected
     procedure InitFields; override;
     procedure CreateForms; override;
@@ -1295,13 +1305,15 @@ end;
 
 procedure TOtlRep.CreateForms;
 begin
-  F_OptFrm := Tfrm_SvodVed2AlienOpt.Create(nil, F_Name);
+  F_OptFrm := Tfrm_SvodVedOtlNar.Create(nil, F_Name);
   F_ResFrm := Tfrm_AnalysisView.Create(nil, F_Name);
   F_DM := Tdm_OtlReport.Create(nil);
+  F_DocherFrm:= Tfrm_AnalysisView.Create(nil ,F_name);
 end;
 
 procedure TOtlRep.DestroyForms;
 begin
+  F_DocherFrm.Free;
   F_OptFrm.Free;
   F_ResFrm.Free;
   F_DM.Free;
@@ -1315,8 +1327,8 @@ end;
 
 procedure TOtlRep.PrepareFastReport;
 begin
-  frVariables[ 'dt_beg' ] := DateToStr(F_OptFrm.dp_Date.Date-1)+' '+TimeToStr(F_OptFrm.dp_Time.Time);
-  frVariables[ 'dt_end' ] := DateToStr(F_OptFrm.dp_Date.Date)+' '+TimeToStr(F_OptFrm.dp_Time.Time);
+  frVariables[ 'dt_beg' ] := DateToStr(F_OptFrm.dp_StartDate.Date)+' '+TimeToStr(F_OptFrm.dt_startdate.Time);
+  frVariables[ 'dt_end' ] := DateToStr(F_OptFrm.dt_enddate.Date)+' '+TimeToStr(F_OptFrm.dt_enddate.Time);
   frVariables[ 'revs' ] := F_OptFrm.RevsName;
   frVariables[ 'zavtypes' ] := F_OptFrm.ZavTypeNames;
 end;
@@ -1338,8 +1350,11 @@ begin
   try
     WaitFrm.Show;
 
-    F_DM.dt_smena := F_OptFrm.dp_Date.Date;
-    F_DM.tm_smena := F_OptFrm.dp_Time.Time;
+   // F_DM.dt_smena := F_OptFrm.dp_Date.Date;
+   // F_DM.tm_smena := F_OptFrm.dp_Time.Time;
+   f_dm.dtBegin:= F_OptFrm.dp_StartDate.Date+frac(F_OptFrm.dt_startdate.DateTime);
+   f_dm.dtEnd:= F_OptFrm.dp_EndDate.Date+frac(F_OptFrm.dt_enddate.DateTime);
+
     F_DM.RevsID := F_OptFrm.RevsID;
     F_DM.IsVoda := F_OptFrm.chb_Voda.Checked;
     F_DM.IsKanal := F_OptFrm.chb_Kanal.Checked;
@@ -1403,15 +1418,19 @@ procedure TOtlRep.PrepareResultFormHeader;
 begin
   F_ResFrm.CenterLabel:=
     AnsiUpperCase( F_Name ) + #13 +
-    ' за сутки c '+DateToStr(F_OptFrm.dp_Date.Date-1)+' '+TimeToStr(F_OptFrm.dp_Time.Time)+
-    ' по '+DateToStr(F_OptFrm.dp_Date.Date)+' '+TimeToStr(F_OptFrm.dp_Time.Time);
+    ' за период c '+DateToStr(F_OptFrm.dp_StartDate.Date)+' '+TimeToStr(F_OptFrm.dt_startdate.Time)+
+    ' по '+DateToStr(F_OptFrm.dp_enddate.Date)+' '+TimeToStr(F_OptFrm.dt_enddate.Time);
   F_ResFrm.LeftLabel:=
-    'ЦЕХ: '+F_OptFrm.RevsName + #13;
+    'Участок: '+F_OptFrm.RevsName + #13;
 end;
 
 procedure TOtlRep.PrepareResultFormBtns;
 begin
-  F_ResFrm.btn_Order.OnClick:=ZavBtnClick;
+  F_ResFrm.btn_Order.OnClick:=onGroupPrepareDoch;
+  F_ResFrm.btn_Order.Caption:='Список';
+  F_ResFrm.btn_nar2.Visible:=true;
+  F_ResFrm.btn_nar2.OnClick:=ZavBtnClick;
+
   F_ResFrm.btn_Print.OnClick:=PrintBtnClick;
 end;
 
@@ -1438,13 +1457,16 @@ begin
     AddColToGVB( gvb, 'adres', 'Адрес наряда' );
     AddColToGVB( gvb, 'sod', 'Характер'+#13+'повреждения' );
     AddColToGVB( gvb, 'vipol', 'Выполнено' );
-    AddColToGVB( gvb, 'vrabote', 'В работе', alCenter );
+ //   AddColToGVB( gvb, 'vrabote', 'В работе', alCenter );
 
     col := AddColToGVB(gvb, 'primech', 'Примечание' );
     col.DisplayWidth := 50;
 
-    col := AddColToGVB( gvb, 'wwater_list', 'Без воды' );
+   // col := AddColToGVB( gvb, 'wwater_list', 'Без воды' );
+   // col.DisplayWidth := 50;
+   col := AddColToGVB( gvb, 'list_zav', 'Связанные'+#13+'наряды' );
     col.DisplayWidth := 50;
+
 
     group:=gvb.AddGroup('main_gr');
     group.GroupHeader.Visible:=false;
@@ -1474,6 +1496,98 @@ begin
   end;
 end;
 
+
+procedure TOtlRep.OnDocherFormOrderClick(Sender: TObject);
+begin
+ with F_DocherFrm do
+    if Assigned(Grid.Objects[0,Grid.Row]) then
+      ShowZav(integer(Grid.Objects[0,Grid.Row]));
+end;
+
+procedure TOtlRep.OnDochPrintClick(Sender: TObject);
+begin
+
+end;
+
+procedure TOtlRep.OnExel(Sender: TObject);
+begin
+
+end;
+
+procedure TOtlRep.PrepareDocherFormBtns;
+begin
+  F_DocherFrm.btn_Order.OnClick:=OnDocherFormOrderClick;
+end;
+
+procedure TOtlRep.PrepareDocherFormGrid;
+var
+  gvb: TGridViewBuilder;
+  col: TGBColumn;
+  group: TGroup;
+begin
+  gvb := TGridViewBuilder.Create( F_DM.MD_RESGROUP, F_DocherFrm.Grid );
+  try
+    gvb.IDFieldName := 'id';
+    AddColToGVB(gvb,'nomer','№'+#13+'наряда',alLeft);
+    AddColToGVB(gvb,'revs','Участок',alLeft);
+    //AddColToGVB(gvb,'attach','Ghbyflkt;yjcnm',alLeft);
+
+    col:=gvb.AddColumn();
+    col.FieldName:='adres';
+    col.DisplayWidth:=60;
+    col.ColumnTitle.Caption:='Адрес';
+    col.Alignment:=alLeft;
+
+
+    AddColToGVB(gvb,'sod','Характер'+#13+' повреждения',alLeft);
+    AddColToGVB(gvb,'dt_in','Дата'+#13+'поступления',alLeft);
+
+    group:=gvb.AddGroup('attach');
+    group.GroupHeader.Color:=clAqua;
+    group.GroupHeader.OnShowCaption:=OnGroupHeaderShow;
+    group.GroupHeader.Visible:=true;
+    group.GroupFooter.Visible:=false;
+
+     gvb.BuildGridView;
+
+
+
+
+  finally
+   gvb.Free;
+  end;
+
+
+end;
+
+procedure TOtlRep.onGroupPrepareDoch(Sender: TObject);
+begin
+ if Assigned(F_resFrm.Grid.Objects[0,F_resFrm.Grid.Row]) then
+    begin
+      if F_dm.preparebygroup(integer(F_resFrm.Grid.Objects[0,F_resFrm.Grid.Row])) then
+      begin
+         PrepareDocherFormGrid();
+         PrepareDocherFormBtns();
+         F_DocherFrm.lbl_Left.Visible:=true;
+         F_DocherFrm.lbl_Left.Caption:='Наряды связянные с отоженной заявкой №'+
+           F_resFrm.Grid.Cells[1,F_resFrm.Grid.Row];
+         F_DocherFrm.Height:=F_ResFrm.Height-30;
+         F_DocherFrm.Width:=F_ResFrm.Width-30;
+         F_DocherFrm.ShowModal;
+      end;
+    end;
+
+end;
+
+procedure TOtlRep.OnGroupHeaderShow(DataSet: TDataSet;
+  AggregateValueArr: array of double; var OutRow: TStringList);
+begin
+  OutRow.Add('');
+  OutRow.Add('');
+  OutRow.Add('');
+  OutRow.Add(Dataset.fieldbyname('attach').AsString);
+
+end;
 
 { TEkonomPokaz }
 

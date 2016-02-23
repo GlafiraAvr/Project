@@ -164,6 +164,7 @@ type
     dbl_settlers: TRxDBLookupCombo;
     Label_settler: TLabel;
     BB_WithoutWater: TBitBtn;
+    btn_linkOtlZav: TButton;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure CB_tAdrChange(Sender: TObject);
@@ -241,6 +242,7 @@ type
     procedure cb_OTLMouseDown(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
     procedure cb_OTLClick(Sender: TObject);
+    procedure btn_linkOtlZavClick(Sender: TObject);
   protected
     FDopInfCaretPos:TPoint;
     FNNarCount:integer;
@@ -394,7 +396,8 @@ implementation
       avartype,support, VedManagerUnit, DM_VedomPublicUnit,
       WithOutWaterUnit, AvrImageViewForm, DMAvrImage, PoteriUnit,
       NGRaskopDM, RaskopForm,NewDisconnections,ShiftDmodule,
-      testSetJson2, DMmain;
+      testSetJson2, DMmain,
+      OtlNaradListForm;
 {$R *.DFM}
 
 var
@@ -2283,6 +2286,8 @@ begin
       DBL_sod.enabled:=_st;
       DBL_vrk.Enabled:=_st;
       DBL_tzav.enabled:=_st;
+
+      btn_linkOtlZav.Enabled:=_st;
   end;
 end;
 
@@ -3106,6 +3111,29 @@ end;
 
 
 
+
+procedure TFormZav.btn_linkOtlZavClick(Sender: TObject);
+var frm_otl:Tfrm_OtlNaradList;
+begin
+  inherited;
+   if ZavCode>0 then
+   begin
+   frm_otl:=Tfrm_OtlNaradList.Create(self, ZavCode, ord(ZavAttach));
+   try
+    frm_otl.id_zav:=ZavCode;
+    frm_otl.id_atttach:=ord(ZavAttach);
+    frm_otl.namefiltr:=GetAttachName(ZavAttach);
+    frm_otl.ShowModal;
+    if frm_otl.oltNarNumber<>'' then
+     btn_linkOtlZav.Caption:='Связан с №'+frm_otl.oltNarNumber
+    else
+      btn_linkOtlZav.Caption:='Связать с  отложенным';
+   finally
+     frm_otl.Free;
+   end;
+   end;
+
+end;
 
 end.
 

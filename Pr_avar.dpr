@@ -135,7 +135,7 @@ uses
   BaseNarDetailDM in 'BaseNarDetailDM.pas' {dm_BaseNarDetail: TDataModule},
   WorkContainerDM in 'WorkContainerDM.pas' {dm_WorkContainer: TDataModule},
   EditMaterForm in 'EditMaterForm.pas' {frm_EditMater},
-  SvodVed2AlienOptForm in 'SvodVed2AlienOptForm.pas' {frm_SvodVed2AlienOpt},
+  SvodVedOtlNar in 'SvodVedOtlNar.pas' {frm_SvodVedOtlNar},
   BWorkDM in 'BWorkDM.pas' {dm_BWork: TDataModule},
   EditBWorkForm in 'EditBWorkForm.pas' {frm_EditBWork},
   AddBWorkForm in 'AddBWorkForm.pas' {frm_AddBWork},
@@ -227,7 +227,9 @@ uses
   ShiftForm in 'ShiftForm.pas' {frm_shift},
   ShiftDmodule in 'ShiftDmodule.pas' {dm_Shift: TDataModule},
   httpSentSynapse in 'jsontest\httpSentSynapse.pas',
-  testSetJson2 in 'jsontest\testSetJson2.pas';
+  testSetJson2 in 'jsontest\testSetJson2.pas',
+  OtlNaradListDModule in 'OtlNaradListDModule.pas' {dm_OtlNaradList: TDataModule},
+  OtlNaradListForm in 'OtlNaradListForm.pas' {frm_OtlNaradList};
 
 {$R *.RES}
 

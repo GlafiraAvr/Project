@@ -434,6 +434,7 @@ begin
 end;
 
 procedure TFormZav.SetCaptionViezdZadvRaskopNarad;
+var number:string;
 begin
   {Выезды}
   if (FDM_Zav.Qry_zajav.FieldByName('IS_GO').asInteger=1) and (FormMode<>tfmZayavNew) then
@@ -466,6 +467,11 @@ begin
    else
      BB_WithoutWater.Font.Color:=TextCol;
    //
+
+  {Отложенніе}
+   number:=FDM_Zav.getNumberLinkOrder(ZavCode);
+   if (number<>'') then
+    btn_linkOtlZav.Caption:=TrLangMSG(msgLinkedWithOtlZavjav)+number;
   BB_Narad_enabled(FormMode=tfmZayavNew);
 end;
 

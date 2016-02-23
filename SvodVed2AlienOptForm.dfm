@@ -1,6 +1,6 @@
 inherited frm_SvodVed2AlienOpt: Tfrm_SvodVed2AlienOpt
   Caption = 'frm_SvodVed2AlienOpt'
-  ClientHeight = 190
+  ClientHeight = 198
   ClientWidth = 248
   PixelsPerInch = 96
   TextHeight = 13

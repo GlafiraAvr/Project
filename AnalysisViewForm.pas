@@ -22,6 +22,7 @@ type
     Shape1: TShape;
     Shape2: TShape;
     Bevel1: TBevel;
+    btn_nar2: TBitBtn; //используетя когда на кнопку наряда нжно повесить не типичный обработчик
     procedure FormShow(Sender: TObject);
     procedure GridDblClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);

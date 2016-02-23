@@ -6,7 +6,7 @@ object DM_main: TDM_main
   Height = 326
   Width = 388
   object IBDatabase: TIBDatabase
-    DatabaseName = 'D:\work_odessa\baza\AVARODESSA.GDB'
+    DatabaseName = 'E:\homework\basa\baza_10_02_16\AVARODESSA.GDB'
     Params.Strings = (
       'user_name=sysdba'
       'password=masterkey'

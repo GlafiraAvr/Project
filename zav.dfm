@@ -455,7 +455,7 @@ object FormZav: TFormZav
     end
     object ChB_viezd: TCheckBox
       Left = 603
-      Top = 202
+      Top = 186
       Width = 84
       Height = 20
       Caption = #1042#1099#1077#1079#1076
@@ -1942,6 +1942,16 @@ object FormZav: TFormZav
       TabOrder = 37
       WordWrap = True
       OnClick = BB_WithoutWaterClick
+    end
+    object btn_linkOtlZav: TButton
+      Left = 607
+      Top = 208
+      Width = 105
+      Height = 38
+      Caption = #1057#1074#1103#1079#1072#1090#1100' '#1089'  '#1086#1090#1083#1086#1078#1077#1085#1085#1099#1084
+      TabOrder = 38
+      WordWrap = True
+      OnClick = btn_linkOtlZavClick
     end
   end
   object Pn_stat: TPanel
