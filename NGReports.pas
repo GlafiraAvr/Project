@@ -100,6 +100,7 @@ type
     F_OptFrm: Tfrm_SvodVedOtlNar;
     F_ResFrm: Tfrm_AnalysisView;
     F_DocherFrm: Tfrm_AnalysisView; //œŒ ¿«€¬¿≈“ —¬ﬂ«ﬂÕ€≈ — Œ“ŒÀŒƒ≈ÕÕŒ… «¿ﬂ¬ »
+   
     procedure PrepareResultFormBtns;
     procedure PrepareResultFormGrid;
     procedure PrepareResultFormHeader;
@@ -117,6 +118,7 @@ type
     procedure onGroupPrepareDoch(Sender: TObject);
     procedure OnGroupHeaderShow(DataSet: TDataSet;
         AggregateValueArr: array of double; var OutRow: TStringList);
+    procedure mainGridFixedColClick(Sender: TObject;  col: Integer);
   protected
     procedure InitFields; override;
     procedure CreateForms; override;
@@ -1309,10 +1311,12 @@ begin
   F_ResFrm := Tfrm_AnalysisView.Create(nil, F_Name);
   F_DM := Tdm_OtlReport.Create(nil);
   F_DocherFrm:= Tfrm_AnalysisView.Create(nil ,F_name);
+
 end;
 
 procedure TOtlRep.DestroyForms;
 begin
+
   F_DocherFrm.Free;
   F_OptFrm.Free;
   F_ResFrm.Free;
@@ -1426,6 +1430,7 @@ end;
 
 procedure TOtlRep.PrepareResultFormBtns;
 begin
+  F_ResFrm.Grid.OnFixedColClick:=mainGridFixedColClick;
   F_ResFrm.btn_Order.OnClick:=onGroupPrepareDoch;
   F_ResFrm.btn_Order.Caption:='—ÔËÒÓÍ';
   F_ResFrm.btn_nar2.Visible:=true;
@@ -1444,12 +1449,14 @@ procedure TOtlRep.PrepareResultFormGrid;
     gr_border.OnShowCaption:=ShowEv;
   end;
 var
-  gvb: TGridViewBuilder;
+  gvb:TGridViewBuilder;
   col: TGBColumn;
   group: TGroup;
 begin
+//  if gvb=nil then
   gvb := TGridViewBuilder.Create( F_DM.md_res, F_ResFrm.Grid );
   try
+ //  if gvb=nil then begin
     gvb.IDFieldName := 'id';
 
     AddColToGVB( gvb, 'nomer', 'ÕÓÏÂ'+#13+'Ì‡ˇ‰‡', alCenter );
@@ -1480,7 +1487,7 @@ begin
     PrepareGroupBorder(group.GroupHeader, clAqua, OnAttachShow);
     group.AddAggregateField(atCount, 'id');
 
-{    group:=gvb.AddGroup('zav_type_name');       
+{    group:=gvb.AddGroup('zav_type_name');
     group.IsNumberRecordInGroup:=true;
     group.GroupFooter.Visible:=false;
     PrepareGroupBorder(group.GroupHeader, clMoneyGreen, OnZavTypeShow);
@@ -1490,9 +1497,12 @@ begin
     group.GroupFooter.Visible:=false;
     PrepareGroupBorder(group.GroupHeader, F_ResFrm.Grid.Color, OnRevsShow);
  }
+// end;
     gvb.BuildGridView;
+
+
   finally
-    gvb.Free;
+   gvb.Free;
   end;
 end;
 
@@ -1547,6 +1557,7 @@ begin
     group.GroupHeader.OnShowCaption:=OnGroupHeaderShow;
     group.GroupHeader.Visible:=true;
     group.GroupFooter.Visible:=false;
+    
 
      gvb.BuildGridView;
 
@@ -1587,6 +1598,25 @@ begin
   OutRow.Add('');
   OutRow.Add(Dataset.fieldbyname('attach').AsString);
 
+end;
+
+procedure TOtlRep.mainGridFixedColClick(Sender: TObject; col: Integer);
+var fieldname:string;
+begin
+fieldname:='';
+case col of
+ 1: fieldname:='nomer';
+ 2: fieldname:='dt_in';
+ 3: fieldname:='adres';
+end;
+if fieldname<>'' then
+begin
+    F_dm.sorted(fieldname);
+  PrepareResultFormGrid;
+  F_ResFrm.Grid.ColorRow[0]:=F_ResFrm.Grid.FixedColor;
+  F_ResFrm.Grid.ColorCell[col,0]:=claqua;
+  F_ResFrm.Grid.Cells[col,0]:=#17+' '+F_ResFrm.Grid.Cells[col,0];
+end;  
 end;
 
 { TEkonomPokaz }

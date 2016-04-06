@@ -44,7 +44,7 @@ type
     MD_RESGROUPsod: TStringField;
     MD_RESGROUPdt_in: TDateTimeField;
     md_reslist_zav: TStringField;
-  private
+  private       
     { Private declarations }
     F_dtBegin,F_dtEnd:TDateTime;
      procedure InitSEL_ZAV; override;
@@ -57,8 +57,9 @@ type
     { Public declarations }
     procedure PrepareDset;
     function preparebygroup(id_zav:integer):boolean;
-    property dtBegin:TDateTime write F_dtBegin;
-    property dtEnd:TDateTime write F_dtEnd;
+    property dtBegin:TDateTime write F_dtBegin ;
+    property dtEnd:TDateTime write F_dtEnd ;
+    procedure sorted(FieldName:string);
 
   end;
 
@@ -235,7 +236,7 @@ const sel_zavs = 'select z.id, z.nomer, sr.name_r revs,z.id_attach, '+
                  '  join s_attach sa on sa.id=z.id_attach '+
                  '   join s_sod sd on sd.id=z.id_sod '+
                  '   where  lo.id_otlzavjav=%d '+
-                 ' order by 5,8 ';
+                 ' order by 5,6,8 ';
 
 
 var table:string;
@@ -265,6 +266,11 @@ end;
   dset_tmp.Next;
  end;
  result:=true;
+end;
+
+procedure Tdm_OtlReport.sorted(FieldName: string);
+begin
+md_res.SortOnFields('main_gr;id_attach;'+FieldName);
 end;
 
 end.

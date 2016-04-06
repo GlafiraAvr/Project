@@ -66,6 +66,7 @@ inherited frm_OtlNaradList: Tfrm_OtlNaradList
     ParentCtl3D = False
     TabOrder = 1
     OnDblClick = GridDblClick
+    OnFixedColClick = GridFixedColClick
     PropCell = ()
     PropCol = ()
     PropRow = ()

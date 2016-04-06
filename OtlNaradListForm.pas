@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, SecurityBaseForm,OtlNaradListDModule, Grids,GridViewBuilder,cntsLANG,
-  StdCtrls, Buttons, ExtCtrls, Aligrid,FormZavFactory;
+  StdCtrls, Buttons, ExtCtrls, Aligrid,FormZavFactory,DB;
 
 type
   linkStatus = (notLink, changeLink,savedLink,delLink);
@@ -24,6 +24,7 @@ type
     procedure btn_savedClick(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure btn_delClick(Sender: TObject);
+    procedure GridFixedColClick(Sender: TObject; col: Integer);
   private
     { Private declarations }
     F_id_zav:integer;
@@ -37,12 +38,13 @@ type
     F_oltNarNumber:string;
     procedure ShowZav(id_zav: integer);
     procedure setLinkstatus();
+    procedure omGroupHeaderShow(DataSet: TDataSet;    AggregateValueArr: array of double; var OutRow: TStringList);
   public
     { Public declarations }
     constructor Create(AOwner:TComponent;id_zav,id_attach:integer); overload;
     property id_zav :integer write F_id_zav ;
     property id_atttach:integer write F_id_attach ;
-    property namefiltr :string write F_namefiltr ;
+    property namefiltr :string write F_namefiltr  ;
     property oltNarNumber:string  read F_oltNarNumber;
   end;
 
@@ -76,6 +78,7 @@ begin
 end;
 
 procedure Tfrm_OtlNaradList.FormShow(Sender: TObject);
+var group: TGroup;
 begin
   inherited;
   try
@@ -92,6 +95,7 @@ begin
     begin
      F_otlNar:=F_dm.otlOrder;
      F_link:=savedLink;
+     F_oltNarNumber:=F_dm.memmain.fieldbyname('nomer').AsString;
     end;
     setLinkstatus();
 
@@ -101,11 +105,17 @@ begin
        gvb.IDFieldName:='id';
        AddColToGVB(gvb, 'NOMER', 'Номер'+#13+'наряда', alCenter);
        AddColToGVB(gvb, 'dt_in', 'Дата'+#13+'поступления', alCenter);
-       AddColToGVB(gvb, 'REV', 'Участок', alCenter);
+    //   AddColToGVB(gvb, 'REV', 'Участок', alCenter);
        AddColToGVB(gvb, 'ADres', 'Адрес', alLeft);
        AddColToGVB(gvb, 'PLACE', 'Место'+#13+'повреждения', alLeft);
 
+     group:= gvb.AddGroup('id_revs');
+     group.GroupHeader.Color:=clLime;
+     group.GroupHeader.Visible:=true;
+     group.GroupHeader.OnShowCaption:= omGroupHeaderShow;
+
       gvb.BuildGridView;
+
       Caption:=' Отложенные наряды '+ F_namefiltr;
       if   F_link=savedLink then
        Grid.ColorRow[1]:=BGCol;
@@ -159,6 +169,11 @@ begin
   inherited;
 if Assigned(Grid.Objects[0,Grid.Row]) then
       ShowZav(integer(Grid.Objects[0,Grid.Row]));
+
+if Grid.Row=0 then
+begin
+  f_dm.sordted(gvb.ColumnList[Grid.Col].FieldName);
+end;
 end;
 
 procedure Tfrm_OtlNaradList.setLinkstatus;
@@ -238,7 +253,7 @@ begin
                      mtConfirmation, [mbYes, mbNo], 0) = mrYes then
       if f_dm.saveDel() then
       begin
-       grid.RowCount:=1;
+     //  grid.RowCount:=1;
        gvb.BuildGridView;
        F_link:=notLink;
        setLinkstatus();
@@ -264,6 +279,27 @@ begin
   inherited;
   f_link:=delLink;
   setLinkstatus();
+end;
+
+procedure Tfrm_OtlNaradList.GridFixedColClick(Sender: TObject;
+  col: Integer);
+begin
+  inherited;
+    f_dm.sordted(gvb.ColumnList[col].FieldName);
+
+
+
+    gvb.BuildGridView;
+     grid.ColorCell[col,0]:=clAqua;
+end;
+
+procedure Tfrm_OtlNaradList.omGroupHeaderShow(DataSet: TDataSet;
+  AggregateValueArr: array of double; var OutRow: TStringList);
+begin
+ OutRow.Add('');
+ OutRow.Add('');
+ OutRow.Add(DataSet.fieldbyname('rev').asstring);
+
 end;
 
 end.

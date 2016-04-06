@@ -6,6 +6,7 @@ object dm_OtlNaradList: Tdm_OtlNaradList
   Height = 246
   Width = 316
   object tran: TIBTransaction
+    Active = True
     DefaultDatabase = DM_main.IBDatabase
     Left = 16
     Top = 8
@@ -24,17 +25,17 @@ object dm_OtlNaradList: Tdm_OtlNaradList
     Database = DM_main.IBDatabase
     Transaction = tran
     SelectSQL.Strings = (
-      'select z.nomer,   z.dt_in, z.id ,'
+      'select z.nomer,   z.dt_in, z.id ,z.id_revs ,'
       
         '(select trim(sr.name_r) from  s_revs sr where sr.id=z.id_revs) r' +
         'ev ,'
       
         '(select adres  from get_adres(z.id_ul1,z.id_ul2, z.kod_ul, z.dop' +
-        '_adr, z.id_dopadres) )adres,'
+        '_adr, z.id_dopadres) ) adres,'
       '(select sp.name_r from s_place sp where sp.id=z.id_place) place'
       ' from nzavjav z where z.id_attach =:id_atach'
       ' and z.is_otl=1 and z.id<>:id_zav'
-      ' order by z.id_revs, 1')
+      ' order by z.id_revs, adres')
     Left = 72
     Top = 8
     object dsetID: TIntegerField
@@ -66,6 +67,10 @@ object dm_OtlNaradList: Tdm_OtlNaradList
       ProviderFlags = []
       FixedChar = True
     end
+    object dsetID_REVS: TIntegerField
+      FieldName = 'ID_REVS'
+      Origin = 'NZAVJAV.ID_REVS'
+    end
   end
   object dset_linkorder: TIBDataSet
     Database = DM_main.IBDatabase
@@ -82,7 +87,34 @@ object dm_OtlNaradList: Tdm_OtlNaradList
     DesignActivation = True
     AttachedAutoRefresh = True
     AttachMaxCount = 1
-    FieldDefs = <>
+    FieldDefs = <
+      item
+        Name = 'id'
+        DataType = ftInteger
+      end
+      item
+        Name = 'nomer'
+        DataType = ftInteger
+      end
+      item
+        Name = 'DT_IN'
+        DataType = ftDateTime
+      end
+      item
+        Name = 'REV'
+        DataType = ftString
+        Size = 20
+      end
+      item
+        Name = 'adres'
+        DataType = ftString
+        Size = 300
+      end
+      item
+        Name = 'place'
+        DataType = ftString
+        Size = 50
+      end>
     IndexDefs = <>
     SortOptions = []
     PersistentBackup = False
@@ -116,6 +148,11 @@ object dm_OtlNaradList: Tdm_OtlNaradList
     object memmainplace: TStringField
       FieldName = 'place'
       Size = 50
+    end
+    object memmainid_revs: TIntegerField
+      FieldKind = fkCalculated
+      FieldName = 'id_revs'
+      Calculated = True
     end
   end
   object ibsql_del: TIBSQL

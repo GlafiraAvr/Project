@@ -26,6 +26,8 @@ type
     memmainadres: TStringField;
     memmainplace: TStringField;
     ibsql_del: TIBSQL;
+    dsetID_REVS: TIntegerField;
+    memmainid_revs: TIntegerField;
     procedure DataModuleDestroy(Sender: TObject);
   private
     { Private declarations }
@@ -45,23 +47,26 @@ type
     function Save(id_zav:integer):boolean;
     property otlOrder :integer read F_otlOrder;
     function saveDel():boolean;
+    procedure sordted(columnname:String);
   end;
   const
-  sql= 'select z.id,z.nomer,   z.dt_in, '+
+  sql= 'select z.id,z.nomer,   z.dt_in,z.id_revs , '+
        ' (select trim(sr.name_r) from  s_revs sr where sr.id=z.id_revs) rev , '+
        ' (select adres  from get_adres(z.id_ul1,z.id_ul2, z.kod_ul, z.dop_adr, z.id_dopadres) )adres, '+
-       ' (select sp.name_r from s_place sp where sp.id=z.id_place) place '+
+       ' (select sp.name_r from s_place sp where sp.id=z.id_place) place, '+
+       ' z.id_revs id_r,z.id_revs  '+
        '  from nzavjav z where z.id_attach =:id_atach '+
 
        '  and z.is_otl=1  and z.id<>:id_zav'+
        '  ';
-  sql_zav= 'select z.id,z.nomer,   z.dt_in, '+
+  sql_zav= 'select z.id,z.nomer, z.id_revs ,   z.dt_in, '+
        ' (select trim(sr.name_r) from  s_revs sr where sr.id=z.id_revs) rev , '+
        ' (select adres  from get_adres(z.id_ul1,z.id_ul2, z.kod_ul, z.dop_adr, z.id_dopadres) )adres, '+
-       ' (select sp.name_r from s_place sp where sp.id=z.id_place) place '+
+       ' (select sp.name_r from s_place sp where sp.id=z.id_place) place, '+
+       ' z.id_revs id_r '+
        '  from nzavjav z where z.id =:id_zav ';
   sql_insert = ' insert into  LINKOTLORDER (id_zavjav,id_otlzavjav)  values (:id_zav, :id_otlnar)';
-  order_option = 'order by z.id_revs, 2';
+  order_option = 'order by z.id_revs, adres';
   sql_del = 'delete from linkotlorder lo where lo.id_zavjav=:id_zav';
 
 
@@ -113,6 +118,7 @@ begin
     if memmain.Active then memmain.Close;
       memmain.Open;
       while not dset.Eof do begin
+
        memmain.Append;
        memmain.FieldByName('id').AsInteger:=dset.fieldbyname('id').AsInteger;
        memmain.FieldByName('nomer').AsInteger:=dset.FieldByName('nomer').AsInteger;
@@ -120,6 +126,8 @@ begin
        memmain.FieldByName('adres').AsString:=dset.FieldByName('adres').AsString;
        memmain.FieldByName('place').AsString:=dset.FieldByName('place').AsString;
        memmain.FieldByName('rev').AsString:=dset.FieldByName('rev').AsString;
+       memmain.FieldByName('id_revs').AsInteger:=dset.FieldByName('id_revs').AsInteger;
+
        memmain.Post;
        dset.Next;
 
@@ -148,7 +156,7 @@ begin
        end
      else
        begin
-
+          dset.SelectSQL.Text:= sql+order_option;
         dset.ParamByName('id_atach').AsInteger:=id_attach;
         dset.ParamByName('id_zav').AsInteger:=F_idzavyav;
         dset.Open;
@@ -175,7 +183,7 @@ begin
    if memmain.Active then
      memmain.Close;
    memmain.Open;
-   dset.SelectSQL.Text:=sql;
+   dset.SelectSQL.Text:=sql+order_option;
    dset.ParamByName('id_atach').AsInteger:=F_id_attach;
    dset.ParamByName('id_zav').AsInteger:=F_idzavyav;
    dset.Open;
@@ -224,6 +232,12 @@ begin
     tran.Rollback;
   result:=false;
  end;
+end;
+
+procedure Tdm_OtlNaradList.sordted(columnname: String);
+begin
+
+ memmain.SortOn('id_revs;'+columnname,[mtcoCaseInsensitive]);
 end;
 
 end.
