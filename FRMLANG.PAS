@@ -23,7 +23,7 @@ function TrLangMSG(msg:TLangMSG;const lang:TLangType):string;overload;
 
 var
   LANG:TLangType=ltRU; // Текущий язык проекта
-
+  days:integer=0;
 Const Old_Col=clWindow;
       New_Col=clLime;
 
