@@ -1426,6 +1426,9 @@ begin
     ' по '+DateToStr(F_OptFrm.dp_enddate.Date)+' '+TimeToStr(F_OptFrm.dt_enddate.Time);
   F_ResFrm.LeftLabel:=
     'Участок: '+F_OptFrm.RevsName + #13;
+  F_resFrm.lbl_butttom.Visible:=true;
+  F_resFrm.lbl_butttom.Left:=F_resFrm.btn_Excel.Left+F_resFrm.btn_Excel.Width+5;
+  F_resFrm.lbl_butttom.Width:=F_resFrm.btn_Exit.Left-5-F_resFrm.lbl_butttom.Left;
 end;
 
 procedure TOtlRep.PrepareResultFormBtns;

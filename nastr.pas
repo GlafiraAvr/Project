@@ -4,7 +4,8 @@ interface
 
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
-  ComCtrls, StdCtrls, ExtCtrls, Buttons, ColorGrd, inifiles, frmLANG, cntsLANG;
+  ComCtrls, StdCtrls, ExtCtrls, Buttons, ColorGrd, inifiles, frmLANG, cntsLANG,
+  Spin;
 
 type
   TNastrF = class(TFormLang)
@@ -27,6 +28,8 @@ type
     RB_langRU: TRadioButton;
     edPRNpath: TEdit;
     lbPRN: TLabel;
+    spe_days: TSpinEdit;
+    Label1: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure ClGrChange(Sender: TObject);
     procedure LB_vibClick(Sender: TObject);
@@ -40,6 +43,7 @@ type
     procedure BtOkClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure BtCancelClick(Sender: TObject);
+    procedure spe_daysChange(Sender: TObject);
 
   private
     CurUserSect :string;
@@ -76,6 +80,7 @@ implementation
    MainFPlacement = 'MainFPlacement';
    RB_lang='Language';
    PRNpath='Printer';
+   CheckDays = 'CheckDays';
 
 {$R *.DFM}
 //*******************************************************************
@@ -225,7 +230,8 @@ begin
   if RB_langUA.Checked then s:='UA' else s:='RU';
   mIni.WriteString(CurUserSect,RB_lang,s);
   mIni.WriteString(CurUserSect,PRNpath,edPRNpath.text);
-
+  mIni.WriteString(CurUserSect,CheckDays,spe_days.Text);
+  days:=spe_days.Value;
   result:=true;
  except
   result:=false;
@@ -285,7 +291,7 @@ begin
   then RB_langUA.Checked:=true
   else RB_langRU.Checked:=true;
   edPRNpath.text:=mIni.ReadString(CurUserSect,PRNpath,'PRN');
-  
+  days := mIni.ReadInteger(CurUserSect,Checkdays,0);
  except
   result:=false;
  end;
@@ -379,7 +385,9 @@ begin
     if s='UA'
     then LANG:=ltUA
     else LANG:=ltRU
+
   end;
+   days:=ifl.ReadInteger('0',CheckDays,0);
  finally
   ifl.Free;
  end;
@@ -393,10 +401,20 @@ begin
  try
   if LANG=ltUA then s:='UA' else s:='RU';
   ifl.WriteString('0',RB_lang,s);
+  ifl.WriteString('0',checkdays,IntToStr(days));
  finally
   ifl.Free;
  end;
 end;
+
+procedure TNastrF.spe_daysChange(Sender: TObject);
+begin
+  inherited;
+if spe_days.Value<0 then
+   spe_days.Value:=0;
+end;
+
+
 
 initialization
  NastrF:=nil;

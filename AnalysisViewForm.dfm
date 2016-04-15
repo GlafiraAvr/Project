@@ -1,12 +1,13 @@
 inherited frm_AnalysisView: Tfrm_AnalysisView
-  Left = 297
-  Top = 332
+  Left = 420
+  Top = 516
   Width = 625
   Height = 345
   Caption = #1056#1077#1079#1091#1083#1100#1090#1072#1090' '#1087#1086#1080#1089#1082#1072
   OldCreateOrder = True
   Position = poDesktopCenter
   OnCreate = FormCreate
+  OnResize = FormResize
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
@@ -125,6 +126,16 @@ inherited frm_AnalysisView: Tfrm_AnalysisView
       Height = 30
       Anchors = [akLeft, akTop, akRight]
       TabOrder = 1
+      object lbl_butttom: TLabel
+        Left = 256
+        Top = 0
+        Width = 319
+        Height = 26
+        Caption = 
+          #1044#1083#1103' '#1089#1086#1088#1090#1080#1088#1086#1074#1082#1080' '#1087#1086' "'#1053#1086#1084#1077#1088#1091' '#1085#1072#1088#1103#1076#1072'", '#13#10'"'#1044#1072#1090#1072' '#1087#1086#1089#1090#1091#1087#1083#1077#1085#1080#1103' '#1085#1072#1088#1103#1076#1072'", ' +
+          ' "'#1040#1076#1088#1077#1089#1091'"  '#1085#1072#1078#1084#1080#1090#1077' '#1085#1072' '#1079#1072#1075#1086#1083#1086#1074#1086#1082
+        Visible = False
+      end
       object btn_Order: TBitBtn
         Left = 8
         Top = 3

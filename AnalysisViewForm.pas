@@ -22,10 +22,12 @@ type
     Shape1: TShape;
     Shape2: TShape;
     Bevel1: TBevel;
-    btn_nar2: TBitBtn; //используетя когда на кнопку наряда нжно повесить не типичный обработчик
+    btn_nar2: TBitBtn;
+    lbl_butttom: TLabel; //используетя когда на кнопку наряда нжно повесить не типичный обработчик
     procedure FormShow(Sender: TObject);
     procedure GridDblClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure FormResize(Sender: TObject);
   private
     procedure EqualTopPanel;
     procedure EqualBtnPanel;
@@ -211,6 +213,15 @@ begin
         text_width:=Canvas.TextWidth((pnl_Buttons.Controls[i] as TBitBtn).Caption);
         (pnl_Buttons.Controls[i] as TBitBtn).Width:=text_width+get_add_width(text_width)+ADD_WIDTH;
       end;
+end;
+
+procedure Tfrm_AnalysisView.FormResize(Sender: TObject);
+begin
+  inherited;
+  if lbl_butttom.Visible then begin
+    lbl_butttom.Left:=btn_Excel.Left+btn_Excel.Width+5;
+    lbl_butttom.Width:=btn_Exit.Left-5-lbl_butttom.Left;
+  end;
 end;
 
 end.

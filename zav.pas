@@ -653,7 +653,7 @@ end;
 
 
 procedure TFormZav.BB_SaveClick(Sender: TObject);
-var tt_str,tt_str2,tt_str3, tt_otl:string;
+var tt_str,tt_str2,tt_sttr2,tt_str3, tt_otl:string;
     {id_adr,}id_zav:string;
     id_cod,col_adr:integer;
     FRes:TFormResult;
@@ -701,6 +701,9 @@ begin
 
   tt_str2:='select count(id) mm from nzavjav where (delz=0) and id_ul1='+
            FDM_Zav.Qry_ul1.FieldByName('ID').asString;
+  tt_sttr2:='select count(id) mm from zavjav where (delz=0) and id_ul1='
+            + FDM_Zav.Qry_ul1.FieldByName('ID').asString+
+            ' and DT_out > current_timestamp - '+IntToStr(days);
   tt_str3:='';
 
   if FormMode=tfmZayavNew then
@@ -715,12 +718,17 @@ begin
     tt_str3:=tt_str3+' and id_attach='+IntToStr(Ord(ZavAttach));
 
   tt_str2:=tt_str2+tt_str3;
+  tt_sttr2:=tt_sttr2+tt_str3;
+
 
   if GrB_adres.Visible then
   begin
   { 2}try
       MyOpenSQL(FDM_Zav.Qry_tmp,tt_str2);
       col_adr:=FDM_Zav.Qry_tmp.FieldByName('MM').asInteger;
+
+      MyOpenSQL(FDM_Zav.Qry_tmp,tt_sttr2);
+      col_adr:=col_adr+FDM_Zav.Qry_tmp.FieldByName('MM').asInteger;
       FDM_Zav.Qry_tmp.Close;
     except
       on E:Exception do ShowErr(handle,'TFormZav.BB_SaveClick :: 2',E);
@@ -731,6 +739,7 @@ begin
           if MessageDlg(inttostr(col_adr)+TrLangMSG(msgSameZajav),
                       mtInformation, [mbYes, mbNo], 0) = mrYes then
             begin
+
               {3}try
                 sTit:=TStringList.Create;
                 sTit.Clear;
@@ -740,13 +749,23 @@ begin
 
 
 
+
+
                 FRes:=TFormResult.ResCreate(Self,false,'dbn_avar','Результат',
                    TrLangMSG(msgSameZajavList)+FDM_Zav.Qry_ul1.FieldByName('NAME_R').asString,
                   'select z.id,z.id_ul1,z.id_ul2,z.kod_ul,z.dop_adr,z.dt_in pole0,'+
                   'cast(z.nomer as char(8))||"/"||cast(z.fyear as char(8)) pole1'+
                   ' from nzavjav z '+
                   'where (delz=0) and id_ul1='+FDM_Zav.Qry_ul1.FieldByName('ID').asString+
-                  tt_str3+' order by z.dt_in,z.nomer'
+                  tt_str3+
+                  ' union '+
+                  'select z.id,z.id_ul1,z.id_ul2,z.kod_ul,z.dop_adr,z.dt_in pole0,'+
+                  'cast(z.nomer as char(8))||"/"||cast(z.fyear as char(8)) pole1'+
+                  ' from zavjav z '+
+                  'where (delz=0) and id_ul1='+FDM_Zav.Qry_ul1.FieldByName('ID').asString+
+                  ' and  DT_out > current_timestamp - '+IntToStr(days) +
+                  tt_str3+
+                  ' order by 6,7'
                   ,sTit,2,NIL,false);
                 Fres.ShowModal;
                 sTit.Free;

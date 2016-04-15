@@ -38,10 +38,17 @@ object NastrF: TNastrF
         TabOrder = 0
         object lbPRN: TLabel
           Left = 8
-          Top = 104
+          Top = 136
           Width = 168
           Height = 13
           Caption = #1055#1088#1080#1085#1090#1077#1088'('#1074#1086#1079#1084#1086#1078#1085#1086' '#1089#1077#1090#1077#1074#1086#1077' '#1080#1084#1103')'
+        end
+        object Label1: TLabel
+          Left = 8
+          Top = 104
+          Width = 194
+          Height = 26
+          Caption = #1055#1088#1086#1074#1077#1088#1103#1090#1100' '#1079#1072#1082#1088#1099#1090#1099#1077' '#1085#1072#1088#1103#1076#1099' '#1087#1086#1079#1078#1077',  '#13#10#1095#1077#1084' '#1079#1072' '#1076#1072#1085#1085#1086#1077' '#1082#1086#1083'-'#1074#1086' '#1076#1085#1077#1081
         end
         object MainFPlacement_chb: TCheckBox
           Left = 16
@@ -80,11 +87,22 @@ object NastrF: TNastrF
         end
         object edPRNpath: TEdit
           Left = 16
-          Top = 120
+          Top = 152
           Width = 289
           Height = 21
           TabOrder = 2
           Text = 'PRN'
+        end
+        object spe_days: TSpinEdit
+          Left = 216
+          Top = 112
+          Width = 65
+          Height = 22
+          MaxValue = 10000
+          MinValue = 0
+          TabOrder = 3
+          Value = 0
+          OnChange = spe_daysChange
         end
       end
     end
