@@ -745,7 +745,9 @@ begin
                 sTit.Clear;
                 sTit.Add('Дата');
                 sTit.Add('Номер');sTit.Add(TrLangMSG(msgAddr));
+                STit.Add(TrLangMSG(msgDateClose));
                 keybd_event(VK_RETURN,0,0,0);
+
 
 
 
@@ -754,13 +756,15 @@ begin
                 FRes:=TFormResult.ResCreate(Self,false,'dbn_avar','Результат',
                    TrLangMSG(msgSameZajavList)+FDM_Zav.Qry_ul1.FieldByName('NAME_R').asString,
                   'select z.id,z.id_ul1,z.id_ul2,z.kod_ul,z.dop_adr,z.dt_in pole0,'+
-                  'cast(z.nomer as char(8))||"/"||cast(z.fyear as char(8)) pole1'+
+                  'cast(z.nomer as char(8))||"/"||cast(z.fyear as char(8)) pole1,'+
+                  ' z.dt_out pole3 '+
                   ' from nzavjav z '+
                   'where (delz=0) and id_ul1='+FDM_Zav.Qry_ul1.FieldByName('ID').asString+
                   tt_str3+
                   ' union '+
                   'select z.id,z.id_ul1,z.id_ul2,z.kod_ul,z.dop_adr,z.dt_in pole0,'+
-                  'cast(z.nomer as char(8))||"/"||cast(z.fyear as char(8)) pole1'+
+                  'cast(z.nomer as char(8))||"/"||cast(z.fyear as char(8)) pole1,'+
+                  ' z.dt_out pole3 '+
                   ' from zavjav z '+
                   'where (delz=0) and id_ul1='+FDM_Zav.Qry_ul1.FieldByName('ID').asString+
                   ' and  DT_out > current_timestamp - '+IntToStr(days) +

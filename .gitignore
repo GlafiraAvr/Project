@@ -33,5 +33,9 @@ AppErrPics/
 1/
 udf/
 *.r1*
+*.exe*r*
+*.ini*r*
+*.dsk*r*
+
 
 

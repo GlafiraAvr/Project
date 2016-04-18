@@ -229,7 +229,8 @@ uses
   httpSentSynapse in 'jsontest\httpSentSynapse.pas',
   testSetJson2 in 'jsontest\testSetJson2.pas',
   OtlNaradListDModule in 'OtlNaradListDModule.pas' {dm_OtlNaradList: TDataModule},
-  OtlNaradListForm in 'OtlNaradListForm.pas' {frm_OtlNaradList};
+  OtlNaradListForm in 'OtlNaradListForm.pas' {frm_OtlNaradList},
+  AnalysisViewForm in 'AnalysisViewForm.pas' {frm_AnalysisView};
 
 {$R *.RES}
 
@@ -252,6 +253,7 @@ begin
   Application.CreateForm(TFormMain, FormMain);
   Application.CreateForm(Tfrm_sz_nar, frm_sz_nar);
   Application.CreateForm(Tdm_Shift, dm_Shift);
+  Application.CreateForm(Tfrm_AnalysisView, frm_AnalysisView);
   //Application.CreateForm(TOborChoiseForm, OborChoiseForm);
   //  Application.CreateForm(TS_GroupsOfObjectsVDS, S_GroupsOfObjectsVDS); // temp by Vadim
 //  Application.CreateForm(TDM_GroupsOfObjectsVDS, DM_GroupsOfObjectsVDS); // temp by Vadim
